@@ -109,3 +109,11 @@ fi
 # Example aliases
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
+alias shares="cd ~/Shares/"
+alias dotfiles="cd ~/dotfiles"
+alias rn='nano /root/.bashrc'
+alias rv='vi /root/.bashrc'
+alias sgl='git log --oneline --pretty=format:"%an %s"'
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
+
