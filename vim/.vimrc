@@ -85,10 +85,10 @@ let g:snipMate = {}
 
 
 "Powerline-plugin
-python from powerline.vim import setup as powerline_setup
-set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
-python powerline_setup()
-python del powerline_setup
+"python from powerline.vim import setup as powerline_setup
+"set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
+"python powerline_setup()
+"python del powerline_setup
 set laststatus=2
 set t_Co=256
 
