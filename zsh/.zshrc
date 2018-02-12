@@ -75,6 +75,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+
 # Enable powerline status 
 
 if [[ -r /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ]]; then
@@ -124,4 +125,12 @@ alias rv='vi /root/.bashrc'
 alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -lh'
+alias ls='ls --color=auto'
+alias lsd='ls -d */'
 
