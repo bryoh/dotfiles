@@ -1,0 +1,18 @@
+/home/nyamu01b/.vim/bundle/
+├── gitv
+├── gv.vim
+├── nerdtree
+├── powerline
+├── SimpylFold
+├── tagbar
+├── tlib_vim
+├── vim-airline
+├── vim-colors-solarized
+├── vim-fugitive
+├── vim-misc
+├── vim-notes
+├── vim-powerline
+├── vim-taskwarrior
+└── YouCompleteMe
+
+15 directories, 0 files
