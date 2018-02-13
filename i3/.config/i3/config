@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:System San Francisco Dislay 7
+font pango:System San Francisco Dislay 9
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -225,8 +225,10 @@ for_window [class="mpv"] floating enable, move position center
 for_window [class="feh"] floating enable, move position center
 for_window [class="vlc"] floating enable, move position center
 for_window [class="youtube-dl"] floating enable, move position center
-#for_window [class=""] floating enable
-#or_window [class=""] floating enable
+for_window [class="thunar"] floating enable, move position center
+for_window [class="lxappearance"] floating enable, move position center
+for_window [class="pavucontrol"] floating enable, move position center
+
 
 #Set gaps size
 #gaps inner 5
