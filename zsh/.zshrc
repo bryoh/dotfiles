@@ -4,17 +4,28 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+source $HOME/antigen.zsh
+
+antigen use oh-my-zsh
+
+# Load the theme.
+#antigen theme robbyrussell
+antigen theme bhilburn/powerlevel9k powerlevel9k
+antigen theme eendroroy/alien alien
+antigen apply
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+#ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="random"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
-#ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME_RANDOM_CANDIDATES=( "powerlevel9k" "agnoster" "alien" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
