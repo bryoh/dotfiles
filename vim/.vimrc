@@ -62,7 +62,7 @@ au BufNewFile,BufRead *.py
 
 "Get NERDTree 
 autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+"autocmd VimEnter * wincmd p " Do not focus cursor on NERDTree 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
