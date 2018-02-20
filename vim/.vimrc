@@ -1,13 +1,33 @@
-execute pathogen#infect()
-syntax on
-filetype plugin indent on
-set number
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Pathogen load
-filetype off
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/gitv'
+Plugin 'junegunn/gv.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-airline/vim-airline'
+Plugin 'altercation/solarized'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'majutsushi/tagbar'
+Plugin 'blindFS/vim-taskwarrior'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-notes'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'Valloric/YouCompleteMe'
+"To install from command line: vim +PluginInstall +qall
+call vundle#end()            " required
+filetype plugin indent on    " required
 
-call pathogen#infect()
-call pathogen#helptags()
+set nu "set number 
+set ruler 
+
 "Resize splits
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
@@ -30,7 +50,11 @@ let b:SimpylFold_fold_import=0
 "Solarized colours
 syntax enable
 set background=dark
-colorscheme solarized
+let g:solarized_termcolors=256
+" colorscheme solarized
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+
 
 " ---------------------------------- "
 " Configure YouCompleteMe
