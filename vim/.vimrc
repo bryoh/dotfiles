@@ -21,6 +21,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'plytophogy/vim-virtualenv'
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
 filetype plugin indent on    " required
