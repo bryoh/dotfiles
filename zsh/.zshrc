@@ -143,7 +143,7 @@ alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 alias l='ls -CF'
 alias la='ls -A'
-alias ll='ls -lhtr'
+alias ll='ls -lhtsr'
 alias ls='ls --color=auto'
 alias lsd='ls -dt */'
 
