@@ -104,8 +104,12 @@ bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+#set workspaces
+set $workspace9 "9: Skype"
+set $workspace10 "10:  "
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1
@@ -116,8 +120,15 @@ bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+#sticky window
+bindsym $mod+Shift+s sticky toggle
+
+# default workspaces
+assign [class="Skype"] $workspace9
+assign [class="spotify"] $workspace10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -221,13 +232,13 @@ exec_always feh --bg-scale ~/Pictures/wallhaven.jpg
 exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 exec_always compton -f
 #Open some programs in floating mode by default
-for_window [class="mpv"] floating enable, move position center
-for_window [class="feh"] floating enable, move position center
-for_window [class="vlc"] floating enable, move position center
-for_window [class="youtube-dl"] floating enable, move position center
-for_window [class="thunar"] floating enable, move position center
-for_window [class="lxappearance"] floating enable, move position center
-for_window [class="pavucontrol"] floating enable, move position center
+for_window [class="mpv"] floating enable #, move position center
+for_window [class="feh"] floating enable #, move position center
+for_window [class="vlc"] floating enable #, move position center
+for_window [class="youtube-dl"] floating enable #, move position center
+for_window [class="thunar"] floating enable #, move position center
+for_window [class="lxappearance"] floating enable #, move position center
+for_window [class="pavucontrol"] floating enable #, move position center
 
 
 #Set gaps size
