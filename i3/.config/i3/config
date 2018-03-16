@@ -197,7 +197,7 @@ bar {
 
 
 
-bindsym $mod+shift+x exec i3lock #lockscreen
+bindsym $mod+shift+x exec ~/dotfiles/i3/.config/i3/i3lock++ blur #  i3lock #lockscreen
 #run two commands one will echo an error hopefully depening on whether I have
 #my external monitor connected or not 
 bindsym XF86AudioRaiseVolume exec --no-startup-id /usr/bin/pulseaudio-ctl up 5 #pactl set-sink-volume 0 +5% && --no-startup-id pactl set-sink-volume 2 +5% # add more volume
