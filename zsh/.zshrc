@@ -8,6 +8,12 @@ source $HOME/antigen.zsh
 
 antigen use oh-my-zsh
 
+#Load some bundles
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle unixorn/docker-helpers.zshplugin
+
 # Load the theme.
 #antigen theme robbyrussell
 antigen theme bhilburn/powerlevel9k powerlevel9k
@@ -18,7 +24,7 @@ antigen apply
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="random"
+ZSH_THEME="alien"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
