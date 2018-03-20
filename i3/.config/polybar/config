@@ -12,7 +12,7 @@
 background = #222
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
-foreground = #dfdfdf
+foreground = #ECEFF4
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
@@ -21,7 +21,7 @@ alert = #bd2c40
 [bar/bar1]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 24
 bottom = true
 ;offset-x = 1%
 ;offset-y = 1%
@@ -38,34 +38,35 @@ border-size = 4
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+font-0 = FontAwesome:size=10;1
+font-1 = FontAwesome:size=10;2
+font-2 = "Roboto Mono Bold for Powerline:size=10;1"
+font-3 = siji:pixelsize=10;1
 
-modules-left = bspwm i3
-modules-center = 
+modules-left = i3 xwindow
+modules-center = music
 modules-right = filesystem xbacklight xkeyboard memory cpu battery temperature date powermenu
 
 tray-position = right
 tray-padding = 2
-;tray-transparent = true
-;tray-background = #0063ff
+tray-transparent = true
+tray-background = #0063ff
 
 ;wm-restack = bspwm
-;wm-restack = i3
+wm-restack = i3
 
 ;override-redirect = true
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
 
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -165,6 +166,15 @@ icon-next = 
 
 label-song-maxlen = 25
 label-song-ellipsis = true
+
+[module/music]
+type = custom/script
+interval = 3
+label = %output:0:75:...%
+exec = ~/dotfiles/i3/.config/polybar/whats_playing.sh
+click-left = playerctl previous
+click-middle = playerctl play-pause
+click-right = playerctl next
 
 [module/xbacklight]
 type = internal/xbacklight
