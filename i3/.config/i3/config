@@ -228,7 +228,7 @@ bindsym --release Num_Lock exec pkill -SIGRTMIN+11 i3blocks
 exec_always --no-startup-id nm-applet  # use blueman with polybar
 
 #Custom wallpaper
-exec_always feh --bg-scale ~/Pictures/wallhaven.jpg
+exec_always feh --bg-scale $HOME/dotfiles/wallpaper.jpg
 exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 exec_always compton -f
 #Open some programs in floating mode by default
