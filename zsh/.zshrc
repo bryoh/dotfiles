@@ -138,12 +138,15 @@ source /usr/local/bin/virtualenvwrapper.sh
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias shares="cd ~/Shares/"
+alias xclip='xclip -selection c'
 alias dotfiles="cd ~/dotfiles"
 alias rn='nano /root/.bashrc'
 alias rv='vi /root/.bashrc'
 alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
+alias glv='vim -c GV'
+alias gd='git difftool --tool=vimdiff -y'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -152,4 +155,5 @@ alias la='ls -A'
 alias ll='ls -lhtsr'
 alias ls='ls --color=auto'
 alias lsd='ls -dt */'
-
+alias treee="tree -L "
+alias treel='tree | less'
