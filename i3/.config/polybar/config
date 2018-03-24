@@ -9,7 +9,7 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #222
+background = #000000
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #ECEFF4
@@ -44,17 +44,17 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = FontAwesome:size=10;1
-font-1 = FontAwesome:size=10;2
-font-2 = "Roboto Mono Bold for Powerline:size=10;1"
-font-3 = siji:pixelsize=10;1
+font-0 = FontAwesome:size=8;1
+font-1 = FontAwesome:size=8;2
+font-2 = "Roboto Mono Bold for Powerline:size=8;1"
+font-3 = siji:pixelsize=8;1
 
 modules-left = i3 xwindow
 modules-center = music
-modules-right = filesystem xbacklight xkeyboard memory cpu battery temperature date powermenu
+modules-right = xbacklight battery date powermenu
 
 tray-position = right
-tray-padding = 2
+tray-padding = 0
 tray-transparent = true
 tray-background = #0063ff
 
@@ -159,11 +159,11 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 type = internal/mpd
 format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
 
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
 
 label-song-maxlen = 25
 label-song-ellipsis = true
@@ -217,7 +217,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = 
+interface = wlp3s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
@@ -267,7 +267,7 @@ format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
-label = %date% %time%
+label =  %date% %time%
 
 [module/volume]
 type = internal/volume
@@ -290,7 +290,7 @@ bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = |
-bar-volume-indicator-font = 2
+bar-volume-indicator-font = 1
 bar-volume-fill = ─
 bar-volume-fill-font = 2
 bar-volume-empty = ─
@@ -318,9 +318,11 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
