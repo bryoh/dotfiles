@@ -12,7 +12,7 @@
 background = #000000
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
-foreground = #ECEFF4
+foreground = #AE9963
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
@@ -51,7 +51,7 @@ font-3 = siji:pixelsize=8;1
 
 modules-left = i3 xwindow
 modules-center = music
-modules-right = xbacklight battery date powermenu
+modules-right = xbacklight xkeyboard battery date powermenu
 
 tray-position = right
 tray-padding = 0
