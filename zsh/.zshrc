@@ -13,6 +13,7 @@ antigen bundle git
 antigen bundle heroku
 antigen bundle pip
 antigen bundle unixorn/docker-helpers.zshplugin
+antigen bundle sroze/docker-compose-zsh-plugin
 
 # Load the theme.
 #antigen theme robbyrussell
@@ -89,6 +90,7 @@ compinit
 plugins=(
   git
   docker
+  docker-compose
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
