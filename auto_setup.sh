@@ -2,7 +2,7 @@
 
 #	Automated script to install and setup
 #	zsh
-sudo apt install -y zsh
+sudo apt install -y zsh tree
 sudo chsh -s $(which zsh)
 chsh -s $(which zsh)
 sudo apt install -y git wget stow curl 
