@@ -23,6 +23,7 @@ sudo apt install -y xclip xsel
 sudo apt install -y compton arandr lxappearance
 sudo apt install -y pavucontrol feh playerctl
 sudo apt install -y pactl xbacklight 
+sudo apt install -y scrot screenfetch
 # 	i3gaps
 sudo apt install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake
 git clone https://www.github.com/Airblader/i3 ${HOME}/i3-gaps 
@@ -35,8 +36,9 @@ make
 sudo make install 
 cd ~
 sudo add-apt-repository ppa:system76/pop
+sudo add-apt-repository ppa:papirus/papirus
 sudo apt-get update 
-sudo apt install -y arc-them pop-theme
+sudo apt install -y arc-theme pop-theme papirus-icon-theme
 #	oh-my-zsh
 #	vim + plugins
 #	fonts

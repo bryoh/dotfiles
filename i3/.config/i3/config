@@ -208,7 +208,8 @@ bindsym XF86MonBrightnessDown exec light -U 5 #  xbacklight -dec 10
 bindsym XF86MonBrightnessUp exec light -A 5 # xbacklight -inc 10
 
 # Take screenshots and snaps with scrot
-bindsym XF86Display exec --no-startup-id scrot ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.png
+#bindsym XF86Display exec --no-startup-id scrot ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.png
+bindsym --release $mod+z exec --no-startup-id scrot ~/Downloads/Screenshot%Y-%m-%d%H:%M:%S.png
 # Media player controls
 exec pulseaudio --kill && pulseaudio --start
 bindsym XF86AudioPlay exec playerctl play
