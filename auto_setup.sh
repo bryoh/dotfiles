@@ -5,9 +5,16 @@
 sudo apt install -y zsh tree
 sudo chsh -s $(which zsh)
 chsh -s $(which zsh)
-sudo apt install -y git wget stow curl 
+sudo apt install -y git wget stow curl cmake
 sudo apt install -y neovim vim 
 sudo apt install -y taskwarrior fonts-powerline powerline 
+sudo -H pip install virtualenvwrapper
+sudo apt install -y python3-dev python-dev libxml2-dev libxslt-dev  # this is needed for YCM to work with other langaguges
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+sudo apt-get update
+sudo apt install -y mono-complete nodejs npm golang-go
+npm install xbuild 
 git clone https://github.com/bryoh/dotfiles.git ~
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 curl -L git.io/antigen > antigen.zsh
