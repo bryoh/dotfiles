@@ -1,5 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export TERM='xterm-256color'
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -137,7 +138,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias vim='nvim'
+#alias vim='nvim'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias shares="cd ~/Shares/"
