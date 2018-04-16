@@ -160,3 +160,6 @@ alias ls='ls --color=auto'
 alias lsd='ls -dt */'
 alias treee="tree -L "
 alias treel='tree | less'
+alias downloads='cd ~/Downloads'
+alias documents='cd ~/Documents'
+alias dotfiles='cd ~/dotfiles'
