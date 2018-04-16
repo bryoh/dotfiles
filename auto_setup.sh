@@ -13,7 +13,7 @@ sudo apt install -y python3-dev python-dev libxml2-dev libxslt-dev  # this is ne
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
 echo "deb http://download.mono-project.com/repo/debian wheezy main" | sudo tee /etc/apt/sources.list.d/mono-xamarin.list
 sudo apt-get update
-sudo apt install -y mono-complete nodejs npm golang-go
+sudo apt install -y mono-complete nodejs npm cargo golang-go
 npm install xbuild 
 git clone https://github.com/bryoh/dotfiles.git ~
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
