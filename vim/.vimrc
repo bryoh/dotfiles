@@ -14,6 +14,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
 Plugin 'gregsexton/gitv'
 Plugin 'junegunn/gv.vim'
 Plugin 'scrooloose/nerdtree'
@@ -29,6 +30,7 @@ Plugin 'xolox/vim-notes'
 " Plugin 'Lokaltog/vim-powerline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'plytophogy/vim-virtualenv'
+Plugin 'marijnh/tern_for_vim'
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -108,7 +110,7 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 "bootstrap snippets
