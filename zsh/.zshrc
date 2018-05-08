@@ -15,6 +15,7 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle unixorn/docker-helpers.zshplugin
 antigen bundle sroze/docker-compose-zsh-plugin
+antigen bundle lukechilds/zsh-better-npm-completion
 
 # Load the theme.
 #antigen theme robbyrussell
@@ -70,8 +71,8 @@ ZSH_THEME_RANDOM_CANDIDATES=( "powerlevel9k" "agnoster" "alien" )
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="dd.mm.yyyy"
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 # bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -141,7 +142,6 @@ source /usr/local/bin/virtualenvwrapper.sh
 #alias vim='nvim'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
-alias shares="cd ~/Shares/"
 alias xclip='xclip -selection c'
 alias dotfiles="cd ~/dotfiles"
 alias rn='nano /root/.bashrc'
