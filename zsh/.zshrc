@@ -158,7 +158,7 @@ alias l='ls -CF'
 alias la='ls -A'
 alias ll='ls -lhtsr'
 alias ls='ls --color=auto'
-alias lsd='ls -dt */'
+alias lsd='ls -dlt */'
 alias treee="tree -L "
 alias treel='tree | less'
 alias downloads='cd ~/Downloads'
