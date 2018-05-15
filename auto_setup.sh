@@ -31,6 +31,7 @@ sudo apt install -y compton arandr lxappearance
 sudo apt install -y pavucontrol feh playerctl
 sudo apt install -y pactl xbacklight 
 sudo apt install -y scrot screenfetch
+sudo apt install -y apt-transport-https # makes sure apt is set up to work with https
 # 	i3gaps
 sudo apt install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake
 git clone https://www.github.com/Airblader/i3 ${HOME}/i3-gaps 
@@ -56,6 +57,13 @@ wget -q -O - http://archive.getdeb.net/getdeb-archive.key | sudo apt-key add -
 sudo sh -c 'echo "deb http://archive.getdeb.net/ubuntu yakkety-getdeb apps" >> /etc/apt/sources.list.d/getdeb.list'
 sudo apt-get update
 sudo apt-get install -y polybar
+
+#install sublime-text
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt update 
+sudo apt install -y sublime-text
+
 # install oh my zsh
 cd ~
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
