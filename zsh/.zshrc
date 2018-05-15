@@ -71,8 +71,8 @@ ZSH_THEME_RANDOM_CANDIDATES=( "powerlevel9k" "agnoster" "alien" )
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="dd.mm.yyyy"
 HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000
+SAVEHIST=1000
 # bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -139,7 +139,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-#alias vim='nvim'
+alias vim='nvim'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias xclip='xclip -selection c'
@@ -149,8 +149,8 @@ alias rv='vi /root/.bashrc'
 alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
-alias glv='vim -c GV'
-alias gd='git difftool --tool=vimdiff -y'
+alias glv='nvim -c GV'
+alias gd='git difftool --tool=nvimdiff -y'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'

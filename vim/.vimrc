@@ -95,7 +95,9 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 "Get NERDTree 
-autocmd VimEnter * NERDTree
+"Open NERDTree with Ctrl-n
+map <C-n> :NERDTreeToggle<CR> 
+"autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p " Do not focus cursor on NERDTree 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
