@@ -217,6 +217,11 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+bindsym $mod+m exec playerctl next
+bindsym $mod+shift+n exec playerctl play
+bindsym $mod+b exec playerctl previous
+bindsym $mod+n exec playerctl pause
+
 
 # CAPS and NUM locks 
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
