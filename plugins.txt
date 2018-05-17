@@ -15,4 +15,6 @@
 ├── vim-taskwarrior
 └── YouCompleteMe
 
-15 directories, 0 files
+#apt get install the following 
+ncdu # same ass dd
+grom # same ass reggexxer 
