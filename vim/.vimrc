@@ -19,6 +19,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'gregsexton/gitv'
 Plugin 'junegunn/gv.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-airline/vim-airline'
 Plugin 'altercation/solarized'
@@ -28,7 +29,8 @@ Plugin 'majutsushi/tagbar'
 Plugin 'blindFS/vim-taskwarrior'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
-" Plugin 'Lokaltog/vim-powerline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Lokaltog/vim-powerline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'plytophogy/vim-virtualenv'
 Plugin 'marijnh/tern_for_vim'
@@ -73,9 +75,9 @@ let g:airline_solarized_bg='dark'
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from
 let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_completion=0
-"let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+let g:ycm_goto_buffer_command = 'horizontal-split'
 set completeopt+=preview
-" map <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 "  Ctags file
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming
