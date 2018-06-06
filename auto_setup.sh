@@ -64,6 +64,10 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 sudo apt update 
 sudo apt install -y sublime-text
 
+# Install ranger 
+sudo apt install -y highlight atool w3m poppler-utils caca-utils
+sudo apt install -y ranger 
+
 # install oh my zsh
 cd ~
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
