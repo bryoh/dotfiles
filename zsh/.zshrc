@@ -140,11 +140,12 @@ source /usr/local/bin/virtualenvwrapper.sh
 #
 # Example aliases
 alias vim='nvim'
+alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias xclip='xclip -selection c'
 alias dotfiles="cd ~/dotfiles"
-alias rn='nano /root/.bashrc'
+#alias rn='nano /root/.bashrc' #no more nano, big boi tings from now 
 alias rv='vi /root/.bashrc'
 alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
@@ -160,7 +161,7 @@ alias la='ls -A'
 alias ll='ls -lhtsr'
 alias ls='ls --color=auto'
 alias lsd='ls -dlt */'
-alias treee="tree -L "
+alias treee="tree -L"
 alias treel='tree | less'
 alias downloads='cd ~/Downloads'
 alias documents='cd ~/Documents'
