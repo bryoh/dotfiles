@@ -18,13 +18,17 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'gregsexton/gitv'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/gv.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-airline/vim-airline'
+Plugin 'pangloss/vim-javascript'
 Plugin 'altercation/solarized'
+Plugin 'ciaranm/inkpot'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'lifepillar/vim-solarized8'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'majutsushi/tagbar'
 Plugin 'blindFS/vim-taskwarrior'
@@ -39,7 +43,8 @@ Plugin 'marijnh/tern_for_vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-set nu "set number 
+"set nu "set number 
+set rnu "I like relative line numbers now"
 set ruler 
 
 "Resize splits
@@ -51,6 +56,12 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Set foldmethod
+set foldmethod=syntax
+set foldlevelstart=1
+let javaScript_fold=1
+set syntax=javaScript
 
 "Code folding with simply fold
 set nofoldenable "disable automatic folding
@@ -65,7 +76,8 @@ let b:SimpylFold_fold_import=0
 syntax enable
 set background=dark
 let g:solarized_termcolors=256
-" colorscheme solarized
+colorscheme solarized8_dark_high
+let g:solarized_termtrans = 1
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 
@@ -91,6 +103,9 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 "
 
 
+" ---------------------------------------------- "
+" Configure  Syntax hightlighting, look and feel
+" ---------------------------------------------- "
 "tab to 4 spaces rules 
 if has("autocmd")
     " Use filetype detection and file-based automatic indenting.
@@ -117,14 +132,11 @@ au BufNewFile,BufRead *.py
     \ set autoindent | 
     \ set fileformat=unix
 
-"Get NERDTree 
-"Open NERDTree with Ctrl-n
-map <C-n> :NERDTreeToggle<CR> 
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p " Do not focus cursor on NERDTree 
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+"TODO: sort the colours of Indent guides 
+"let indent_guides_auto_colors = 0
+"let indent_guides_guide_size = 1
+"hi IndentGuidesOdd ctermbg=236
+"hi IndentGuidesEven ctermbg=237
 
 "Syntastic
 let python_highlight_all=1
@@ -140,10 +152,27 @@ let g:syntastic_check_on_wq = 0
 
 let g:ale_fix_on_save = 1
 
+
 "bootstrap snippets
 let g:snipMate = {}
 " let g:snips_trigger_key = '<tab>'
 
+" ---------------------------------------------- "
+" Configure File browsing 
+" ---------------------------------------------- "
+"Get NERDTree 
+"Open NERDTree with Ctrl-n
+map <C-n> :NERDTreeToggle<CR> 
+"autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p " Do not focus cursor on NERDTree 
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+let NERDTreeShowLineNumbers=1
+autocmd FileType nerdtree setlocal relativenumber
+
+" Git stuff 
+let g:gitgutter_max_signs = 500  " default value for detecting changes 
 
 "Powerline-plugin
 "python from powerline.vim import setup as powerline_setup
@@ -155,3 +184,4 @@ set t_Co=256
 
 "vim notes
 :let g:notes_directories = ['~/Documents/Notes']
+
