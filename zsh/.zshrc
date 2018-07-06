@@ -139,6 +139,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+alias nw='tmux new-window'
 alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
