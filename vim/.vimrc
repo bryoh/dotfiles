@@ -15,6 +15,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-cucumber'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'gregsexton/gitv'
@@ -25,8 +26,13 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-airline/vim-airline'
 Plugin 'pangloss/vim-javascript'
+Plugin 'janko-m/vim-test'
 Plugin 'altercation/solarized'
+Plugin 'yggdroot/indentline'
 Plugin 'ciaranm/inkpot'
+Plugin 'changyuheng/color-scheme-holokai-for-vim'
+Plugin 'baskerville/bubblegum'
+Plugin 'reedes/vim-thematic'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'lifepillar/vim-solarized8'
 Plugin 'vim-airline/vim-airline-themes'
@@ -43,7 +49,7 @@ Plugin 'marijnh/tern_for_vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-"set nu "set number 
+set nu "set number 
 set rnu "I like relative line numbers now"
 set ruler 
 
@@ -81,6 +87,32 @@ let g:solarized_termtrans = 1
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 
+let g:thematic#themes = {
+\ 'bubblegum-256-dark'  : { 
+\                  'transparency': 60,
+\                },
+\ 'pencil_dark' :{ 'colorscheme': 'pencil',
+\                  'background': 'dark',
+\                  'airline-theme': 'badwolf',
+\                  'ruler': 1,
+\                  'laststatus': 0,
+\                  'typeface': 'Source Code Pro Light',
+\                  'font-size': 20,
+\                  'transparency': 10,
+\                  'linespace': 8,
+\                },
+\ 'pencil_lite' :{ 'colorscheme': 'pencil',
+\                  'background': 'light',
+\                  'airline-theme': 'light',
+\                  'laststatus': 0,
+\                  'ruler': 1,
+\                  'typeface': 'Source Code Pro',
+\                  'fullscreen': 1,
+\                  'transparency': 0,
+\                  'font-size': 20,
+\                  'linespace': 6,
+\                },
+\ }
 
 " ---------------------------------- "
 " Configure YouCompleteMe
@@ -132,6 +164,14 @@ au BufNewFile,BufRead *.py
     \ set autoindent | 
     \ set fileformat=unix
 
+"Test mappings
+nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
+nmap <silent> t<C-f> :TestFile<CR>    " t Ctrl+f
+nmap <silent> t<C-s> :TestSuite<CR>   " t Ctrl+s
+nmap <silent> t<C-l> :TestLast<CR>    " t Ctrl+l
+nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
+
+
 "TODO: sort the colours of Indent guides 
 "let indent_guides_auto_colors = 0
 "let indent_guides_guide_size = 1
@@ -167,7 +207,7 @@ map <C-n> :NERDTreeToggle<CR>
 "autocmd VimEnter * wincmd p " Do not focus cursor on NERDTree 
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+let NERDTreeIgnore=['^node_modules$[[dir]]', '\.pyc$', '\~$'] "ignore files in NERDTree
 let NERDTreeShowLineNumbers=1
 autocmd FileType nerdtree setlocal relativenumber
 
