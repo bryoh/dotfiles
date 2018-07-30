@@ -1,5 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set t_Co=256
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -134,6 +135,9 @@ let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 "
 
+"to prevent clash with youcompleteme, change snippet trigger
+"imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
+"smap <C-J> <Plug>snipMateNextOrTrigger
 
 " ---------------------------------------------- "
 " Configure  Syntax hightlighting, look and feel
@@ -220,8 +224,10 @@ set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 "python powerline_setup()
 "python del powerline_setup
 set laststatus=2
-set t_Co=256
 
 "vim notes
 :let g:notes_directories = ['~/Documents/Notes']
 
+" Taskwarrior
+let g:task_rc_override = 'rc.defaultheight=0'
+let g:task_rc_override = 'rc.defaultwidth=0'
