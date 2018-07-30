@@ -1,4 +1,18 @@
 search setup
 set nu
 set number
+searchtest
+open_with 
+search stat
+search smarg
+search smart
+delete
 
+search reports
+search fds
+search src
+search test
+search config
+search compton
+search conf
+rename .compton.conf
