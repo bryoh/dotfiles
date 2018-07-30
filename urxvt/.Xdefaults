@@ -1,33 +1,29 @@
-*foreground: #00cc00
-*foreground_bold: #a8a19f
-*cursor: #a8a19f
-*background:       #1b1918
-!!*background: rgba(0, 0, 0, .7)
+!====================================================================== Colours =======================
+!URxvt*foreground: #b4e1fd
+URxvt*foreground: #94A3A5
+!URxvt*background: [80]#0d1926
+URxvt*background: [80]#000000
 
-!! black
-*color0: #1b1918
-*color8: #766e6b
-!! red
-*color1: #f22c40
-*color9: #f22c40
-!! green
-*color2: #5ab738
-*color10: #5ab738
-!! yellow
-*color3: #d5911a
-*color11: #d5911a
-!! blue
-*color4: #407ee7
-*color12: #407ee7
-!! magenta
-*color5: #6666ea
-*color13: #6666ea
-!! cyan
-*color6: #00ad9c
-*color14: #00ad9c
-!! white
-*color7: #a8a19f
-*color15: #f1efee
+URxvt*color0:  #363636
+URxvt*color1:  #ff0883
+URxvt*color2:  #83ff08
+URxvt*color3:  #ff8308
+URxvt*color4:  #0883ff
+URxvt*color5:  #8308ff
+URxvt*color6:  #08ff83
+URxvt*color7:  #b6b6b6
+
+!URxvt*color8:  #424242
+URxvt*color8:  #5d5d5d
+URxvt*color9:  #ff1e8e
+URxvt*color10: #8eff1e
+URxvt*color11: #ff8e1e
+URxvt*color12: #1e8eff
+URxvt*color13: #8e1eff
+URxvt*color14: #1eff8e
+URxvt*color15: #c2c2c2
+
+!============================================================================================= General Settings =================
 URxvt.termName: rxvt-256-color
 xterm*faceName: PowerlineSymbols
 xterm*faceSize: 13
@@ -37,27 +33,38 @@ URxvt.depth:		32
 URxvt.font: 		xft:monospace:size=11
 URxvt.scrollBar:	false
 URxvt.cursorColor:	white
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
-!! Extensions
+
+!============================================================================================= Extensions 
 URxvt.perl-ext-common:	default,matcher,resize-font,url-select,keyboard-select
 URxvt.colorUL:		#4682B4
-!! url-select
+
+!============================================================================================= url-select
 URxvt.keysym.M-u:	perl:url-select:select_next
 URxvt.url-select.launcher: linkhandler
 URxvt.url-select.underline: true
-!! keyboard-select:
+
+!============================================================================================ keyboard-select:
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
-!! resize-font
-URxvt.resize-font.smaller:	C-Down
-URxvt.resize-font.bigger:	C-Up
-!! Matcher
+
+
+!====================================================================== ! resize-font
+URxvt.resize-font.smaller: C-minus
+URxvt.resize-font.bigger: C-plus
+URxvt.resize-font.reset: C-equal
+URxvt.resize-font.show: C-question
+
+!====================================================================== ! Matcher
 URxvt.url-launcher:	linkhandler
 URxvt.matcher.button:	1
 
-!! tabs 
+!====================================================================== ! tabs 
 !URxvt.perl-ext-common: ...,tabbed,...
 
 
+!====================================================================== Rofi =======================
 rofi.color-enabled:	true
 rofi.color-window:	#000, #000, #000
 rofi.color-normal:	#111, #819396, #222, #008ed4, #ffffff
