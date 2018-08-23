@@ -22,14 +22,15 @@ alert = #bd2c40
 #monitor = DP-1 # ${env:MONITOR:HDMI-1}
 monitor-fallback = eDP-1 
 width = 100%
-height = 24
+height = 3%
 bottom = true
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 6.0
 fixed-center = false
 
-background = ${colors.background}
+background = #00000000 
+;${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3
