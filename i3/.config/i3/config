@@ -214,11 +214,11 @@ for_window [class="pavucontrol"] floating enable #, move position center
 # MORE STYLING I3 #
 ##############
 
-for_window [class=".*"] border pixel 1
+for_window [class=".*"] border pixel 5
 for_window [class=".*"] title_format " %title"
 #Set gaps size
-gaps inner 5
-gaps outer 5
+gaps inner 2
+gaps outer 2
  
 #Set window border size
 new_window pixel 5
