@@ -41,6 +41,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'blindFS/vim-taskwarrior'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
+Plugin 'vimwiki/vimwiki'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'Valloric/YouCompleteMe'
@@ -224,9 +225,6 @@ set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 "python powerline_setup()
 "python del powerline_setup
 set laststatus=2
-
-"vim notes
-:let g:notes_directories = ['~/Documents/Notes']
 
 " Taskwarrior
 let g:task_rc_override = 'rc.defaultheight=0'
