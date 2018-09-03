@@ -153,7 +153,7 @@ alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
 alias glv='nvim -c GV'
 alias gld='git log --ext-diff -p | cdiff -s --wrap'
-alias gd='git difftool --tool=vimdiff -y'
+alias gd='git diff | cdiff -s --wrap'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
