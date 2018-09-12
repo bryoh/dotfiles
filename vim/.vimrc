@@ -29,6 +29,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'pangloss/vim-javascript'
 Plugin 'janko-m/vim-test'
 Plugin 'altercation/solarized'
+Plugin 'dylanaraps/wal.vim'
 Plugin 'yggdroot/indentline'
 Plugin 'ciaranm/inkpot'
 Plugin 'changyuheng/color-scheme-holokai-for-vim'
@@ -84,7 +85,8 @@ let b:SimpylFold_fold_import=0
 syntax enable
 set background=dark
 let g:solarized_termcolors=256
-colorscheme solarized8_dark_high
+"colorscheme solarized8_dark_high
+colorscheme wal
 let g:solarized_termtrans = 1
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
