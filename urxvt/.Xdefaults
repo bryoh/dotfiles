@@ -38,7 +38,7 @@ URxvt.iso14755_52: false
 
 
 !============================================================================================= Extensions 
-URxvt.perl-ext-common:	default,matcher,resize-font,url-select,keyboard-select
+URxvt.perl-ext-common:	default,matcher,resize-font,url-select,keyboard-select,font-size
 URxvt.colorUL:		#4682B4
 
 !============================================================================================= url-select
