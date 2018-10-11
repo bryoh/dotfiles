@@ -5,13 +5,13 @@
 icon=""
 player_color="%F{ffa419}"
 
-if [[ $(playerctl metadata) == *'spotify'* ]]; then
-	player_color='%{F#1db954}'
-fi
 
-player_status=$(playerctl status 2> /dev/null)
+player_status=$(playerctl status 2>&1 /dev/null)
 if [[ $? -eq 0 ]]; then
     metadata=" $(playerctl metadata artist)  $(playerctl metadata album)   $(playerctl metadata title)"
+    if [[ $(playerctl metadata) == *'spotify'* ]]; then
+        player_color='%{F#1db954}'
+    fi
 fi
 
 # Foreground color formatting tags are optional
