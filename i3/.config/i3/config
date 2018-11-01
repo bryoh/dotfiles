@@ -141,12 +141,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $bg-color 	         #4B5162
-set $active-color        #AE9963 
-set $inactive-bg-color   #383C4A
-set $text-color          #5294E2
-set $inactive-text-color #7C818C
-set $urgent-bg-color     #E53935
+set_from_resource $bg-color             color6 #4B5162
+set_from_resource $active-color         color1 #AE9963 
+set_from_resource $inactive-bg-color    color2 #383C4A
+set_from_resource $text-color           color7 #5294E2
+set_from_resource $inactive-text-color  color5 #7C818C
+set_from_resource $urgent-bg-color      color6 #E53935
 
 # window colors
 #                       border              background         text                 indicator
