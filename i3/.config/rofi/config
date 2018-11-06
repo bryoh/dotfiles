@@ -3,3 +3,4 @@ rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
 
 # Light theme.
 #rofi.theme: ~/.cache/wal/colors-rofi-light.rasi
+#include "/usr/share/rofi/themes//purple.theme"

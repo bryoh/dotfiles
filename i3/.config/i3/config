@@ -104,9 +104,6 @@ bindsym $mod+Shift+0 move container to workspace $workspace10
 #sticky window
 bindsym $mod+Shift+s sticky toggle
 
-# default workspaces
-assign [class="Skype"] $workspace9
-assign [class="Spotify"] $workspace10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -201,6 +198,12 @@ exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off 
 exec --no-startup-id "compton -f --config $HOME/.compton.conf"
 exec --no-startup-id 'wal -i $HOME/dotfiles/wallpaper.jpg'
 
+# default workspaces
+assign [class="Skype"] $workspace9
+assign [class="Slack"] $workspace9
+assign [class="Gitter"] $workspace9
+assign [class="Spotify"] $workspace10
+
 #Open some programs in floating mode by default
 for_window [class="mpv"] floating enable #, move position center
 for_window [class="feh"] floating enable #, move position center
@@ -208,7 +211,7 @@ for_window [class="vlc"] floating enable #, move position center
 for_window [class="youtube-dl"] floating enable #, move position center
 for_window [class="thunar"] floating enable #, move position center
 for_window [class="lxappearance"] floating enable #, move position center
-for_window [class="pavucontrol"] floating enable #, move position center
+for_window [class="Pavucontrol"] floating enable #, move position center
 
 
 ##############
