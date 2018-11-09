@@ -209,9 +209,10 @@ for_window [class="mpv"] floating enable #, move position center
 for_window [class="feh"] floating enable #, move position center
 for_window [class="vlc"] floating enable #, move position center
 for_window [class="youtube-dl"] floating enable #, move position center
-for_window [class="thunar"] floating enable #, move position center
-for_window [class="lxappearance"] floating enable #, move position center
+for_window [class="Thunar"] floating enable #, move position center
+for_window [class="Lxappearance"] floating enable #, move position center
 for_window [class="Pavucontrol"] floating enable #, move position center
+for_window [class="Nautilus"] floating enable , move position center
 
 
 ##############
