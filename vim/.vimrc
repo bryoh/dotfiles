@@ -58,6 +58,16 @@ set nu "set number
 set rnu "I like relative line numbers now"
 set ruler 
 
+" Copy with leader key * from/to vim + from/to system
+noremap <Leader>y "*y 
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
+
+"Split behavior 
+"set splitbelow
+"set splitright
+
 "Resize splits
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
