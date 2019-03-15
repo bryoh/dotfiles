@@ -29,11 +29,13 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vimlab/split-term.vim'
 Plugin 'janko-m/vim-test'
+Plugin 'alfredodeza/pytest.vim'
 Plugin 'altercation/solarized'
 Plugin 'dylanaraps/wal.vim'
 Plugin 'yggdroot/indentline'
 Plugin 'ciaranm/inkpot'
 Plugin 'changyuheng/color-scheme-holokai-for-vim'
+Plugin 'ambv/black'
 Plugin 'baskerville/bubblegum'
 Plugin 'reedes/vim-thematic'
 Plugin 'altercation/vim-colors-solarized'
@@ -57,6 +59,7 @@ filetype plugin indent on    " required
 set nu "set number 
 set rnu "I like relative line numbers now"
 set ruler 
+set wildmenu 
 
 " Copy with leader key * from/to vim + from/to system
 noremap <Leader>y "*y 
@@ -183,6 +186,11 @@ au BufNewFile,BufRead *.py
     \ set autoindent | 
     \ set fileformat=unix
 
+"Black settings
+"autocmd BufWritePre *.py execute ':Black'
+"let g:black_virtualenv='/home/nyamu01b/.virtualenvs/pit3'
+"let g:loaded_python3_provider=0
+
 "Test mappings
 nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
 nmap <silent> t<C-f> :TestFile<CR>    " t Ctrl+f
@@ -190,6 +198,10 @@ nmap <silent> t<C-s> :TestSuite<CR>   " t Ctrl+s
 nmap <silent> t<C-l> :TestLast<CR>    " t Ctrl+l
 nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
 
+"pytest mapping 
+nmap <silent><Leader>f <Esc>:Pytest file<CR>
+nmap <silent><Leader>c <Esc>:Pytest class<CR>
+nmap <silent><Leader>m <Esc>:Pytest method<CR>
 
 "TODO: sort the colours of Indent guides 
 "let indent_guides_auto_colors = 0
