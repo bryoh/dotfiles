@@ -1,11 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+#export PATH=$HOME/bin:/usr/local/bin:$PATH
 export TERM='xterm-256color'
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-source $HOME/antigen.zsh
+source $HOME/dotfiles/antigen.zsh
 
 antigen use oh-my-zsh
 
@@ -102,9 +102,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Enable powerline status 
 
-if [[ -r /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ]]; then
-	source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-fi
+#if [[ -r /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ]]; then
+	#source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
+#fi
 
 # User configuration
 
@@ -126,7 +126,7 @@ fi
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-source /usr/local/bin/virtualenvwrapper.sh 
+source /usr/bin/virtualenvwrapper.sh 
 
 
 

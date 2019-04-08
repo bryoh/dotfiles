@@ -152,7 +152,7 @@ client.unfocused        $inactive-bg-color  $inactive-bg-color $inactive-text-co
 client.focused_inactive $inactive-bg-color  $inactive-bg-color $inactive-text-color #93ef69
 client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #93ef69
 
-hide_edge_borders both
+hide_edge_borders none
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh 
 
@@ -189,8 +189,22 @@ bindsym --release Num_Lock exec pkill -SIGRTMIN+11 i3blocks
 # I have a touchscreen laptop which is fucked
 # exec --no-start-up-id xinput disable "ELAN Touchscreen"
 
-#Bluetooth and Wifi stuff 
-exec_always --no-startup-id nm-applet  # use blueman with polybar
+# Autostart applications
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id manjaro-hello
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+# exec --no-startup-id blueman-applet
+# exec_always --no-startup-id sbxkb
+exec --no-startup-id start_conky_maia
+# exec --no-startup-id start_conky_green
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+
 
 #Custom wallpaper
 exec_always feh --bg-scale $HOME/dotfiles/wallpaper.jpg
@@ -217,7 +231,34 @@ for_window [class="Nautilus"] floating enable , move position center
 for_window [class="Skype"] floating enable 
 for_window [class="Slack"] floating enable 
 for_window [class="Gitter"] floating enable
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-settings"] floating enable
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [title="About Pale Moon"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
 
+
+# switch to workspace with urgent window automatically
+for_window [urgent=latest] focus
 
 ##############
 # MORE STYLING I3 #
@@ -231,9 +272,25 @@ gaps outer 2
  
 #Set window border size
 new_window pixel 5
+new_float normal
+
+# workspace back and forth (with/without active container)
+#workspace_auto_back_and_forth yes
+#bindsym $mod+b workspace back_and_forth
+#bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 #gaps inner|outer current|all set|plus|minus <px>
 
 # Examples
 #gaps inner all set 20
 #gaps outer current plus 5
+
+# move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+#navigate workspaces next / previous
+bindsym $mod+Ctrl+Right workspace next
