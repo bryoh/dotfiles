@@ -2,7 +2,8 @@
 
 set $mod Mod1
 
-font pango:System San Francisco Dislay 9
+#font pango:System San Francisco Dislay 9
+font xft:URWGothic-Book 11
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -214,9 +215,9 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
 # exec --no-startup-id blueman-applet
-# exec_always --no-startup-id sbxkb
+exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
-# exec --no-startup-id start_conky_green
+exec --no-startup-id start_conky_green
 exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
@@ -226,8 +227,9 @@ bindsym $mod+z exec --no-startup-id morc_menu
 exec --no-startup-id volumeicon
 
 #Custom wallpaper
-exec_always feh --bg-scale $HOME/dotfiles/wallpaper.jpg
-exec 'wal --backend wal --theme random_dark'
+exec --no-startup-id feh --bg-scale $HOME/dotfiles/wallpaper.jpg
+exec --no-startup-id wal --backend wal -i $HOME/dotfiles/wallpaper.jpg
+#exec 'wal --backend wal --theme random_dark'
 exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 exec --no-startup-id "compton -f --config $HOME/.compton.conf"
 #exec --no-startup-id 'wal -i $HOME/dotfiles/wallpaper.jpg'
@@ -236,7 +238,7 @@ exec --no-startup-id "compton -f --config $HOME/.compton.conf"
 assign [class="Skype"] $workspace9
 assign [class="Slack"] $workspace9
 assign [class="Gitter"] $workspace9
-assign [class="spotify"] $workspace10
+assign [class="Spotify"] $workspace10
 
 #Open some programs in floating mode by default
 for_window [class="mpv"] floating enable #, move position center
