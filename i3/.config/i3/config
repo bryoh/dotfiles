@@ -1,7 +1,7 @@
 # i3 config file (v4)
 
 set $mod Mod1
-exec_always --no-startup-id wal --backend wal --theme random_dark 
+exec_always --no-startup-id wal --backend wal -i $HOME/dotfiles/wallpaper.jpg 
 
 #font pango:System San Francisco Dislay 9
 font xft:URWGothic-Book 11
