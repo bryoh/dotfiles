@@ -1,6 +1,7 @@
 # i3 config file (v4)
 
 set $mod Mod1
+exec_always --no-startup-id wal --backend wal --theme random_dark 
 
 #font pango:System San Francisco Dislay 9
 font xft:URWGothic-Book 11
@@ -155,7 +156,6 @@ client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color      
 
 hide_edge_borders none
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh 
 
 bindsym $mod+shift+x exec ~/dotfiles/i3/.config/i3/i3lock++ blur #  i3lock #lockscreen
 #run two commands one will echo an error hopefully depening on whether I have
@@ -227,8 +227,8 @@ bindsym $mod+z exec --no-startup-id morc_menu
 exec --no-startup-id volumeicon
 
 #Custom wallpaper
-exec --no-startup-id feh --bg-scale $HOME/dotfiles/wallpaper.jpg
-exec --no-startup-id wal --backend wal -i $HOME/dotfiles/wallpaper.jpg
+#exec_always --no-startup-id feh --bg-scale $HOME/dotfiles/wallpaper.jpg
+#exec --no-startup-id wal --backend wal -i $HOME/dotfiles/wallpaper.jpg
 #exec 'wal --backend wal --theme random_dark'
 exec_always --no-startup-id xrandr --output HDMI-0 --off --output DVI-I-1 --off --output DVI-I-0 --off --output DVI-I-3 --mode 1920x1080 --pos 0x0 --rotate normal --output DVI-I-2 --mode 1920x1080 --pos 1920x0 --rotate normal
 exec --no-startup-id "compton -f --config $HOME/.compton.conf"
@@ -315,3 +315,6 @@ bindsym $mod+minus scratchpad show
 
 #navigate workspaces next / previous
 bindsym $mod+Ctrl+Right workspace next
+
+exec_always /$HOME/.config/i3/init.sh 
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh 
