@@ -1,8 +1,29 @@
+source ~/.cache/wal/colors.sh 
 !====================================================================== Colours =======================
-!URxvt*foreground: #b4e1fd
-URxvt*foreground: #94A3A5
+*foreground = ${xrdb:color7}
+*background = ${xrdb:color1}
+!!URxvt*foreground: #b4e1fd
+!URxvt*foreground: #94A3A5
 !URxvt*background: [80]#0d1926
-URxvt*background: [80]#000000
+!URxvt*background: [80]#000000
+
+!URxvt*color0:  ${xrdb:color0}
+!URxvt*color1:  ${xrdb:color1}
+!URxvt*color2:  ${xrdb:color2}
+!URxvt*color3:  ${xrdb:color3}
+!URxvt*color4:  ${xrdb:color4}
+!URxvt*color5:  ${xrdb:color5}
+!URxvt*color6:  ${xrdb:color6}
+!URxvt*color7:  ${xrdb:color7}
+
+!URxvt*color8:  ${xrdb:color8}
+!URxvt*color9:  ${xrdb:color9}
+!URxvt*color10: ${xrdb:color10}
+!URxvt*color11: ${xrdb:color11}
+!URxvt*color12: ${xrdb:color12}
+!URxvt*color13: ${xrdb:color13}
+!URxvt*color14: ${xrdb:color14}
+!URxvt*color15: ${xrdb:color15}
 
 URxvt*color0:  #363636
 URxvt*color1:  #ff0883
@@ -30,11 +51,18 @@ xterm*faceSize: 13
 URxvt.intensityStyles:	false
 URxvt.background:       [60]#000000
 URxvt.depth:		32
-URxvt.font: 		xft:monospace:size=11
+URxvt.font: xft:Source Code Pro:size=10.5
 URxvt.scrollBar:	false
 URxvt.cursorColor:	white
 URxvt.iso14755: false
 URxvt.iso14755_52: false
+
+!Urxvt*geometry:      100x30
+Urxvt*highlightSelection: true
+Urxvt*transparent: true
+Urxvt*shading: 90
+Urxvt*tintColor: ${xrdb:color1}
+Urxvt*blurRadius: 20
 
 
 !============================================================================================= Extensions 
