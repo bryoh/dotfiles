@@ -3,7 +3,7 @@
 export TERM='xterm-256color'
 
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+#export ZSH=$HOME/.oh-my-zsh
 
 source $HOME/dotfiles/antigen.zsh
 
@@ -27,14 +27,14 @@ antigen apply
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="powerlevel9k/powerlevel9k"
-ZSH_THEME="robbyrussell"
+#ZSH_THEME="robbyrussell"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
-ZSH_THEME_RANDOM_CANDIDATES=( "powerlevel9k" "agnoster" "alien" )
+#ZSH_THEME_RANDOM_CANDIDATES=( "powerlevel9k" "agnoster" "alien" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -73,7 +73,7 @@ HIST_STAMPS="dd.mm.yyyy"
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-# bindkey -e
+bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/nyamu01b/.zshrc'
@@ -97,7 +97,7 @@ plugins=(
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 
 # Enable powerline status 
