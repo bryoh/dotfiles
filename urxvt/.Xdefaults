@@ -49,7 +49,7 @@ URxvt.termName: rxvt-256-color
 xterm*faceName: PowerlineSymbols
 xterm*faceSize: 13
 URxvt.intensityStyles:	false
-URxvt.background:       [60]#000000
+URxvt.background:       [1]#000000
 URxvt.depth:		32
 URxvt.font: xft:Source Code Pro:size=10.5
 URxvt.scrollBar:	false
@@ -60,9 +60,9 @@ URxvt.iso14755_52: false
 !Urxvt*geometry:      100x30
 Urxvt*highlightSelection: true
 Urxvt*transparent: true
-Urxvt*shading: 90
-Urxvt*tintColor: ${xrdb:color1}
-Urxvt*blurRadius: 20
+Urxvt*shading: 10
+Urxvt*tintColor: [1]${xrdb:color1}
+Urxvt*blurRadius: 60
 
 
 !============================================================================================= Extensions 
