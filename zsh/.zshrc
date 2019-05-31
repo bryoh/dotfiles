@@ -1,9 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
-export TERM='xterm-256color'
+#export TERM='xterm-256color'
 
 # Path to your oh-my-zsh installation.
-#export ZSH=$HOME/.oh-my-zsh
+#export ZSH="/home/nyamu01b/.oh-my-zsh"
 
 source $HOME/dotfiles/antigen.zsh
 
@@ -19,9 +19,9 @@ antigen bundle lukechilds/zsh-better-npm-completion
 
 # Load the theme.
 #antigen theme robbyrussell
-antigen theme bhilburn/powerlevel9k powerlevel9k
-antigen theme eendroroy/alien alien
-antigen apply
+#antigen theme eendroroy/alien alien
+#antigen theme bhilburn/powerlevel9k powerlevel9k
+#antigen apply
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -69,11 +69,11 @@ antigen apply
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="dd.mm.yyyy"
+HIST_STAMPS="ddmmyyyy"
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-bindkey -v
+#bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/nyamu01b/.zshrc'
@@ -141,7 +141,7 @@ source /usr/bin/virtualenvwrapper.sh
 # Example aliases
 alias nw='tmux new-window'
 alias exa='exa --sort created -rlha --git'
-alias vim='nvim'
+#alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
