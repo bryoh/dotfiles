@@ -59,10 +59,10 @@ URxvt.iso14755_52: false
 
 !Urxvt*geometry:      100x30
 Urxvt*highlightSelection: true
-Urxvt*transparent: true
+Urxvt*transparent: false
 Urxvt*shading: 10
 Urxvt*tintColor: [1]${xrdb:color1}
-Urxvt*blurRadius: 60
+!Urxvt*blurRadius: 60
 
 
 !============================================================================================= Extensions 
