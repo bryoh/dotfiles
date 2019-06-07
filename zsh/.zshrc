@@ -1,12 +1,22 @@
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
-#export TERM='xterm-256color'
+export TERM='xterm-256color'
 
 # Path to your oh-my-zsh installation.
 #export ZSH="/home/nyamu01b/.oh-my-zsh"
 
 source $HOME/dotfiles/antigen.zsh
 
+# Import colorscheme from 'wal' asynchronously
+# # &   # Run the process in the background.
+# # ( ) # Hide shell job control messages.
+(cat ~/.cache/wal/sequences &)
+#
+# # Alternative (blocks terminal for 0-3ms)
+#cat ~/.cache/wal/sequences
+# To add support for TTYs this line can be optionally added.
+source ~/.cache/wal/colors-tty.sh
+source ~/.cache/wal/colors.sh 
 antigen use oh-my-zsh
 
 #Load some bundles

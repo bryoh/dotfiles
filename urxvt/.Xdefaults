@@ -1,4 +1,4 @@
-source ~/.cache/wal/colors.sh 
+!source ~/.cache/wal/colors.sh 
 !====================================================================== Colours =======================
 *foreground = ${xrdb:color7}
 *background = ${xrdb:color1}
@@ -7,49 +7,49 @@ source ~/.cache/wal/colors.sh
 !URxvt*background: [80]#0d1926
 !URxvt*background: [80]#000000
 
-!URxvt*color0:  ${xrdb:color0}
-!URxvt*color1:  ${xrdb:color1}
-!URxvt*color2:  ${xrdb:color2}
-!URxvt*color3:  ${xrdb:color3}
-!URxvt*color4:  ${xrdb:color4}
-!URxvt*color5:  ${xrdb:color5}
-!URxvt*color6:  ${xrdb:color6}
-!URxvt*color7:  ${xrdb:color7}
+URxvt*color0:  ${xrdb:color0}
+URxvt*color1:  ${xrdb:color1}
+URxvt*color2:  ${xrdb:color2}
+URxvt*color3:  ${xrdb:color3}
+URxvt*color4:  ${xrdb:color4}
+URxvt*color5:  ${xrdb:color5}
+URxvt*color6:  ${xrdb:color6}
+URxvt*color7:  ${xrdb:color7}
 
-!URxvt*color8:  ${xrdb:color8}
-!URxvt*color9:  ${xrdb:color9}
-!URxvt*color10: ${xrdb:color10}
-!URxvt*color11: ${xrdb:color11}
-!URxvt*color12: ${xrdb:color12}
-!URxvt*color13: ${xrdb:color13}
-!URxvt*color14: ${xrdb:color14}
-!URxvt*color15: ${xrdb:color15}
+URxvt*color8:  ${xrdb:color8}
+URxvt*color9:  ${xrdb:color9}
+URxvt*color10: ${xrdb:color10}
+URxvt*color11: ${xrdb:color11}
+URxvt*color12: ${xrdb:color12}
+URxvt*color13: ${xrdb:color13}
+URxvt*color14: ${xrdb:color14}
+URxvt*color15: ${xrdb:color15}
 
-URxvt*color0:  #363636
-URxvt*color1:  #ff0883
-URxvt*color2:  #83ff08
-URxvt*color3:  #ff8308
-URxvt*color4:  #0883ff
-URxvt*color5:  #8308ff
-URxvt*color6:  #08ff83
-URxvt*color7:  #b6b6b6
+!URxvt*color0:  #363636
+!URxvt*color1:  #ff0883
+!URxvt*color2:  #83ff08
+!URxvt*color3:  #ff8308
+!URxvt*color4:  #0883ff
+!URxvt*color5:  #8308ff
+!URxvt*color6:  #08ff83
+!URxvt*color7:  #b6b6b6
 
-!URxvt*color8:  #424242
-URxvt*color8:  #5d5d5d
-URxvt*color9:  #ff1e8e
-URxvt*color10: #8eff1e
-URxvt*color11: #ff8e1e
-URxvt*color12: #1e8eff
-URxvt*color13: #8e1eff
-URxvt*color14: #1eff8e
-URxvt*color15: #c2c2c2
+!!URxvt*color8:  #424242
+!URxvt*color8:  #5d5d5d
+!URxvt*color9:  #ff1e8e
+!URxvt*color10: #8eff1e
+!URxvt*color11: #ff8e1e
+!URxvt*color12: #1e8eff
+!URxvt*color13: #8e1eff
+!URxvt*color14: #1eff8e
+!URxvt*color15: #c2c2c2
 
 !============================================================================================= General Settings =================
-URxvt.termName: rxvt-256-color
+!URxvt.termName: rxvt-256-color
 xterm*faceName: PowerlineSymbols
 xterm*faceSize: 13
 URxvt.intensityStyles:	false
-URxvt.background:       [1]#000000
+!URxvt.background:       [1]#000000
 URxvt.depth:		32
 URxvt.font: xft:Source Code Pro:size=10.5
 URxvt.scrollBar:	false
