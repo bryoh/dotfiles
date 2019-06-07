@@ -255,3 +255,4 @@ set laststatus=2
 " Taskwarrior
 let g:task_rc_override = 'rc.defaultheight=0'
 let g:task_rc_override = 'rc.defaultwidth=0'
+au BufNewFile,BufRead Jenkinsfile setf groovy
