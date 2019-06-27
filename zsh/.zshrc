@@ -29,14 +29,14 @@ antigen bundle lukechilds/zsh-better-npm-completion
 
 # Load the theme.
 #antigen theme robbyrussell
-#antigen theme eendroroy/alien alien
+antigen theme eendroroy/alien alien
 #antigen theme bhilburn/powerlevel9k powerlevel9k
-#antigen apply
+antigen apply
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="powerlevel9k/powerlevel9k"
+#export ZSH_THEME="eendroroy/alien alien"
 #ZSH_THEME="robbyrussell"
 
 # Set list of themes to load
@@ -44,7 +44,7 @@ antigen bundle lukechilds/zsh-better-npm-completion
 # cause zsh load theme from this variable instead of
 # looking in ~/.oh-my-zsh/themes/
 # An empty array have no effect
-#ZSH_THEME_RANDOM_CANDIDATES=( "powerlevel9k" "agnoster" "alien" )
+#export ZSH_THEME_RANDOM_CANDIDATES=( "powerlevel9k" "agnoster" "alien" )
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
