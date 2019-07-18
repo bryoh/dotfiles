@@ -100,39 +100,13 @@ let b:SimpylFold_fold_import=0
 syntax enable
 set background=dark
 let g:solarized_termcolors=256
-"colorscheme solarized8_dark_high
-colorscheme wal
+
 let g:solarized_termtrans = 1
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 
-let g:thematic#themes = {
-\ 'bubblegum-256-dark'  : { 
-\                  'transparency': 60,
-\                },
-\ 'pencil_dark' :{ 'colorscheme': 'pencil',
-\                  'background': 'dark',
-\                  'airline-theme': 'badwolf',
-\                  'ruler': 1,
-\                  'laststatus': 0,
-\                  'typeface': 'Source Code Pro Light',
-\                  'font-size': 20,
-\                  'transparency': 10,
-\                  'linespace': 8,
-\                },
-\ 'pencil_lite' :{ 'colorscheme': 'pencil',
-\                  'background': 'light',
-\                  'airline-theme': 'light',
-\                  'laststatus': 0,
-\                  'ruler': 1,
-\                  'typeface': 'Source Code Pro',
-\                  'fullscreen': 1,
-\                  'transparency': 0,
-\                  'font-size': 20,
-\                  'linespace': 6,
-\                },
-\ }
 
+colorscheme wal
 " ---------------------------------- "
 " Configure YouCompleteMe
 " ---------------------------------- "
@@ -187,9 +161,11 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 "Black settings
-"autocmd BufWritePre *.py execute ':Black'
-"let g:black_virtualenv='/home/nyamu01b/.virtualenvs/pit3'
-"let g:loaded_python3_provider=0
+autocmd BufWritePre *.py execute ':Black'
+"let g:black_virtualenv='/.virtualenvs/pit3'
+let g:loaded_python3_provider=0
+let g:black_linelength=152
+let g:black_skip_string_normalization=1
 
 "Test mappings
 nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
@@ -202,12 +178,6 @@ nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
 nmap <silent><Leader>f <Esc>:Pytest file<CR>
 nmap <silent><Leader>c <Esc>:Pytest class<CR>
 nmap <silent><Leader>m <Esc>:Pytest method<CR>
-
-"TODO: sort the colours of Indent guides 
-"let indent_guides_auto_colors = 0
-"let indent_guides_guide_size = 1
-"hi IndentGuidesOdd ctermbg=236
-"hi IndentGuidesEven ctermbg=237
 
 "Syntastic
 let python_highlight_all=1
