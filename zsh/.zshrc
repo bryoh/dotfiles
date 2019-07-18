@@ -103,6 +103,7 @@ plugins=(
   git
   docker
   docker-compose
+  heroku
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -163,8 +164,8 @@ alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
 alias glv='nvim -c GV'
-alias gld='git log --ext-diff -p | cdiff -s --wrap'
-alias gd='git diff | cdiff -s --wrap'
+alias gld='git log --ext-diff -p | cdiff -s -w 150'
+alias gd='git diff | cdiff -s -w 150'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -178,3 +179,6 @@ alias treel='tree | less'
 alias downloads='cd ~/Downloads'
 alias documents='cd ~/Documents'
 alias dotfiles='cd ~/dotfiles'
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
