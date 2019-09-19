@@ -1,0 +1,4 @@
+set smooth-scroll true
+set guioptions sv
+set recolor true
+set recolor-keephue true
