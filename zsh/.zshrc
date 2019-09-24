@@ -151,7 +151,7 @@ source /usr/bin/virtualenvwrapper.sh
 #
 # Example aliases
 alias nw='tmux new-window'
-alias exa='exa --sort created -rlha --git'
+#alias exa='exa --sort created -rlha --git'
 #alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
@@ -169,16 +169,12 @@ alias gd='git diff | cdiff -s -w 150'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
-alias l='ls -CF'
-alias la='ls -A'
-alias ll='ls -lhtsr'
-alias ls='ls --color=auto'
-alias lsd='ls -dlt */'
+#alias l='ls -CF'
+#alias la='ls -A'
+alias ll='exa -lhrs modified --git'
+alias lsd='exa -lhrs modified */ --git'
 alias treee="tree -L"
 alias treel='tree | less'
-alias downloads='cd ~/Downloads'
-alias documents='cd ~/Documents'
-alias dotfiles='cd ~/dotfiles'
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
