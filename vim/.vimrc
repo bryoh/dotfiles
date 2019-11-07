@@ -92,7 +92,7 @@ set syntax=javaScript
 
 "Code folding with simply fold
 set nofoldenable "disable automatic folding
-nnoremap <space> zc
+"nnoremap <space> zc
 let g:SimpylFold_docstring_preview=1
 let g:SimpylFold_fold_docstring=0
 let b:SimpylFold_fold_docstring=0
@@ -111,14 +111,19 @@ let g:airline_solarized_bg='dark'
 
 colorscheme wal
 " ---------------------------------- "
+"  Python Stuff 
+" ---------------------------------- "
+map <F8> oimport ipdb; ipdb.set_trace() <CR>
+" ---------------------------------- "
 " Configure YouCompleteMe
 " ---------------------------------- "
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from
 let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_completion=0
-let g:ycm_goto_buffer_command = 'horizontal-split'
+"let g:ycm_goto_buffer_command = 'split'
 set completeopt+=preview
-map <F3> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <F4> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <F3> :split \| YcmCompleter GoToDefinitionElseDeclaration<CR>
 "  Ctags file
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming
