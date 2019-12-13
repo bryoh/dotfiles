@@ -57,6 +57,8 @@ Plugin 'Lokaltog/vim-powerline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'plytophogy/vim-virtualenv'
 Plugin 'marijnh/tern_for_vim'
+Plugin 'skanehira/docker.vim'
+Plugin 'skanehira/docker-compose.vim'
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
 filetype plugin indent on    " required
