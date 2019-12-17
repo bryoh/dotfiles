@@ -6,6 +6,7 @@ export TERM='xterm-256color'
 #export ZSH="/home/nyamu01b/.oh-my-zsh"
 
 source $HOME/dotfiles/antigen.zsh
+export PATH="${PATH}:${HOME}/.local/bin/"
 
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
@@ -108,6 +109,7 @@ plugins=(
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
+source <(kubectl completion zsh)
 
 #source $ZSH/oh-my-zsh.sh
 
@@ -138,7 +140,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-source /usr/bin/virtualenvwrapper.sh 
+source /usr/local/bin/virtualenvwrapper.sh 
 
 
 
@@ -165,8 +167,8 @@ alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
 alias glv='nvim -c GV'
-alias gld='git log --ext-diff -p | cdiff -s -w 150'
-alias gd='git diff | cdiff -s -w 150'
+alias gld='git log --ext-diff -p | cdiff -s '
+alias gd='git diff | cdiff -s '
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
