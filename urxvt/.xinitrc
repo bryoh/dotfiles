@@ -63,5 +63,5 @@ get_session(){
 	echo "dbus-launch ${dbus_args[*]}"
 }
 
-wal -R 
+#wal -R 
 exec $(get_session)
