@@ -57,8 +57,11 @@ Plugin 'Lokaltog/vim-powerline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'plytophogy/vim-virtualenv'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'skanehira/docker.vim'
-Plugin 'skanehira/docker-compose.vim'
+"Plugin 'skanehira/docker.vim'
+Plugin 'mzlogin/vim-markdown-toc'
+"You need to have nodejs and yarn
+Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -117,7 +120,8 @@ colorscheme wal
 " ---------------------------------- "
 "  Python Stuff 
 " ---------------------------------- "
-map <F8> oimport ipdb; ipdb.set_trace() <CR>
+map <F8> o__import__('ipdb').set_trace() <CR>
+"
 " ---------------------------------- "
 " Configure YouCompleteMe
 " ---------------------------------- "
@@ -176,7 +180,7 @@ au BufNewFile,BufRead *.py
 autocmd BufWritePre *.py execute ':Black'
 "let g:black_virtualenv='/.virtualenvs/pit3'
 let g:loaded_python3_provider=0
-let g:black_linelength=152
+let g:black_linelength=180
 let g:black_skip_string_normalization=1
 
 "Test mappings
