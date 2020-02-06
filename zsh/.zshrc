@@ -106,6 +106,7 @@ plugins=(
   docker-compose
   heroku
   postgres
+  git-flow
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
