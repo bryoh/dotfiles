@@ -6,7 +6,7 @@ set $mod Mod1
 
 # Cycle wallpapers and apply new colorscheme.
 bindsym $mod+shift+w exec "wal --backend wal -i $HOME/Pictures/"
-exec_always --no-startup-id wal --backend wal -i $HOME/Pictures/
+#exec_always --no-startup-id wal --backend wal -i $HOME/Pictures/
 
 # set default desktop layout (default is tiling)
 # workspace_layout tabbed <stacking|tabbed>
