@@ -72,8 +72,8 @@ set ruler
 set wildmenu 
 
 " Copy with leader key * from/to vim + from/to system
-noremap <Leader>y "*y 
-noremap <Leader>p "*p
+noremap <Leader>y *+y 
+noremap <Leader>p *+p
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
 
@@ -131,7 +131,8 @@ let g:ycm_autoclose_preview_window_after_completion=0
 "let g:ycm_goto_buffer_command = 'split'
 set completeopt+=preview
 map <F4> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-map <F3> :split \| YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <F3> :vsplit \| YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <F2> :split \| YcmCompleter GoToDefinitionElseDeclaration<CR>
 "  Ctags file
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming
