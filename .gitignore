@@ -1,7 +1,12 @@
 i3/.config/ranger/history
 i3/.config/ranger/bookmarks
 i3/.config/nvim/.netrwhist
+i3/.config/gtk-3.0/bookmarks
 
 /i3/.config/ranger/bookmarks
 /i3/.config/ranger/history
 /i3/.config/ranger/tagged
+/weechat/.weechat/logs/core.weechat.weechatlog
+/weechat/.weechat/logs/irc.server.oftc.weechatlog
+/weechat/.weechat/weechat.log
+/weechat/
