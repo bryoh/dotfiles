@@ -10,3 +10,4 @@ i3/.config/gtk-3.0/bookmarks
 /weechat/.weechat/logs/irc.server.oftc.weechatlog
 /weechat/.weechat/weechat.log
 /weechat/
+/.DS_Store
