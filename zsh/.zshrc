@@ -185,3 +185,4 @@ HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $
 alias python=/usr/local/bin/python3.7
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+alias pip=/usr/local/bin/pip3
