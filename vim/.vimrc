@@ -244,3 +244,16 @@ set laststatus=2
 let g:task_rc_override = 'rc.defaultheight=0'
 let g:task_rc_override = 'rc.defaultwidth=0'
 au BufNewFile,BufRead Jenkinsfile setf groovy
+
+" vimwiki 
+"
+let wiki_1 = {}
+let wiki_1.path = '~/friendly-barnacle/vimwiki/'
+let wiki_1.path_html = '~/friendly-barnacle/vimwiki_html/'
+
+"let wiki_2 = {}
+"let wiki_2.path = '~/friendly-barnacle/vimwiki/'
+"let wiki_2.path_html = '~/friendly-barnacle/vimwiki_html/'
+
+let g:vimwiki_list = [wiki_1,] " wiki_2]
+"let g:vimwiki_list = [{'path':'~/friendly-barnacle/vimwiki/', 'path_html':'~/friendly-barnacle/vimwiki_html/'}]
