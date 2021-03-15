@@ -4,6 +4,8 @@ set t_Co=256
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.fzf
+
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -21,6 +23,7 @@ Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-heroku'
 Plugin 'tpope/vim-dadbod'
+Plugin 'rbong/vim-flog'
 Plugin 'gregsexton/gitv'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/gv.vim'
@@ -52,6 +55,7 @@ Plugin 'mattn/calendar-vim'
 Plugin 'kien/ctrlp.vim'
 "search and replace multiple files 
 Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'mileszs/ack.vim' 
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'Valloric/YouCompleteMe'
@@ -60,7 +64,8 @@ Plugin 'marijnh/tern_for_vim'
 "Plugin 'skanehira/docker.vim'
 Plugin 'mzlogin/vim-markdown-toc'
 "You need to have nodejs and yarn
-Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+"Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+"Plugin 'neoclide/coc.nvim'
 
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
@@ -70,6 +75,7 @@ set nu "set number
 set rnu "I like relative line numbers now"
 set ruler 
 set wildmenu 
+set wildmode=longest:full,full
 
 " Copy with leader key * from/to vim + from/to system
 noremap <Leader>y *+y 
@@ -116,7 +122,7 @@ let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 
 
-colorscheme wal
+colorscheme holokai
 " ---------------------------------- "
 "  Python Stuff 
 " ---------------------------------- "
@@ -169,6 +175,10 @@ set shiftwidth=4    " Indents will have a width of 4.
 set softtabstop=4   " Sets the number of columns for a TAB.
 set expandtab       " Expand TABs to spaces.
 
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
@@ -178,11 +188,11 @@ au BufNewFile,BufRead *.py
     \ set fileformat=unix
 
 "Black settings
-autocmd BufWritePre *.py execute ':Black'
+"autocmd BufWritePre *.py execute ':Black'
 "let g:black_virtualenv='/.virtualenvs/pit3'
-let g:loaded_python3_provider=0
-let g:black_linelength=180
-let g:black_skip_string_normalization=1
+"let g:loaded_python3_provider=0
+"let g:black_linelength=180
+"let g:black_skip_string_normalization=1
 
 "Test mappings
 nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
@@ -203,8 +213,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
@@ -234,7 +244,7 @@ let g:gitgutter_max_signs = 500  " default value for detecting changes
 
 "Powerline-plugin
 "python from powerline.vim import setup as powerline_setup
-set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
+set rtp+=/usr/local/lib/python3/dist-packages/powerline/bindings/vim/
 "python powerline_setup()
 "python del powerline_setup
 set laststatus=2

@@ -6,7 +6,8 @@ export TERM='xterm-256color'
 #export ZSH="/home/nyamu01b/.oh-my-zsh"
 
 source $HOME/dotfiles/antigen.zsh
-export PATH="${PATH}:${HOME}/.local/bin/"
+export JAVA_HOME='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
+export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/"
 
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
@@ -141,7 +142,7 @@ source <(kubectl completion zsh)
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-source /usr/bin/virtualenvwrapper.sh 
+source /usr/local/bin/virtualenvwrapper.sh 
 
 
 
@@ -168,8 +169,8 @@ alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
 alias glv='nvim -c GV'
-alias gld='git log --ext-diff -p | cdiff -s -w 150'
-alias gd='git diff | cdiff -s -w 150 '
+alias gld='git log --ext-diff -p | cdiff -s -w 100'
+alias gd='git diff | cdiff -s -w 100 '
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -179,6 +180,9 @@ alias ll='exa -lhs modified --git'
 alias lsd='exa -lhs modified */ --git'
 alias treee="tree -L"
 alias treel='tree | less'
+alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+[ -f ~/.fzf.zsh  ] && source ~/.fzf.zsh
+
