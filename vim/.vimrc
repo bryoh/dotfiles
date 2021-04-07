@@ -66,6 +66,7 @@ Plugin 'mzlogin/vim-markdown-toc'
 "You need to have nodejs and yarn
 "Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 "Plugin 'neoclide/coc.nvim'
+Plugin 'christoomey/vim-tmux-navigator'
 
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
@@ -76,6 +77,7 @@ set rnu "I like relative line numbers now"
 set ruler 
 set wildmenu 
 set wildmode=longest:full,full
+set inccommand=split
 
 " Copy with leader key * from/to vim + from/to system
 noremap <Leader>y *+y 
@@ -207,18 +209,18 @@ nmap <silent><Leader>c <Esc>:Pytest class<CR>
 nmap <silent><Leader>m <Esc>:Pytest method<CR>
 
 "Syntastic
-let python_highlight_all=1
-syntax on
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+"let python_highlight_all=1
+"syntax on
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_javascript_checkers=['eslint']
+"let g:syntastic_always_populate_loc_list = 0
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
 
-let g:ale_fix_on_save = 1
+"let g:ale_fix_on_save = 1
 
 
 "bootstrap snippets
@@ -266,3 +268,15 @@ let wiki_1.path_html = '~/friendly-barnacle/vimwiki_html/'
 
 let g:vimwiki_list = [wiki_1,] " wiki_2]
 "let g:vimwiki_list = [{'path':'~/friendly-barnacle/vimwiki/', 'path_html':'~/friendly-barnacle/vimwiki_html/'}]
+
+"Highlight yanked text
+augroup LuaHighlight
+      autocmd!
+      autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
+
+"Open vim help on a vertical split
+augroup vimrc_help
+    autocmd!
+    autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+augroup END

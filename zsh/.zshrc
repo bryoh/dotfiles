@@ -156,8 +156,8 @@ source /usr/local/bin/virtualenvwrapper.sh
 #
 # Example aliases
 alias nw='tmux new-window'
-#alias exa='exa --sort created -rlha --git'
-#alias vim='nvim'
+alias exa='exa --sort created -rlha --git'
+alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
