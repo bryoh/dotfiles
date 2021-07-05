@@ -143,7 +143,8 @@ source <(kubectl completion zsh)
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 source /usr/local/bin/virtualenvwrapper.sh 
-
+# Display 
+export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 
 
 # ssh
@@ -181,6 +182,7 @@ alias lsd='exa -lhs modified */ --git'
 alias treee="tree -L"
 alias treel='tree | less'
 alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
+alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
