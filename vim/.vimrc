@@ -16,13 +16,14 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'honza/vim-snippets'
 "Plugin 'SirVer/ultisnips'
-Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-fugitive'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-cucumber'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-heroku'
 Plugin 'tpope/vim-dadbod'
+Plugin 'tpope/vim-sensible'
 Plugin 'rbong/vim-flog'
 Plugin 'gregsexton/gitv'
 Plugin 'airblade/vim-gitgutter'
@@ -67,6 +68,12 @@ Plugin 'mzlogin/vim-markdown-toc'
 "Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 "Plugin 'neoclide/coc.nvim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'lotabout/skim.vim'
+Plugin 'lotabout/skim', { 'dir': '~/.skim', 'do': './install'  }
+Plugin 'APZelos/blamer.nvim'
+Plugin 'markonm/traces.vim'
+Plugin 'puremourning/vimspector'
+
 
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
@@ -78,6 +85,17 @@ set ruler
 set wildmenu 
 set wildmode=longest:full,full
 set inccommand=split
+set cursorline
+
+"Map J and K to move lines around in visual mode
+nnoremap <silent> J :<C-U>exec "exec 'norm m`' \| move +" . (0+v:count1)<CR>==``
+nnoremap <silent> K :<C-U>exec "exec 'norm m`' \| move -" . (1+v:count1)<CR>==``
+xnoremap <silent> J :<C-U>exec "'<,'>move '>+" . (0+v:count1)<CR>gv=gv
+xnoremap <silent> K :<C-U>exec "'<,'>move '<-" . (1+v:count1)<CR>gv=gv
+
+"indent blocks without losing selection
+xnoremap < <gv
+xnoremap > >gv
 
 " Copy with leader key * from/to vim + from/to system
 noremap <Leader>y *+y 
@@ -98,6 +116,15 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+"tmux navigator
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+"nnoremap <silent> <c-> :TmuxNavigatePrevious<cr>
 
 " Set foldmethod
 set foldmethod=syntax
@@ -280,3 +307,6 @@ augroup vimrc_help
     autocmd!
     autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
 augroup END
+
+"Vimspector debugging
+let g:vimspector_enable_mappings = 'HUMAN'
