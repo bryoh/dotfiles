@@ -7,7 +7,7 @@ export TERM='xterm-256color'
 
 source $HOME/dotfiles/antigen.zsh
 export JAVA_HOME='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
-export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/"
+export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/:${HOME}/go/bin/"
 
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
@@ -108,6 +108,7 @@ plugins=(
   heroku
   postgres
   git-flow
+  fzf
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -138,7 +139,8 @@ source <(kubectl completion zsh)
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
+# remove windows notification sound 
+unsetopt beep 
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
@@ -182,6 +184,7 @@ alias lsd='exa -lhs modified */ --git'
 alias treee="tree -L"
 alias treel='tree | less'
 alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
+alias grim="nvim -c :Rg"
 alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
 
 # heroku autocomplete setup
