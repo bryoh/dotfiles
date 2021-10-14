@@ -1,0 +1,7 @@
+<application>
+  <component name="UISettings">
+    <option name="PRESENTATION_MODE_FONT_SIZE" value="22" />
+    <option name="RIGHT_HORIZONTAL_SPLIT" value="true" />
+    <option name="SHOW_MAIN_TOOLBAR" value="true" />
+  </component>
+</application>
