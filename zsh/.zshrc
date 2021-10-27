@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 export TERM='xterm-256color'
@@ -28,10 +35,11 @@ antigen bundle pip
 antigen bundle unixorn/docker-helpers.zshplugin
 antigen bundle sroze/docker-compose-zsh-plugin
 antigen bundle lukechilds/zsh-better-npm-completion
+antigen theme romkatv/powerlevel10k
 
 # Load the theme.
 #antigen theme robbyrussell
-antigen theme eendroroy/alien alien
+#antigen theme eendroroy/alien alien
 #antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen apply
 
@@ -59,7 +67,7 @@ antigen apply
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ export UPDATE_ZSH_DAYS=1
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -109,6 +117,7 @@ plugins=(
   postgres
   git-flow
   fzf
+  autoupdate
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -191,3 +200,9 @@ alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 [ -f ~/.fzf.zsh  ] && source ~/.fzf.zsh
 
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+(( ! ${+functions[p10k]} )) || p10k finalize
