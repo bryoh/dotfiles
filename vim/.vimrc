@@ -15,7 +15,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'honza/vim-snippets'
-"Plugin 'SirVer/ultisnips'
+Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-fugitive'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'tpope/vim-cucumber'
@@ -66,13 +66,15 @@ Plugin 'marijnh/tern_for_vim'
 Plugin 'mzlogin/vim-markdown-toc'
 "You need to have nodejs and yarn
 "Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
-"Plugin 'neoclide/coc.nvim'
+" Use release branch (recommend)
+"Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'lotabout/skim.vim'
 Plugin 'lotabout/skim', { 'dir': '~/.skim', 'do': './install'  }
 Plugin 'APZelos/blamer.nvim'
 Plugin 'markonm/traces.vim'
-Plugin 'puremourning/vimspector'
+"Plugin 'puremourning/vimspector'
+"Plugin 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update()  }  }
 
 
 "To install from command line: vim +PluginInstall +qall
