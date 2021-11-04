@@ -6,8 +6,17 @@
           <option name="url" value="http://rhodecode.domino-printing.org" />
           <option name="userName" value="brian.nyamu" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://brian.nyamu@azra-rhodecode/Test-Team/AxD" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="http://azra-rhodecode" />
+          <option name="userName" value="brian.nyamu" />
+        </UrlAndUserName>
       </list>
     </option>
+    <option name="cloneParentDir" value="\\wsl$\Ubuntu\home\brian" />
   </component>
   <component name="Vcs.Log.App.Settings">
     <option name="SHOW_DIFF_PREVIEW" value="true" />
