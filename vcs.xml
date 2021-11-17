@@ -40,4 +40,7 @@
       </map>
     </option>
   </component>
+  <component name="VcsApplicationSettings">
+    <option name="SHOW_DIFF_ON_DOUBLE_CLICK" value="true" />
+  </component>
 </application>
