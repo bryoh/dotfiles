@@ -168,7 +168,7 @@ export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/nu
 #
 # Example aliases
 alias nw='tmux new-window'
-alias exa='exa --sort created -rlha --git'
+#alias exa='exa --sort created -lha --git'
 alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
@@ -195,6 +195,7 @@ alias treel='tree | less'
 alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
 alias grim="nvim -c :Rg"
 alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
+alias cat='bat'
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;

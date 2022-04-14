@@ -56,6 +56,7 @@ Plugin 'mattn/calendar-vim'
 Plugin 'kien/ctrlp.vim'
 "search and replace multiple files 
 Plugin 'junegunn/fzf.vim'
+Plugin 'stsewd/fzf-checkout.vim'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'mileszs/ack.vim' 
 Plugin 'Lokaltog/vim-powerline'
@@ -107,7 +108,14 @@ noremap <Leader>P "+p
 
 "Split behavior 
 "set splitbelow
-"set splitright
+set splitright
+set previewheight=20
+au BufEnter ?* call PreviewHeightWorkAround()
+func PreviewHeightWorkAround()
+    if &previewwindow
+        exec 'setlocal winheight='.&previewheight
+    endif
+endfunc
 
 "Resize splits
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
@@ -296,7 +304,7 @@ let wiki_1.path_html = '~/friendly-barnacle/vimwiki_html/'
 "let wiki_2.path_html = '~/friendly-barnacle/vimwiki_html/'
 
 let g:vimwiki_list = [wiki_1,] " wiki_2]
-"let g:vimwiki_list = [{'path':'~/friendly-barnacle/vimwiki/', 'path_html':'~/friendly-barnacle/vimwiki_html/'}]
+let g:vimwiki_list = [{'path':'~/friendly-barnacle/vimwiki/', 'path_html':'~/friendly-barnacle/vimwiki_html/'}]
 
 "Highlight yanked text
 augroup LuaHighlight
