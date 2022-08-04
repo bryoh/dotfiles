@@ -16,7 +16,7 @@ sudo apt-get update
 sudo pip install cdiff # side by side diff 
 sudo apt install -y mono-complete nodejs npm cargo golang-go
 npm install xbuild 
-git clone https://github.com/bryoh/dotfiles.git ~
+#git clone https://github.com/bryoh/dotfiles.git ~
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 curl -L git.io/antigen > antigen.zsh
 cd ~/dotfiles
@@ -25,29 +25,29 @@ stow zsh vim
 cd ~
 vim +PluginInstall +qall # install vim plugins
 #	i3
-cd ~
-sudo apt install -y i3 rofi
-sudo apt install -y xclip xsel 
-sudo apt install -y compton arandr lxappearance
-sudo apt install -y pavucontrol feh playerctl
-sudo apt install -y pactl xbacklight 
-sudo apt install -y scrot screenfetch
-sudo apt install -y apt-transport-https # makes sure apt is set up to work with https
-# 	i3gaps
-sudo apt install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake
-git clone https://www.github.com/Airblader/i3 ${HOME}/i3-gaps 
-cd ${HOME}/i3-gaps
-autoreconf --force --install
-rm -rf build
-mkdir -p build && cd build
-../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
-make
-sudo make install 
-cd ~
-sudo add-apt-repository ppa:system76/pop
-sudo add-apt-repository ppa:papirus/papirus
-sudo apt-get update 
-sudo apt install -y arc-theme pop-theme papirus-icon-theme
+#cd ~
+#sudo apt install -y i3 rofi
+#sudo apt install -y xclip xsel 
+#sudo apt install -y compton arandr lxappearance
+#sudo apt install -y pavucontrol feh playerctl
+#sudo apt install -y pactl xbacklight 
+#sudo apt install -y scrot screenfetch
+#sudo apt install -y apt-transport-https # makes sure apt is set up to work with https
+## 	i3gaps
+#sudo apt install -y libxcb1-dev libxcb-keysyms1-dev libpango1.0-dev libxcb-util0-dev libxcb-icccm4-dev libyajl-dev libstartup-notification0-dev libxcb-randr0-dev libev-dev libxcb-cursor-dev libxcb-xinerama0-dev libxcb-xkb-dev libxkbcommon-dev libxkbcommon-x11-dev autoconf libxcb-xrm0 libxcb-xrm-dev automake
+#git clone https://www.github.com/Airblader/i3 ${HOME}/i3-gaps 
+#cd ${HOME}/i3-gaps
+#autoreconf --force --install
+#rm -rf build
+#mkdir -p build && cd build
+#../configure --prefix=/usr --sysconfdir=/etc --disable-sanitizers
+#make
+#sudo make install 
+#cd ~
+#sudo add-apt-repository ppa:system76/pop
+#sudo add-apt-repository ppa:papirus/papirus
+#sudo apt-get update 
+#sudo apt install -y arc-theme pop-theme papirus-icon-theme
 #	oh-my-zsh
 #	vim + plugins
 #	fonts
@@ -69,6 +69,17 @@ sudo apt install -y sublime-text
 sudo apt install -y highlight atool w3m poppler-utils caca-utils
 sudo apt install -y ranger 
 
-# install oh my zsh
 cd ~
+# install docker 
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+sudo apt install python3-pip
+sudo apt update
+sudo apt upgrade
+pip3 install docker-compose
+
+
+# install oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
