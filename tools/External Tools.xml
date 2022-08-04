@@ -1,0 +1,9 @@
+<toolSet name="External Tools">
+  <tool name="Black" description="Black is the uncompromising Python code formatter" showInMainMenu="false" showInEditor="false" showInProject="false" showInSearchPopup="false" disabled="false" useConsole="true" showConsoleOnStdOut="false" showConsoleOnStdErr="false" synchronizeAfterRun="true">
+    <exec>
+      <option name="COMMAND" value="\\wsl$\Ubuntu\home\brian\.virtualenvs\livia\bin\black" />
+      <option name="PARAMETERS" value=" &quot;$FilePath$" />
+      <option name="WORKING_DIRECTORY" value="$ProjectFileDir$" />
+    </exec>
+  </tool>
+</toolSet>

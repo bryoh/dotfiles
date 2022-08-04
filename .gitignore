@@ -10,3 +10,7 @@ i3/.config/gtk-3.0/bookmarks
 /weechat/.weechat/logs/irc.server.oftc.weechatlog
 /weechat/.weechat/weechat.log
 /weechat/
+/.DS_Store
+/i3/.config/configstore/.gitignore
+/i3/.config/dask/.gitignore
+/i3/.config/gtk-2.0/.gitignore
