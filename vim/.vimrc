@@ -41,6 +41,7 @@ Plugin 'dylanaraps/wal.vim'
 Plugin 'yggdroot/indentline'
 Plugin 'ciaranm/inkpot'
 Plugin 'changyuheng/color-scheme-holokai-for-vim'
+Plugin 'morhetz/gruvbox'
 Plugin 'ambv/black'
 Plugin 'baskerville/bubblegum'
 Plugin 'reedes/vim-thematic'
@@ -60,6 +61,7 @@ Plugin 'stsewd/fzf-checkout.vim'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'mileszs/ack.vim' 
 Plugin 'Lokaltog/vim-powerline'
+"Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'plytophogy/vim-virtualenv'
 Plugin 'marijnh/tern_for_vim'
@@ -99,6 +101,11 @@ xnoremap <silent> K :<C-U>exec "'<,'>move '<-" . (1+v:count1)<CR>gv=gv
 "indent blocks without losing selection
 xnoremap < <gv
 xnoremap > >gv
+" Prevent swapfiles from being detected in version control systems
+"set noswapfile
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 
 " Copy with leader key * from/to vim + from/to system
 noremap <Leader>y *+y 
@@ -165,7 +172,7 @@ colorscheme holokai
 " ---------------------------------- "
 "  Python Stuff 
 " ---------------------------------- "
-map <F8> o__import__('ipdb').set_trace() <CR>
+map <F8> oconte=context<CR>__import__('ipdb').set_trace() <CR>
 "
 " ---------------------------------- "
 " Configure YouCompleteMe
@@ -192,8 +199,17 @@ let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 "to prevent clash with youcompleteme, change snippet trigger
 "imap <C-J> <esc>a<Plug>snipMateNextOrTrigger
 "smap <C-J> <Plug>snipMateNextOrTrigger
+" make YCM compatible with UltiSnips (using supertab)
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
 
-" ---------------------------------------------- "
+ "" better key bindings for UltiSnipsExpandTrigger
+"let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+ "let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+ "
+"" ---------------------------------------------- "
 " Configure  Syntax hightlighting, look and feel
 " ---------------------------------------------- "
 "tab to 4 spaces rules 
@@ -214,9 +230,6 @@ set shiftwidth=4    " Indents will have a width of 4.
 set softtabstop=4   " Sets the number of columns for a TAB.
 set expandtab       " Expand TABs to spaces.
 
-set backupdir=~/.vim/backup//
-set directory=~/.vim/swap//
-set undodir=~/.vim/undo//
 
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -320,3 +333,6 @@ augroup END
 
 "Vimspector debugging
 let g:vimspector_enable_mappings = 'HUMAN'
+let g:python3_host_prog = '/usr/bin/python3.8'
+let g:vimwiki_list = [wiki_1,] " wiki_2]
+"let g:vimwiki_list = [{'path':'~/friendly-barnacle/vimwiki/', 'path_html':'~/friendly-barnacle/vimwiki_html/'}]
