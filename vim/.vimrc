@@ -1,6 +1,5 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-let mapleader = "`"
 set t_Co=256
 
 " set the runtime path to include Vundle and initialize
@@ -255,9 +254,9 @@ nmap <silent> t<C-l> :TestLast<CR>    " t Ctrl+l
 nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
 
 "pytest mapping 
-nmap <silent><Leader>f <Esc>:Pytest file<CR>
-nmap <silent><Leader>c <Esc>:Pytest class<CR>
-nmap <silent><Leader>m <Esc>:Pytest method<CR>
+"nmap <silent><Leader>f <Esc>:Pytest file<CR>
+"nmap <silent><Leader>c <Esc>:Pytest class<CR>
+"nmap <silent><Leader>m <Esc>:Pytest method<CR>
 
 "Syntastic
 "let python_highlight_all=1
