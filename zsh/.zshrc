@@ -196,8 +196,8 @@ alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""
 alias grim="nvim -c :Rg"
 alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
 alias cat='bat'
-alias python=/usr/local/bin/python3.7
-alias pip=/usr/local/bin/pip3
+#alias python=/usr/local/bin/python3.7
+#alias pip=/usr/local/bin/pip3
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
