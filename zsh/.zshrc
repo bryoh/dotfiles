@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 export TERM='xterm-256color'
@@ -6,7 +13,8 @@ export TERM='xterm-256color'
 #export ZSH="/home/nyamu01b/.oh-my-zsh"
 
 source $HOME/dotfiles/antigen.zsh
-export PATH="${PATH}:${HOME}/.local/bin/"
+export JAVA_HOME='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
+export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/:${HOME}/go/bin/"
 
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
@@ -27,10 +35,11 @@ antigen bundle pip
 antigen bundle unixorn/docker-helpers.zshplugin
 antigen bundle sroze/docker-compose-zsh-plugin
 antigen bundle lukechilds/zsh-better-npm-completion
+antigen theme romkatv/powerlevel10k
 
 # Load the theme.
 #antigen theme robbyrussell
-antigen theme eendroroy/alien alien
+#antigen theme eendroroy/alien alien
 #antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen apply
 
@@ -58,7 +67,7 @@ antigen apply
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+ export UPDATE_ZSH_DAYS=1
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -107,6 +116,8 @@ plugins=(
   heroku
   postgres
   git-flow
+  fzf
+  autoupdate
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -137,12 +148,14 @@ source <(kubectl completion zsh)
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
+# remove windows notification sound 
+unsetopt beep 
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 source /usr/local/bin/virtualenvwrapper.sh 
-
+# Display 
+export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 
 
 # ssh
@@ -155,8 +168,8 @@ source /usr/local/bin/virtualenvwrapper.sh
 #
 # Example aliases
 alias nw='tmux new-window'
-#alias exa='exa --sort created -rlha --git'
-#alias vim='nvim'
+#alias exa='exa --sort created -lha --git'
+alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -168,8 +181,8 @@ alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
 alias glv='nvim -c GV'
-alias gld='git log --ext-diff -p | cdiff -s -w 80'
-alias gd='git diff | cdiff -s -w 80 '
+alias gld='git log --ext-diff -p | cdiff -s -w 100'
+alias gd='git diff | cdiff -s -w 100 '
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -179,10 +192,20 @@ alias ll='exa -lhs modified --git'
 alias lsd='exa -lhs modified */ --git'
 alias treee="tree -L"
 alias treel='tree | less'
+alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
+alias grim="nvim -c :Rg"
+alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
+alias cat='bat'
+alias python=/usr/local/bin/python3.7
+alias pip=/usr/local/bin/pip3
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
-alias python=/usr/local/bin/python3.7
+[ -f ~/.fzf.zsh  ] && source ~/.fzf.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-alias pip=/usr/local/bin/pip3
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+(( ! ${+functions[p10k]} )) || p10k finalize
