@@ -19,23 +19,26 @@ export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/:${HO
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
 # # ( ) # Hide shell job control messages.
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 #
 # # Alternative (blocks terminal for 0-3ms)
 #cat ~/.cache/wal/sequences
 # To add support for TTYs this line can be optionally added.
-source ~/.cache/wal/colors-tty.sh
-source ~/.cache/wal/colors.sh 
+#source ~/.cache/wal/colors-tty.sh
+#source ~/.cache/wal/colors.sh 
 antigen use oh-my-zsh
 
 #Load some bundles
 antigen bundle git
 antigen bundle heroku
 antigen bundle pip
+antigen bundle docker-compose
+antigen bundle fzf
 antigen bundle unixorn/docker-helpers.zshplugin
 antigen bundle sroze/docker-compose-zsh-plugin
 antigen bundle lukechilds/zsh-better-npm-completion
 antigen theme romkatv/powerlevel10k
+antigen bundle 'wfxr/forgit'
 
 # Load the theme.
 #antigen theme robbyrussell
@@ -168,6 +171,7 @@ export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/nu
 #
 # Example aliases
 alias nw='tmux new-window'
+alias bb='alias | fzf'
 #alias exa='exa --sort created -lha --git'
 alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
@@ -209,3 +213,49 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 (( ! ${+functions[p10k]} )) || p10k finalize
+# Domino ====================================================================================================
+env=~/.ssh/agent.env
+
+agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+
+agent_start () {
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ; }
+
+agent_load_env
+
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+    agent_start
+    ssh-add
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+    ssh-add
+fi
+
+unset env
+# Domino ====================================================================================================
+
+alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
+_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+
+# fcoc_preview - checkout git commit with previews
+fcoc_preview() {
+  local commit
+  commit=$( glNoGraph |
+    fzf --no-sort --reverse --tiebreak=index --no-multi \
+        --ansi --preview="$_viewGitLogLine" ) &&
+  git checkout $(echo "$commit" | sed "s/ .*//")
+}
+
+# fshow_preview - git commit browser with previews
+fshow_preview() {
+    $glNoGraph |
+        fzf --no-sort --reverse --tiebreak=index --no-multi \
+            --ansi --preview="$_viewGitLogLine" \
+                --header "enter to view, alt-y to copy hash" \
+                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+}

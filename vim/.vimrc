@@ -71,6 +71,7 @@ Plugin 'mzlogin/vim-markdown-toc'
 "Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Use release branch (recommend)
 "Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+"Plugin 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install'}
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'lotabout/skim.vim'
 Plugin 'lotabout/skim', { 'dir': '~/.skim', 'do': './install'  }
@@ -78,8 +79,6 @@ Plugin 'APZelos/blamer.nvim'
 Plugin 'markonm/traces.vim'
 "Plugin 'puremourning/vimspector'
 "Plugin 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update()  }  }
-
-
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -336,3 +335,5 @@ let g:vimspector_enable_mappings = 'HUMAN'
 let g:python3_host_prog = '/usr/bin/python3.8'
 let g:vimwiki_list = [wiki_1,] " wiki_2]
 "let g:vimwiki_list = [{'path':'~/friendly-barnacle/vimwiki/', 'path_html':'~/friendly-barnacle/vimwiki_html/'}]
+
+
