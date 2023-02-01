@@ -219,7 +219,7 @@ class shell(Command):
             command = self.rest(2)
         else:
             command = self.rest(1)
-        start = self.line[0:len(self.line) - len(command)]
+        start = self.line[:len(self.line) - len(command)]
 
         try:
             position_of_last_space = command.rindex(" ")
@@ -231,22 +231,25 @@ class shell(Command):
             if len(selection) == 1:
                 return self.line + selection[0].shell_escaped_basename + ' '
             else:
-                return self.line + '%s '
+                return f'{self.line}%s '
         else:
             before_word, start_of_word = self.line.rsplit(' ', 1)
-            return (before_word + ' ' + file.shell_escaped_basename
-                    for file in self.fm.thisdir.files or []
-                    if file.shell_escaped_basename.startswith(start_of_word))
+            return (
+                f'{before_word} {file.shell_escaped_basename}'
+                for file in self.fm.thisdir.files or []
+                if file.shell_escaped_basename.startswith(start_of_word)
+            )
 
 
 class open_with(Command):
     def execute(self):
         app, flags, mode = self._get_app_flags_mode(self.rest(1))
         self.fm.execute_file(
-                files=[f for f in self.fm.thistab.get_selection()],
-                app=app,
-                flags=flags,
-                mode=mode)
+            files=list(self.fm.thistab.get_selection()),
+            app=app,
+            flags=flags,
+            mode=mode,
+        )
 
     def tab(self, tabnum):
         return self._tab_through_executables()
@@ -368,9 +371,9 @@ class set_(Command):
             return self.firstpart + str(settings[name])
         if bool in settings.types_of(name):
             if 'true'.startswith(value.lower()):
-                return self.firstpart + 'True'
+                return f'{self.firstpart}True'
             if 'false'.startswith(value.lower()):
-                return self.firstpart + 'False'
+                return f'{self.firstpart}False'
         # Tab complete colorscheme values if incomplete value is present
         if name == "colorscheme":
             return sorted(self.firstpart + colorscheme for colorscheme
@@ -386,8 +389,7 @@ class setlocal(set_):
 
     def execute(self):
         import os.path
-        match = self.PATH_RE.match(self.arg(1))
-        if match:
+        if match := self.PATH_RE.match(self.arg(1)):
             path = os.path.normpath(os.path.expanduser(match.group(1)))
             self.shift()
         elif self.fm.thisdir:
@@ -437,8 +439,10 @@ class default_linemode(Command):
         # Extract and validate the line mode from the command line
         linemode = self.rest(1)
         if linemode not in FileSystemObject.linemode_dict:
-            self.fm.notify("Invalid linemode: %s; should be %s" %
-                    (linemode, "/".join(FileSystemObject.linemode_dict)), bad=True)
+            self.fm.notify(
+                f'Invalid linemode: {linemode}; should be {"/".join(FileSystemObject.linemode_dict)}',
+                bad=True,
+            )
 
         # Add the prepared entry to the fm.default_linemodes
         entry = [method, argument, linemode]
@@ -451,9 +455,11 @@ class default_linemode(Command):
 
     def tab(self, tabnum):
         mode = self.arg(1)
-        return (self.arg(0) + " " + linemode
-                for linemode in self.fm.thisfile.linemode_dict.keys()
-                if linemode.startswith(self.arg(1)))
+        return (
+            f"{self.arg(0)} {linemode}"
+            for linemode in self.fm.thisfile.linemode_dict.keys()
+            if linemode.startswith(self.arg(1))
+        )
 
 
 class quit(Command):
@@ -542,9 +548,11 @@ class delete(Command):
         confirm = self.fm.settings.confirm_on_delete
         if confirm != 'never' and (confirm != 'multiple' or many_files):
             filename_list = files
-            self.fm.ui.console.ask("Confirm deletion of: %s (y/N)" %
-                ', '.join(files),
-                partial(self._question_callback, files), ('n', 'N', 'y', 'Y'))
+            self.fm.ui.console.ask(
+                f"Confirm deletion of: {', '.join(files)} (y/N)",
+                partial(self._question_callback, files),
+                ('n', 'N', 'y', 'Y'),
+            )
         else:
             # no need for a confirmation, just delete
             self.fm.delete(files)
@@ -553,7 +561,7 @@ class delete(Command):
         return self._tab_directory_content()
 
     def _question_callback(self, files, answer):
-        if answer == 'y' or answer == 'Y':
+        if answer in ['y', 'Y']:
             self.fm.delete(files)
 
 
@@ -588,7 +596,7 @@ class console(Command):
     """
     def execute(self):
         position = None
-        if self.arg(1)[0:2] == '-p':
+        if self.arg(1)[:2] == '-p':
             try:
                 position = int(self.arg(1)[2:])
                 self.shift()
@@ -611,10 +619,10 @@ class load_copy_buffer(Command):
             fname = self.fm.confpath(self.copy_buffer_filename)
             f = open(fname, 'r')
         except Exception:
-            return self.fm.notify("Cannot open %s" %
-                    (fname or self.copy_buffer_filename), bad=True)
-        self.fm.copy_buffer = set(File(g)
-            for g in f.read().split("\n") if exists(g))
+            return self.fm.notify(
+                f"Cannot open {fname or self.copy_buffer_filename}", bad=True
+            )
+        self.fm.copy_buffer = {File(g) for g in f.read().split("\n") if exists(g)}
         f.close()
         self.fm.ui.redraw_main_column()
 
@@ -632,8 +640,9 @@ class save_copy_buffer(Command):
             fname = self.fm.confpath(self.copy_buffer_filename)
             f = open(fname, 'w')
         except Exception:
-            return self.fm.notify("Cannot open %s" %
-                    (fname or self.copy_buffer_filename), bad=True)
+            return self.fm.notify(
+                f"Cannot open {fname or self.copy_buffer_filename}", bad=True
+            )
         f.write("\n".join(f.path for f in self.fm.copy_buffer))
         f.close()
 
@@ -772,10 +781,9 @@ class rename(Command):
 
         if self.fm.rename(self.fm.thisfile, new_name):
             f = File(new_name)
-            # Update bookmarks that were pointing on the previous name
-            obsoletebookmarks = [b for b in self.fm.bookmarks
-                                 if b[1].path == self.fm.thisfile]
-            if obsoletebookmarks:
+            if obsoletebookmarks := [
+                b for b in self.fm.bookmarks if b[1].path == self.fm.thisfile
+            ]:
                 for key, _ in obsoletebookmarks:
                     self.fm.bookmarks[key] = f
                 self.fm.bookmarks.update_if_outdated()
@@ -800,9 +808,9 @@ class rename_append(Command):
         cf = self.fm.thisfile
         path = cf.relative_path.replace("%", "%%")
         if path.find('.') != 0 and path.rfind('.') != -1 and not cf.is_directory:
-            self.fm.open_console('rename ' + path, position=(7 + path.rfind('.')))
+            self.fm.open_console(f'rename {path}', position=(7 + path.rfind('.')))
         else:
-            self.fm.open_console('rename ' + path)
+            self.fm.open_console(f'rename {path}')
 
 
 class chmod(Command):
@@ -872,9 +880,8 @@ class bulkrename(Command):
             listfile.write("\n".join(filenames))
         listfile.close()
         self.fm.execute_file([File(listpath)], app='editor')
-        listfile = open(listpath, 'r')
-        new_filenames = listfile.read().split("\n")
-        listfile.close()
+        with open(listpath, 'r') as listfile:
+            new_filenames = listfile.read().split("\n")
         os.unlink(listpath)
         if all(a == b for a, b in zip(filenames, new_filenames)):
             self.fm.notify("No renaming to be done!")
@@ -882,9 +889,10 @@ class bulkrename(Command):
 
         # Generate script
         cmdfile = tempfile.NamedTemporaryFile()
-        script_lines = []
-        script_lines.append("# This file will be executed when you close the editor.\n")
-        script_lines.append("# Please double-check everything, clear the file to abort.\n")
+        script_lines = [
+            "# This file will be executed when you close the editor.\n",
+            "# Please double-check everything, clear the file to abort.\n",
+        ]
         script_lines.extend("mv -vi -- %s %s\n" % (esc(old), esc(new))
                 for old, new in zip(filenames, new_filenames) if old != new)
         script_content = "".join(script_lines)
@@ -910,8 +918,8 @@ class bulkrename(Command):
             tags_changed = False
             for old, new in zip(filenames, new_filenames):
                 if old != new:
-                    oldpath = self.fm.thisdir.path + '/' + old
-                    newpath = self.fm.thisdir.path + '/' + new
+                    oldpath = f'{self.fm.thisdir.path}/{old}'
+                    newpath = f'{self.fm.thisdir.path}/{new}'
                     if oldpath in self.fm.tags:
                         old_tag = self.fm.tags.tags[oldpath]
                         self.fm.tags.remove(oldpath)
@@ -939,7 +947,7 @@ class relink(Command):
             return self.fm.notify('Syntax: relink <newpath>', bad=True)
 
         if not cf.is_link:
-            return self.fm.notify('%s is not a symlink!' % cf.relative_path, bad=True)
+            return self.fm.notify(f'{cf.relative_path} is not a symlink!', bad=True)
 
         if new_path == os.readlink(cf.path):
             return
@@ -955,10 +963,11 @@ class relink(Command):
         self.fm.thisfile = cf
 
     def tab(self, tabnum):
-        if not self.rest(1):
-            return self.line + os.readlink(self.fm.thisfile.path)
-        else:
-            return self._tab_directory_content()
+        return (
+            self._tab_directory_content()
+            if self.rest(1)
+            else self.line + os.readlink(self.fm.thisfile.path)
+        )
 
 
 class help_(Command):
@@ -1180,7 +1189,7 @@ class scout(Command):
         self.cancel()
 
         if self.OPEN_ON_ENTER in flags or \
-                self.AUTO_OPEN in flags and count == 1:
+                    self.AUTO_OPEN in flags and count == 1:
             if os.path.exists(pattern):
                 self.fm.cd(pattern)
             else:
@@ -1191,7 +1200,7 @@ class scout(Command):
             if not pattern:
                 self.fm.open_console(self.line)
             else:
-                self.fm.open_console(self.line[0:-len(pattern)])
+                self.fm.open_console(self.line[:-len(pattern)])
 
         if self.quickly_executed and thisdir != self.fm.thisdir and pattern != "..":
             self.fm.block_input(0.5)
@@ -1208,9 +1217,7 @@ class scout(Command):
             self.fm.thisdir.filter = self._build_regex()
         if self.FILTER in self.flags or self.PERM_FILTER in self.flags:
             self.fm.thisdir.refilter()
-        if self._count(move=asyoutype) == 1 and self.AUTO_OPEN in self.flags:
-            return True
-        return False
+        return self._count(move=asyoutype) == 1 and self.AUTO_OPEN in self.flags
 
     def tab(self, tabnum):
         self._count(move=True, offset=tabnum)
@@ -1229,7 +1236,7 @@ class scout(Command):
         # Handle carets at start and dollar signs at end separately
         if pattern.startswith('^'):
             pattern = pattern[1:]
-            frmat = "^" + frmat
+            frmat = f"^{frmat}"
         if pattern.endswith('$'):
             pattern = pattern[:-1]
             frmat += "$"
@@ -1248,12 +1255,12 @@ class scout(Command):
 
         # Invert regular expression if necessary
         if self.INVERT in flags:
-            regex = "^(?:(?!%s).)*$" % regex
+            regex = f"^(?:(?!{regex}).)*$"
 
         # Compile Regular Expression
         options = re.UNICODE
         if self.IGNORE_CASE in flags or self.SMART_CASE in flags and \
-                pattern.islower():
+                    pattern.islower():
             options |= re.IGNORECASE
         try:
             self._regex = re.compile(regex, options)
@@ -1307,13 +1314,23 @@ class filter_inode_type(Command):
     FILTER_LINKS = 'l'
 
     def execute(self):
-        if not self.arg(1):
-            self.fm.thisdir.inode_type_filter = None
-        else:
-            self.fm.thisdir.inode_type_filter = lambda file: (
-                    True if ((self.FILTER_DIRS  in self.arg(1) and file.is_directory) or
-                             (self.FILTER_FILES in self.arg(1) and file.is_file and not file.is_link) or
-                             (self.FILTER_LINKS in self.arg(1) and file.is_link)) else False)
+        self.fm.thisdir.inode_type_filter = (
+            (
+                lambda file: bool(
+                    (
+                        (self.FILTER_DIRS in self.arg(1) and file.is_directory)
+                        or (
+                            self.FILTER_FILES in self.arg(1)
+                            and file.is_file
+                            and not file.is_link
+                        )
+                        or (self.FILTER_LINKS in self.arg(1) and file.is_link)
+                    )
+                )
+            )
+            if self.arg(1)
+            else None
+        )
         self.fm.thisdir.refilter()
 
 
@@ -1325,8 +1342,7 @@ class grep(Command):
 
     def execute(self):
         if self.rest(1):
-            action = ['grep', '--line-number']
-            action.extend(['-e', self.rest(1), '-r'])
+            action = ['grep', '--line-number', *['-e', self.rest(1), '-r']]
             action.extend(f.path for f in self.fm.thistab.get_selection())
             self.fm.execute_command(action, flags='p')
 
@@ -1424,11 +1440,8 @@ class prompt_metadata(Command):
 
     def _fill_console(self, key):
         metadata = self.fm.metadata.get_metadata(self.fm.thisfile.path)
-        if key in metadata and metadata[key]:
-            existing_value = metadata[key]
-        else:
-            existing_value = ""
-        text = "%s %s %s" % (self._command_name, key, existing_value)
+        existing_value = metadata[key] if key in metadata and metadata[key] else ""
+        text = f"{self._command_name} {key} {existing_value}"
         self.fm.open_console(text, position=len(text))
 
 
@@ -1442,8 +1455,7 @@ class meta(prompt_metadata):
     def execute(self):
         key = self.arg(1)
         value = self.rest(1)
-        update_dict = dict()
-        update_dict[key] = self.rest(2)
+        update_dict = {key: self.rest(2)}
         selection = self.fm.thistab.get_selection()
         for f in selection:
             self.fm.metadata.set_metadata(f.path, update_dict)
@@ -1455,8 +1467,11 @@ class meta(prompt_metadata):
         if key in metadata and metadata[key]:
             return [" ".join([self.arg(0), self.arg(1), metadata[key]])]
         else:
-            return [self.arg(0) + " " + key for key in sorted(metadata)
-                    if key.startswith(self.arg(1))]
+            return [
+                f"{self.arg(0)} {key}"
+                for key in sorted(metadata)
+                if key.startswith(self.arg(1))
+            ]
 
 
 class linemode(default_linemode):
@@ -1476,7 +1491,7 @@ class linemode(default_linemode):
             mode = DEFAULT_LINEMODE
 
         if mode not in self.fm.thisfile.linemode_dict:
-            self.fm.notify("Unhandled linemode: `%s'" % mode, bad=True)
+            self.fm.notify(f"Unhandled linemode: `{mode}'", bad=True)
             return
 
         self.fm.thisdir._set_linemode_of_children(mode)
