@@ -39,6 +39,11 @@ antigen bundle sroze/docker-compose-zsh-plugin
 antigen bundle lukechilds/zsh-better-npm-completion
 antigen theme romkatv/powerlevel10k
 antigen bundle 'wfxr/forgit'
+antigen bundle unixorn/fzf-zsh-plugin@main
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+
 
 # Load the theme.
 #antigen theme robbyrussell
@@ -105,6 +110,7 @@ autoload -Uz compinit
 compinit
 # # End of lines added by compinstall
 
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
@@ -118,8 +124,9 @@ plugins=(
   docker-compose
   heroku
   postgres
-  git-flow
-  fzf
+  #git-flow
+  #fzf
+  ag
   autoupdate
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
@@ -156,10 +163,12 @@ unsetopt beep
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh 
 # Display 
 export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 
+export FZF_DEFAULT_OPTS="--extended --cycle --bind=alt-j:preview-down --bind=alt-k:preview-up"
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
@@ -173,7 +182,7 @@ export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/nu
 alias nw='tmux new-window'
 alias bb='alias | fzf'
 #alias exa='exa --sort created -lha --git'
-alias vim='nvim'
+#alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -185,7 +194,7 @@ alias sgl='git log --oneline --pretty=format:"%an %s"'
 alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
 alias glv='nvim -c GV'
-alias gld='git log --ext-diff -p | cdiff -s -w 100'
+alias gld='git log --ext-diff -p . | cdiff -s'
 alias gd='git diff | cdiff -s -w 100 '
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -199,9 +208,14 @@ alias treel='tree | less'
 alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
 alias grim="nvim -c :Rg"
 alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
-alias cat='bat'
+#alias cat='bat'
+alias compare_develop='git diff $(git_develop_branch)...$(git_current_branch ) | cdiff -s'
 #alias python=/usr/local/bin/python3.7
 #alias pip=/usr/local/bin/pip3
+
+alias domino_docker_bash_local="docker container exec --workdir=/home/brian/ax-livia/test -u root -it $(docker ps -q -f name='regression-local-run') "
+alias domino_docker_bash="docker container exec --workdir=/home/brian/ax-livia/test -u root -it $(docker ps -q -f name='regression-run') "
+#echo 'eval "$(gh copilot alias -- zsh)"' >> ~/.zshrc
 
 # heroku autocomplete setup
 HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
@@ -239,9 +253,9 @@ unset env
 
 alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --color=always % | diff-so-fancy'"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --ext-diff  --color=always % | diff-so-fancy '"
 
-# fcoc_preview - checkout git commit with previews
+ #fcoc_preview - checkout git commit with previews
 fcoc_preview() {
   local commit
   commit=$( glNoGraph |
@@ -252,10 +266,62 @@ fcoc_preview() {
 
 # fshow_preview - git commit browser with previews
 fshow_preview() {
-    $glNoGraph |
+    glNoGraph |
         fzf --no-sort --reverse --tiebreak=index --no-multi \
             --ansi --preview="$_viewGitLogLine" \
                 --header "enter to view, alt-y to copy hash" \
-                --bind "enter:execute:$_viewGitLogLine   | less -R" \
+                --bind "enter:execute:$_viewGitLogLine   " \
                 --bind "alt-y:execute:$_gitLogLineToHash | xclip"
 }
+fshow_commits(){
+    glNoGraph | fzf --no-sort --reverse --tiebreak=index --no-multi --ansi --preview="$_viewGitLogLine" \
+        --header "enter2view|alt-j to preview-down|alt-k to preview-up|ctrl-f to preview-page-down|ctrl-b to preview-page-up|q to abort" \
+        --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,enter:execute:$_gitLogLineToHash |\
+        xargs -I % sh -c 'git show --ext-diff  % | \
+        cdiff -s -w 100 '"
+}
+wget-jenkins() {
+  wget --auth-no-challenge \
+       --http-user=brian.nyamu@domino-uk.com \
+       --http-password=11a4db2ab39dce6d0cafca6c5da6278e77 \
+       "$@"
+}
+RIG_MAC_OR_IPADDR=""
+get_mac() {
+    RIG_MAC_OR_IPADDR=$(curl -s "https://rig-server.domino-printing.org/" | grep -i "$@" | cut -d',' -f3)
+    echo $RIG_MAC_OR_IPADDR
+}
+get_ath_logs() {
+    watch -n 2 "wget -qO- $@ | tac |sed 's/CMD:/\nCMD:/g'| tail"
+}
+get_picard_ath_logs() {
+    local old_result=""
+    local ath_logs_file="/tmp/ath_logs.txt"
+    echo $old_result > $ath_logs_file
+    while true; do
+      result=$(curl -s http://$@:8001/Picard_ATH/log | 
+          sed 's/CMD:/\nCMD:/g' |
+          sed '/{.*/d' |
+          sed 's/,/,\t/g' |
+          head -n5)
+      if [ "$result" != "$old_result" ]; then
+        old_result=$result
+        echo $result | tac >> $ath_logs_file
+        echo $result
+      fi
+      sleep 0.05
+    done
+
+    #watch -n 2 "wget -qO- http://$@:8001/picard_ath/log | tac |sed 's/CMD:/\nCMD:/g'| head"
+}
+vnc_get_mac() {
+    nohup xtigervncviewer  $(wget -qO- https://rig-server.domino-printing.org/ | grep -i "$@" | cut -d',' -f3 ) > /dev/null 2>&1&
+}
+
+ssh_get_mac() {
+    ssh root@$(http https://rig-server.domino-printing.org/ | grep -i "$@" | cut -d',' -f3 ) 
+
+}
+
+#Copilot
+eval "$(gh copilot alias -- zsh)"
