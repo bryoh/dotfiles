@@ -24,14 +24,14 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-heroku'
 Plugin 'tpope/vim-dadbod'
 Plugin 'tpope/vim-sensible'
-Plugin 'rbong/vim-flog'
+"Plugin 'rbong/vim-flog'
 Plugin 'gregsexton/gitv'
-Plugin 'airblade/vim-gitgutter'
+"Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/gv.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vimlab/split-term.vim'
 Plugin 'janko-m/vim-test'
@@ -47,7 +47,7 @@ Plugin 'baskerville/bubblegum'
 Plugin 'reedes/vim-thematic'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'lifepillar/vim-solarized8'
-Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'vim-airline/vim-airline-themes'
 Plugin 'majutsushi/tagbar'
 Plugin 'blindFS/vim-taskwarrior'
 Plugin 'xolox/vim-misc'
@@ -66,7 +66,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'plytophogy/vim-virtualenv'
 Plugin 'marijnh/tern_for_vim'
 "Plugin 'skanehira/docker.vim'
-Plugin 'mzlogin/vim-markdown-toc'
+"Plugin 'mzlogin/vim-markdown-toc'
 "You need to have nodejs and yarn
 "Plugin 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Use release branch (recommend)
@@ -79,6 +79,10 @@ Plugin 'APZelos/blamer.nvim'
 Plugin 'markonm/traces.vim'
 "Plugin 'puremourning/vimspector'
 "Plugin 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update()  }  }
+Plugin 'zbirenbaum/copilot.lua'
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -107,10 +111,13 @@ set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 
 " Copy with leader key * from/to vim + from/to system
+set clipboard=unnamedplus
 noremap <Leader>y *+y 
 noremap <Leader>p *+p
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
+noremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Rg<CR>
 
 "Split behavior 
 "set splitbelow
@@ -142,6 +149,7 @@ nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 "nnoremap <silent> <c-> :TmuxNavigatePrevious<cr>
 
+
 " Set foldmethod
 set foldmethod=syntax
 set foldlevelstart=1
@@ -163,15 +171,15 @@ set background=dark
 let g:solarized_termcolors=256
 
 let g:solarized_termtrans = 1
-let g:airline_theme='solarized'
-let g:airline_solarized_bg='dark'
+"let g:airline_theme='solarized'
+"let g:airline_solarized_bg='dark'
 
 
 colorscheme holokai
 " ---------------------------------- "
 "  Python Stuff 
 " ---------------------------------- "
-map <F8> oconte=context<CR>__import__('ipdb').set_trace() <CR>
+map <F8> oconte=context if 'context' in locals() else None<CR>__import__('ipdb').set_trace() <CR><Esc>
 "
 " ---------------------------------- "
 " Configure YouCompleteMe
@@ -181,9 +189,11 @@ let g:ycm_python_binary_path = 'python'
 let g:ycm_autoclose_preview_window_after_completion=0
 "let g:ycm_goto_buffer_command = 'split'
 set completeopt+=preview
-map <F4> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 map <F3> :vsplit \| YcmCompleter GoToDefinitionElseDeclaration<CR>
 map <F2> :split \| YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <F4> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+map <leader><F5> :close<CR>
+map <F6> :CopilotChatToggle<CR>
 "  Ctags file
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming
@@ -337,3 +347,17 @@ let g:vimwiki_list = [wiki_1,] " wiki_2]
 "let g:vimwiki_list = [{'path':'~/friendly-barnacle/vimwiki/', 'path_html':'~/friendly-barnacle/vimwiki_html/'}]
 
 
+" ---------------------------------- "
+"  Forgit stuff
+
+nnoremap <leader>gcn :CopilotChatToggle<CR>
+"Copilot
+lua << EOF
+require("CopilotChat").setup {
+  debug = true, -- Enable debugging
+  -- See Configuration section for rest
+  -- Q: how to make copilot to accept the suggestion?
+  -- A: press <C-n> to accept the suggestion
+
+}
+EOF
