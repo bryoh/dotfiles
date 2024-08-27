@@ -14,3 +14,4 @@ i3/.config/gtk-3.0/bookmarks
 /i3/.config/configstore/.gitignore
 /i3/.config/dask/.gitignore
 /i3/.config/gtk-2.0/.gitignore
+.idea/
