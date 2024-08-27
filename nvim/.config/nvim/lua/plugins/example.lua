@@ -88,7 +88,6 @@ return {
                 'bashls',
                 'cssls',
                 'dockerls',
-                'gopls',
                 'html',
                 'jsonls',
                 'pyright',
