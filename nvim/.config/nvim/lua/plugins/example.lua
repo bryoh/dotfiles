@@ -84,7 +84,18 @@ return {
           end)
 
           require('mason-lspconfig').setup({
-            ensure_installed = {},
+            ensure_installed = {
+                'bashls',
+                'cssls',
+                'dockerls',
+                'gopls',
+                'html',
+                'jsonls',
+                'pyright',
+                'tsserver',
+                'vimls',
+                'yamlls',
+            },
             handlers = {
               -- this first function is the "default handler"
               -- it applies to every language server without a "custom handler"
@@ -120,9 +131,9 @@ return {
     -- opts will be merged with the parent spec
     opts = { use_diagnostic_signs = true },
   },
---
---  -- disable trouble
---  { "folke/trouble.nvim", enabled = false },
+--                                           /
+  -- disable trouble
+  { "folke/trouble.nvim", enabled = false },
 --
 --  -- override nvim-cmp and add cmp-emoji
 --  {
@@ -156,6 +167,25 @@ return {
       },
     },
   },
+    {
+      "tpope/vim-fugitive",
+      cmd = { "G", "Git" },
+      config = function()
+        vim.cmd([[
+          nnoremap <leader>gs :Git<CR>
+          nnoremap <leader>gc :Git commit<CR>
+          nnoremap <leader>gp :Git push<CR>
+          nnoremap <leader>gl :Git pull<CR>
+        ]])
+      end,
+    },
+
+
+    {
+      "rmagatti/goto-preview",
+      event = "BufEnter",
+      config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+    },
 --
 --  -- add pyright to lspconfig
 --  {
@@ -169,78 +199,78 @@ return {
 --      },
 --    },
 --  },
---
---  -- add tsserver and setup with typescript.nvim instead of lspconfig
---  {
---    "neovim/nvim-lspconfig",
---    dependencies = {
---      "jose-elias-alvarez/typescript.nvim",
---      init = function()
---        require("lazyvim.util").lsp.on_attach(function(_, buffer)
---          -- stylua: ignore
---          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
---          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
---        end)
---      end,
---    },
---    ---@class PluginLspOpts
---    opts = {
---      ---@type lspconfig.options
---      servers = {
---        -- tsserver will be automatically installed with mason and loaded with lspconfig
---        tsserver = {},
---      },
---      -- you can do any additional lsp server setup here
---      -- return true if you don't want this server to be setup with lspconfig
---      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
---      setup = {
---        -- example to setup with typescript.nvim
---        tsserver = function(_, opts)
---          require("typescript").setup({ server = opts })
---          return true
+    {
+      "kawre/leetcode.nvim",--  -- add tsserver and setup with typescript.nvim instead of lspconfig
+      build = ":TSUpdate html",--  {
+      dependencies = {--    "neovim/nvim-lspconfig",
+          "nvim-telescope/telescope.nvim",--    dependencies = {
+          "nvim-lua/plenary.nvim", -- required by telescope--      "jose-elias-alvarez/typescript.nvim",
+          "MunifTanjim/nui.nvim",--      init = function()
+  --        require("lazyvim.util").lsp.on_attach(function(_, buffer)
+          -- optional--          -- stylua: ignore
+          "nvim-treesitter/nvim-treesitter",--          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+          -- "rcarriga/nvim-notify",--          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+          -- "nvim-tree/nvim-web-devicons",--        end)
+      },--      end,
+      opts = {--    },
+        lang = "python",--    ---@class PluginLspOpts
+      },--    opts = {
+    },--      ---@type lspconfig.options
+  --      servers = {
+    { -- LSP Configuration & Plugins--        -- tsserver will be automatically installed with mason and loaded with lspconfig
+      'neovim/nvim-lspconfig',--        tsserver = {},
+      dependencies = {--      },
+        -- Automatically install LSPs to stdpath for neovim--      -- you can do any additional lsp server setup here
+        'williamboman/mason.nvim',--      -- return true if you don't want this server to be setup with lspconfig
+        'williamboman/mason-lspconfig.nvim',--      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+  --      setup = {
+        -- Useful status updates for LSP--        -- example to setup with typescript.nvim
+        'j-hui/fidget.nvim',--        tsserver = function(_, opts)
+      }--          require("typescript").setup({ server = opts })
+    },--          return true
 --        end,
 --        -- Specify * to use this function as a fallback for any server
 --        -- ["*"] = function(server, opts) end,
 --      },
 --    },
 --  },
---
---  -- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
---  -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
---  { import = "lazyvim.plugins.extras.lang.typescript" },
---
---  -- add more treesitter parsers
---  {
---    "nvim-treesitter/nvim-treesitter",
---    opts = {
---      ensure_installed = {
---        "bash",
---        "html",
---        "javascript",
---        "json",
---        "lua",
---        "markdown",
---        "markdown_inline",
---        "python",
---        "query",
---        "regex",
---        "tsx",
---        "typescript",
---        "vim",
---        "yaml",
---      },
---    },
---  },
---
---  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
---  -- would overwrite `ensure_installed` with the new value.
---  -- If you'd rather extend the default config, use the code below instead:
---  {
---    "nvim-treesitter/nvim-treesitter",
---    opts = function(_, opts)
---      -- add tsx and treesitter
---      vim.list_extend(opts.ensure_installed, {
---        "tsx",
+  {
+    "folke/noice.nvim",--  -- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
+    config = function()--  -- treesitter, mason and typescript.nvim. So instead of the above, you can use:
+      require("noice").setup({--  { import = "lazyvim.plugins.extras.lang.typescript" },
+        -- add any options here--
+        routes = {--  -- add more treesitter parsers
+          {--  {
+            filter = {--    "nvim-treesitter/nvim-treesitter",
+              event = 'msg_show',--    opts = {
+              any = {--      ensure_installed = {
+                { find = '%d+L, %d+B' },--        "bash",
+                { find = '; after #%d+' },--        "html",
+                { find = '; before #%d+' },--        "javascript",
+                { find = '%d fewer lines' },--        "json",
+                { find = '%d more lines' },--        "lua",
+              },--        "markdown",
+            },--        "markdown_inline",
+            opts = { skip = true },--        "python",
+          }--        "query",
+        },--        "regex",
+        presets = {--        "tsx",
+          bottom_search = true, -- use a classic bottom cmdline for search--        "typescript",
+          command_palette = true, -- position the cmdline and popupmenu together--        "vim",
+          long_message_to_split = true, -- long messages will be sent to a split--        "yaml",
+          lsp_doc_border = false, -- add a border to hover docs and signature help--      },
+        },--    },
+      })--  },
+    end,--
+    dependencies = {--  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries--  -- would overwrite `ensure_installed` with the new value.
+      "MunifTanjim/nui.nvim",--  -- If you'd rather extend the default config, use the code below instead:
+      -- OPTIONAL:--  {
+      --   `nvim-notify` is only needed, if you want to use the notification view.--    "nvim-treesitter/nvim-treesitter",
+      --   If not available, we use `mini` as the fallback--    opts = function(_, opts)
+    --   "rcarriga/nvim-notify",--      -- add tsx and treesitter
+    }--      vim.list_extend(opts.ensure_installed, {
+  },--        "tsx",
 --        "typescript",
 --      })
 --    end,
@@ -284,4 +314,5 @@ return {
 --      },
 --    },
 --  },
+
 }
