@@ -323,5 +323,7 @@ return {
 --      },
 --    },
 --  },
+-- other plugins...
+  {"nvim-pack/nvim-spectre"},
 
 }
