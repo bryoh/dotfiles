@@ -1,12 +1,17 @@
--- No example configuration was found for this plugin.
---
--- For detailed information on configuring this plugin, please refer to its
--- official documentation:
---
---   https://github.com/aserowy/tmux.nvim
---
--- If you wish to use this plugin, you can optionally modify and then uncomment
--- the configuration below.
 return {
-    'ldelossa/nvim-ide'
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
 }
