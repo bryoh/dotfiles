@@ -20,12 +20,46 @@ return {
       }
 
       -- Keymaps
-      vim.api.nvim_set_keymap('n', '<leader>c<F5>', '<cmd>lua require"dap".continue()<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>c<space>', '<cmd>lua require"dap".step_over()<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>ci', '<cmd>lua require"dap".step_into()<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>co', '<cmd>lua require"dap".step_out()<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>cb', '<cmd>lua require"dap".toggle_breakpoint()<CR>', { noremap = true, silent = true })
-      vim.api.nvim_set_keymap('n', '<leader>cq', '<cmd>lua require"dap".terminate()<CR>', { noremap = true, silent = true })
+      -- stylua: ignore
+      local get_args = function() return vim.fn.input('Args: ') end
+      local keys = {
+        { "<leader>d", "", desc = "+debug", mode = {"n", "v"} },
+        { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+        { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+        { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+        { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+        { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+        { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
+        { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+        { "<leader>dj", function() require("dap").down() end, desc = "Down" },
+        { "<leader>dk", function() require("dap").up() end, desc = "Up" },
+        { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
+        { "<leader>dO", function() require("dap").step_out() end, desc = "Step Out" },
+        { "<leader>do", function() require("dap").step_over() end, desc = "Step Over" },
+        { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
+        { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+        { "<leader>ds", function() require("dap").session() end, desc = "Session" },
+        { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+        { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+      }
+
+      for _, key in ipairs(keys) do
+        if type(key.mode) == "table" then
+          for _, m in ipairs(key.mode) do
+            if type(key[2]) == "function" then
+              vim.keymap.set(m, key[1], key[2], { noremap = true, silent = true, desc = key.desc })
+            else
+              vim.api.nvim_set_keymap(m, key[1], key[2] or "", { noremap = true, silent = true, desc = key.desc })
+            end
+          end
+        else
+          if type(key[2]) == "function" then
+            vim.keymap.set(key.mode or 'n', key[1], key[2], { noremap = true, silent = true, desc = key.desc })
+          else
+            vim.api.nvim_set_keymap(key.mode or 'n', key[1], key[2] or "", { noremap = true, silent = true, desc = key.desc })
+          end
+        end
+      end
     end,
   },
   {
