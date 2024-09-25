@@ -99,8 +99,11 @@ return {
         opts.desc = "Show LSP references"
         keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
-        opts.desc = "Go to declaration"
-        keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- go to declaration
+        opts.desc = "Go to declaration in a new split"
+        keymap.set("n", "gD", function()
+          vim.cmd("split")
+          vim.lsp.buf.declaration()
+        end, opts) -- go to declaration in a new split
 
         opts.desc = "Show LSP definitions"
         keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- show lsp definitions
