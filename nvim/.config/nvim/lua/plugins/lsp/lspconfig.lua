@@ -16,6 +16,76 @@ return {
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+      -- Python LSP
+      lspconfig.pyright.setup({})
+
+      -- C++ LSP
+      lspconfig.clangd.setup({})
+
+      -- TypeScript/JavaScript LSP
+      lspconfig.tsserver.setup({})
+
+      -- Java LSP
+      lspconfig.jdtls.setup({})
+
+      -- Go LSP
+      lspconfig.gopls.setup({})
+
+      -- Rust LSP
+      lspconfig.rust_analyzer.setup({})
+
+      -- HTML LSP
+      lspconfig.html.setup({})
+
+      -- CSS LSP
+      lspconfig.cssls.setup({})
+
+      -- Tailwind CSS LSP
+      lspconfig.tailwindcss.setup({})
+
+      -- Svelte LSP
+      lspconfig.svelte.setup({})
+
+      -- Lua LSP
+      lspconfig.lua_ls.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" }, -- Recognize 'vim' as a global for Neovim
+            },
+          },
+        },
+      })
+
+      -- GraphQL LSP
+      lspconfig.graphql.setup({})
+
+      -- Emmet LSP
+      lspconfig.emmet_ls.setup({})
+
+      -- Prisma LSP
+      lspconfig.prismals.setup({})
+
+      -- PHP LSP
+      lspconfig.phpactor.setup({})
+
+      -- Bash LSP
+      lspconfig.bashls.setup({})
+
+      -- Docker LSP
+      lspconfig.dockerls.setup({})
+
+      -- YAML LSP
+      lspconfig.yamlls.setup({})
+
+      -- JSON LSP
+      lspconfig.jsonls.setup({})
+
+      -- Vue.js LSP
+      lspconfig.vuels.setup({})
+
+      -- Dart LSP
+      lspconfig.dartls.setup({})
     local keymap = vim.keymap -- for conciseness
 
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -120,7 +190,7 @@ return {
       ["clangd"] = function ()
         lspconfig["clangd"].setup({
           capabilities = capabilities,
-          cmd = { "clangd", "--background-index" },
+          cmd = { "clangd", "--background-index", "--compile" },
           filetypes = { "c", "cpp", "objc", "objcpp" },
         })
       end,

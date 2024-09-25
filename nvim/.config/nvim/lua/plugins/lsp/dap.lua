@@ -2,23 +2,38 @@ return {
   {
     "mfussenegger/nvim-dap",
     config = function()
+      -- DAP setup for debugging
       local dap = require('dap')
 
-      -- C++ configuration
+      -- Python DAP (debugpy)
+      require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+
+      -- C++ DAP (cpptools)
+      dap.adapters.cppdbg = {
+        id = 'cppdbg',
+        type = 'executable',
+        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7", -- Mason-installed cpptools
+      }
+
       dap.configurations.cpp = {
         {
           name = "Launch",
-          type = "lldb",
+          type = "cppdbg",
           request = "launch",
           program = function()
-            return vim.fn.input('/usr/lib/llvm-10/bin/lldb-vscode', vim.fn.getcwd() .. '/', 'file')
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
-          cwd = '${workspaceFolder}',
+          cwd = '\\${workspaceFolder}',
           stopOnEntry = false,
-          args = {},
+          setupCommands = {
+            {
+              text = '-enable-pretty-printing',
+              description =  'enable pretty printing',
+              ignoreFailures = false
+            },
+          },
         },
       }
-
       -- Keymaps
       -- stylua: ignore
       local get_args = function() return vim.fn.input('Args: ') end
@@ -101,7 +116,7 @@ return {
       }
     end,
   },
-  {
+  --[[ {
     "ellisonleao/dotenv.nvim",
     config = function()
       require('dotenv').setup({
@@ -133,5 +148,21 @@ return {
         pythonPath = get_python_path,
       })
     end,
+  }, ]]
+  {
+  'linux-cultist/venv-selector.nvim',
+  dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
+  opts = {
+    -- Your options go here
+    -- name = "venv",
+    -- auto_refresh = false
   },
+  event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+  keys = {
+    -- Keymap to open VenvSelector to pick a venv.
+    { '<leader>vs', '<cmd>VenvSelect<cr>' },
+    -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
+    { '<leader>vc', '<cmd>VenvSelectCached<cr>' },
+  },
+}
 }
