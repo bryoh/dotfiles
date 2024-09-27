@@ -4,8 +4,8 @@ return {
   event = "InsertEnter",
   config = function()
     require("copilot").setup({
-      suggestion = { enabled = false }, -- disable suggestions
-      panel = { enabled = false }, -- disable panel
+      suggestion = { enabled = true }, -- disable suggestions
+      panel = { enabled = true  }, -- disable panel
     })
   end,
 }

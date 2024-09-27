@@ -368,7 +368,7 @@ return {
   "zbirenbaum/copilot.lua",
   dependencies = { "zbirenbaum/copilot-cmp" },
   config = function()
-    require("copilot").setup({ suggestion = { enabled = false }, panel = { enabled = false } })
+    require("copilot").setup({ suggestion = { enabled = true }, panel = { enabled = true  } })
     require("copilot_cmp").setup()
   end,
 }
