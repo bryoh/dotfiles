@@ -21,6 +21,11 @@ require("lazy").setup({
 
     -- import/override with your plugins
     { import = "lazyvim.plugins.extras.coding.mini-comment" },
+    { import = "lazyvim.plugins.extras.test.core" },
+    { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
+    { import = "lazyvim.plugins.extras.editor.refactoring" },
+    { import = "lazyvim.plugins.extras.util.octo" },
+    { import = "lazyvim.plugins.extras.vscode" },
     { import = "plugins" },
     { import = "plugins.lsp"},
   },
