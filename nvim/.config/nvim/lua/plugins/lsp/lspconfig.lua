@@ -15,12 +15,18 @@ return {
 
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    local capabilities = cmp_nvim_lsp.default_capabilities()
 
       -- Python LSP
       lspconfig.pyright.setup({})
 
       -- C++ LSP
-      lspconfig.clangd.setup({})
+      --[[ lspconfig.clangd.setup({
+        capabilities = capabilities,
+        cmd = { "clangd", "--background-index" },
+        filetypes = { "c", "cpp", "objc", "objcpp" },
+      }) ]]
+
 
       -- TypeScript/JavaScript LSP
       lspconfig.tsserver.setup({})
@@ -147,7 +153,6 @@ return {
     local capabilities = cmp_nvim_lsp.default_capabilities()
 
     -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
@@ -193,7 +198,7 @@ return {
       ["clangd"] = function ()
         lspconfig["clangd"].setup({
           capabilities = capabilities,
-          cmd = { "clangd", "--background-index", "--compile" },
+          cmd = { "clangd", "--background-index" },
           filetypes = { "c", "cpp", "objc", "objcpp" },
         })
       end,

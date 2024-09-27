@@ -8,32 +8,6 @@ return {
       -- Python DAP (debugpy)
       require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 
-      -- C++ DAP (cpptools)
-      dap.adapters.cppdbg = {
-        id = 'cppdbg',
-        type = 'executable',
-        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7", -- Mason-installed cpptools
-      }
-
-      dap.configurations.cpp = {
-        {
-          name = "Launch",
-          type = "cppdbg",
-          request = "launch",
-          program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-          end,
-          cwd = '${workspaceFolder}',
-          stopOnEntry = false,
-          setupCommands = {
-            {
-              text = '-enable-pretty-printing',
-              description =  'enable pretty printing',
-              ignoreFailures = false
-            },
-          },
-        },
-      }
       -- Keymaps
       -- stylua: ignore
       local get_args = function() return vim.fn.input('Args: ') end
@@ -174,6 +148,32 @@ return {
         type = 'executable',
         command = '/usr/lib/llvm-10/bin/lldb-vscode', -- Adjust this path if necessary
         name = 'lldb'
+      }
+      -- C++ DAP (cpptools)
+      dap.adapters.cppdbg = {
+        id = 'cppdbg',
+        type = 'executable',
+        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7", -- Mason-installed cpptools
+      }
+
+      dap.configurations.cpp = {
+        {
+          name = "Launch",
+          type = "cppdbg",
+          request = "launch",
+          program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          end,
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+          setupCommands = {
+            {
+              text = '-enable-pretty-printing',
+              description =  'enable pretty printing',
+              ignoreFailures = false
+            },
+          },
+        },
       }
     end,
   },
