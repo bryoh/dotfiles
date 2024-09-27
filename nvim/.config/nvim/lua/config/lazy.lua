@@ -28,6 +28,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.vscode" },
     { import = "plugins" },
     { import = "plugins.lsp"},
+    { import = "plugins.spectre"},
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
