@@ -215,6 +215,7 @@ alias compare_develop='git diff $(git_develop_branch)...$(git_current_branch ) |
 
 alias domino_docker_bash_local="docker container exec --workdir=/home/brian/ax-livia/test -u root -it $(docker ps -q -f name='regression-local-run') "
 alias domino_docker_bash="docker container exec --workdir=/home/brian/ax-livia/test -u root -it $(docker ps -q -f name='regression-run') "
+alias conda="/home/brian/anaconda3/bin/conda"
 #echo 'eval "$(gh copilot alias -- zsh)"' >> ~/.zshrc
 
 # heroku autocomplete setup
@@ -325,3 +326,4 @@ ssh_get_mac() {
 
 #Copilot
 eval "$(gh copilot alias -- zsh)"
+

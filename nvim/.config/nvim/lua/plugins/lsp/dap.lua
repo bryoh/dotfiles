@@ -72,18 +72,18 @@ return {
         layouts = {
           {
             elements = {
-              { id = "scopes", size = 0.50 }, -- 50% for scopes
+              { id = "scopes", size = 0.60 }, -- 50% for scopes
               { id = "breakpoints", size = 0.20 }, -- 20% for breakpoints
               { id = "stacks", size = 0.10 }, -- 10% for stacks
-              { id = "watches", size = 0.20 }, -- 20% for watches
+              { id = "watches", size = 0.10 }, -- 20% for watches
             },
             size = 40, -- Set the height/width for this layout
             position = "left", -- Position: "left", "right", "top", "bottom"
           },
           {
             elements = {
-              { id = "repl", size = 0.5 },
-              { id = "console", size = 0.5 },
+              -- { id = "repl", size = 0.5 },
+              { id = "console", size = 1 },
             },
             size = 10,
             position = "bottom", -- Position this layout at the bottom
