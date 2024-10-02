@@ -148,6 +148,7 @@ return {
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
       end,
     })
+    local util = require 'lspconfig.util'
 
     -- used to enable autocompletion (assign to every lsp server config)
     local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -198,7 +199,21 @@ return {
       ["clangd"] = function ()
         lspconfig["clangd"].setup({
           capabilities = capabilities,
-          cmd = { "clangd", "--background-index" },
+          cmd = { "clangd",
+            "--background-index",
+            "--clang-tidy",
+            "--suggest-missing-includes",
+            "--query-driver=/usr/bin/g++",
+            -- "--compile-commands-dir=/home/brian/friendly-barnacle/build",
+            -- "--compile-commands-dir=./build",
+            -- "-I /usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+            -- "-I /usr/include/x86_64-linux-gnu/qt5",
+            -- "-I /usr/include/x86_64-linux-gnu/qt5/QtGui",
+            -- "-I /usr/include/x86_64-linux-gnu/qt5",
+            -- "-I /usr/include/x86_64-linux-gnu/qt5/QtCore",
+            -- "-I /usr/include/x86_64-linux-gnu/qt5"
+          },
+          root_dir = util.root_pattern("compile_commands.json", ".git", ''),
           filetypes = { "c", "cpp", "objc", "objcpp" },
         })
       end,
