@@ -76,11 +76,11 @@ return {
       }),
       -- sources for autocompletion
       sources = cmp.config.sources({
+        { name = "path", group_index = 2  }, -- file system paths
         { name = "copilot", group_index = 2 }, -- copilot suggestions
         { name = "nvim_lsp", group_index = 2 },
         { name = "luasnip" , group_index = 2 }, -- snippets
         { name = "buffer", group_index = 2  }, -- text within current buffer
-        { name = "path", group_index = 2  }, -- file system paths
       }),
 
       -- configure lspkind for vs-code like pictograms in completion menu
