@@ -54,6 +54,13 @@ return {
         end
       end,
     })
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "neo-tree",
+      callback = function()
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+      end,
+    })
   end,
   opts = {
     sources = { "filesystem", "buffers", "git_status" },
@@ -64,6 +71,7 @@ return {
       use_libuv_file_watcher = true,
     },
     window = {
+      position = "left",
       mappings = {
         ["l"] = "open",
         ["h"] = "close_node",
@@ -82,7 +90,17 @@ return {
           end,
           desc = "Open with System Application",
         },
-        ["P"] = { "toggle_preview", config = { use_float = false } },
+        ["P"] = { "toggle_preview", config = { use_float = true } },
+        ["<C-l>"] = {
+          function(state)
+            local node = state.tree:get_node()
+            local path = node:get_id()
+            vim.cmd("lcd " .. path)
+            vim.cmd("cd " .. path)
+            -- require("neo-tree").refresh()
+          end,
+          desc = "Change Directory",
+        }
       },
     },
     default_component_configs = {
