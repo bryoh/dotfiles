@@ -21,11 +21,11 @@ return {
       lspconfig.pyright.setup({})
 
       -- C++ LSP
-      --[[ lspconfig.clangd.setup({
+      lspconfig.clangd.setup({
         capabilities = capabilities,
         cmd = { "clangd", "--background-index" },
         filetypes = { "c", "cpp", "objc", "objcpp" },
-      }) ]]
+      })
 
 
       -- TypeScript/JavaScript LSP
@@ -196,27 +196,27 @@ return {
           filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
         })
       end,
-      ["clangd"] = function ()
-        lspconfig["clangd"].setup({
-          capabilities = capabilities,
-          cmd = { "clangd",
-            "--background-index",
-            "--clang-tidy",
-            "--suggest-missing-includes",
-            "--query-driver=/usr/bin/g++",
-            -- "--compile-commands-dir=/home/brian/friendly-barnacle/build",
-            -- "--compile-commands-dir=./build",
-            -- "-I /usr/include/x86_64-linux-gnu/qt5/QtWidgets",
-            -- "-I /usr/include/x86_64-linux-gnu/qt5",
-            -- "-I /usr/include/x86_64-linux-gnu/qt5/QtGui",
-            -- "-I /usr/include/x86_64-linux-gnu/qt5",
-            -- "-I /usr/include/x86_64-linux-gnu/qt5/QtCore",
-            -- "-I /usr/include/x86_64-linux-gnu/qt5"
-          },
-          root_dir = util.root_pattern("compile_commands.json", ".git", ''),
-          filetypes = { "c", "cpp", "objc", "objcpp" },
-        })
-      end,
+      -- ["clangd"] = function ()
+      --   lspconfig["clangd"].setup({
+      --     capabilities = capabilities,
+      --     cmd = { "clangd",
+      --       "--background-index",
+      --       "--clang-tidy",
+      --       "--suggest-missing-includes",
+      --       -- "--query-driver=/usr/bin/g++",
+      --       -- "--compile-commands-dir=/home/brian/friendly-barnacle/build",
+      --       -- "--compile-commands-dir=./build",
+      --       -- "-I /usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+      --       -- "-I /usr/include/x86_64-linux-gnu/qt5",
+      --       -- "-I /usr/include/x86_64-linux-gnu/qt5/QtGui",
+      --       -- "-I /usr/include/x86_64-linux-gnu/qt5",
+      --       -- "-I /usr/include/x86_64-linux-gnu/qt5/QtCore",
+      --       -- "-I /usr/include/x86_64-linux-gnu/qt5"
+      --     },
+      --     root_dir = util.root_pattern("compile_commands.json", ".git", ''),
+      --     filetypes = { "c", "cpp", "objc", "objcpp" },
+      --   })
+      -- end,
       --["clang-format"] = function ()
       --    lspconfig["clangd"].setup({
       --    capabilities = capabilities,

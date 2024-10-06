@@ -149,6 +149,7 @@ return {
         command = '/usr/lib/llvm-10/bin/lldb-vscode', -- Adjust this path if necessary
         name = 'lldb'
       }
+      
       -- C++ DAP (cpptools)
       dap.adapters.cppdbg = {
         id = 'cppdbg',
