@@ -14,7 +14,7 @@ export TERM='xterm-256color'
 
 source $HOME/dotfiles/antigen.zsh
 export JAVA_HOME='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
-export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/:${HOME}/go/bin/"
+export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/:/usr/local/go/bin/"
 
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
@@ -136,13 +136,11 @@ source <(kubectl completion zsh)
 #source $ZSH/oh-my-zsh.sh
 
 
-# Enable powerline status 
-
-#if [[ -r /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ]]; then
-	#source /usr/local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-#fi
-
 # User configuration
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/local/lib/python3.12/dist-packages/powerline/bindings/zsh/powerline.zsh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
