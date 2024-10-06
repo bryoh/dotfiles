@@ -18,7 +18,7 @@ require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-
+    
     -- import/override with your plugins
     { import = "lazyvim.plugins.extras.coding.mini-comment" },
     { import = "lazyvim.plugins.extras.test.core" },
@@ -27,31 +27,49 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.util.octo" },
     { import = "lazyvim.plugins.extras.vscode" },
     { import = "plugins" },
-    { import = "plugins.lsp"},
-    { import = "plugins.spectre"},
+    { import = "plugins.lsp" },
+
+    -- Disable neo-tree
+  -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
+
+    -- Add barbar.nvim configuration
+    { 'romgrk/barbar.nvim',
+      dependencies = {
+        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+      },
+      init = function()
+        vim.g.barbar_auto_setup = false -- Disable automatic setup to configure manually
+      end,
+      opts = {
+        animation = true,
+        auto_hide = true,
+        tabpages = true,
+        closable = true,
+        clickable = true,
+        icons = true,
+        -- Add more options here if needed...
+      },
+      version = '^1.0.0', -- Optional: only update barbar.nvim when a new 1.x version is released
+    },
   },
   defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
     lazy = false,
-    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-    -- have outdated releases, which may break your Neovim install.
     version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
     enabled = true, -- check for plugin updates periodically
     notify = false, -- notify on update
-  }, -- automatically check for plugin updates
+  },
   performance = {
     rtp = {
-      -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
         -- "matchit",
         -- "matchparen",
         -- "netrwPlugin",
+        "bufferline",
         "tarPlugin",
         "tohtml",
         "tutor",
@@ -60,3 +78,4 @@ require("lazy").setup({
     },
   },
 })
+
