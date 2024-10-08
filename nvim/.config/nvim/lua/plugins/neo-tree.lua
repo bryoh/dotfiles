@@ -91,7 +91,7 @@ return {
           desc = "Open with System Application",
         },
         ["P"] = { "toggle_preview", config = { use_float = true } },
-        ["<C-l>"] = {
+        ["L"] = {
           function(state)
             local node = state.tree:get_node()
             local path = node:get_id()

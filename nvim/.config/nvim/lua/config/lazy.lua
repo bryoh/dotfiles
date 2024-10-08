@@ -48,9 +48,22 @@ require("lazy").setup({
         closable = true,
         clickable = true,
         icons = true,
-        -- Add more options here if needed...
+        maximum_padding = 1,
+        maximum_length = 30,
+        no_name_title = 'No Name',
+        highlight_alternate = true,
+        highlight_inactive_file_icons = false,
+        icons = {
+          buffer_index = true,
+          buffer_number = false,
+          button = '',
+          filetype = {
+            enabled = true,
+          },
+          separator = { left = '▎', right = '' },
+          modified = { button = '●' },
+        },
       },
-      version = '^1.0.0', -- Optional: only update barbar.nvim when a new 1.x version is released
     },
   },
   defaults = {
