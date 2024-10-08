@@ -104,7 +104,7 @@ SAVEHIST=1000
 #bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/nyamu01b/.zshrc'
+zstyle :compinstall filename '/home/brian/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -122,8 +122,8 @@ plugins=(
   git
   docker
   docker-compose
-  heroku
-  postgres
+  # heroku
+  # postgres
   #git-flow
   #fzf
   ag
@@ -131,7 +131,7 @@ plugins=(
 )
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 
 #source $ZSH/oh-my-zsh.sh
 
@@ -213,7 +213,6 @@ alias compare_develop='git diff $(git_develop_branch)...$(git_current_branch ) |
 
 alias domino_docker_bash_local="docker container exec --workdir=/home/brian/ax-livia/test -u root -it $(docker ps -q -f name='regression-local-run') "
 alias domino_docker_bash="docker container exec --workdir=/home/brian/ax-livia/test -u root -it $(docker ps -q -f name='regression-run') "
-alias conda="/home/brian/anaconda3/bin/conda"
 #echo 'eval "$(gh copilot alias -- zsh)"' >> ~/.zshrc
 
 # heroku autocomplete setup
