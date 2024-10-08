@@ -6,7 +6,15 @@ return {
       local dap = require('dap')
 
       -- Python DAP (debugpy)
-      require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
+      -- require('dap-python').setup('~/.virtualenvs/debugpy/bin/python', {
+      require('dap-python').setup('~/miniconda3/envs/idebugpy/bin/python', {
+        console = 'integratedTerminal',
+        -- justMyCode = false,  -- This will show all code paths, not just your code
+        -- log = true  -- Enable logging for debugpy
+      })
+      dap.defaults.python = {
+        env = { PYTHONBREAKPOINT = "ipdb.set_trace" },  -- Comment this out for now
+      }
 
       -- Keymaps
       -- stylua: ignore
@@ -77,7 +85,7 @@ return {
               { id = "stacks", size = 0.10 }, -- 10% for stacks
               { id = "watches", size = 0.10 }, -- 20% for watches
             },
-            size = 40, -- Set the height/width for this layout
+            size = 60, -- Set the height/width for this layout
             position = "left", -- Position: "left", "right", "top", "bottom"
           },
           {
