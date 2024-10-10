@@ -6,9 +6,9 @@ return {
       local dap = require('dap')
 
       -- Python DAP (debugpy)
-      -- require('dap-python').setup('~/.virtualenvs/debugpy/bin/python', {
-      require('dap-python').setup('~/miniconda3/envs/idebugpy/bin/python', {
-        console = 'integratedTerminal',
+      require('dap-python').setup('~/miniconda3/envs/idebugpy/bin/ipython', {
+        -- console = 'integratedTerminal',
+        include_configs = true,  -- Add this line to include the required field
         -- justMyCode = false,  -- This will show all code paths, not just your code
         -- log = true  -- Enable logging for debugpy
       })
@@ -80,7 +80,7 @@ return {
         layouts = {
           {
             elements = {
-              { id = "scopes", size = 0.60 }, -- 50% for scopes
+              { id = "console", size = 0.60 }, -- 50% for scopes
               { id = "breakpoints", size = 0.20 }, -- 20% for breakpoints
               { id = "stacks", size = 0.10 }, -- 10% for stacks
               { id = "watches", size = 0.10 }, -- 20% for watches
@@ -91,7 +91,7 @@ return {
           {
             elements = {
               -- { id = "repl", size = 0.5 },
-              { id = "console", size = 1 },
+              { id = "scopes", size = 1 },
             },
             size = 10,
             position = "bottom", -- Position this layout at the bottom

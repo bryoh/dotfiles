@@ -16,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
+    -- import/override with your plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     
     -- import/override with your plugins
@@ -65,6 +65,16 @@ require("lazy").setup({
         },
       },
     },
+
+    -- Add the CSV viewer plugin
+    -- {
+    --   "mechatroner/rainbow_csv",
+    --   ft = {"csv", "tsv", "csv_semicolon", "csv_whitespace", "csv_pipe"}, -- file types to enable the plugin
+    --   config = function()
+    --   end
+    -- },
+  -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
+    { "chrisbra/csv.vim", ft = { "csv" },},
   },
   defaults = {
     lazy = false,

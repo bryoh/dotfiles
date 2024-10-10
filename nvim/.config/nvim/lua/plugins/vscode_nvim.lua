@@ -8,7 +8,7 @@ return {
             vim.o.background = 'dark' -- You can change this to 'light' for light mode
 
             -- Enable transparency
-            vim.g.vscode_transparent = true
+            vim.g.vscode_transparent = false
 
             -- Optional settings
             -- vim.g.vscode_italic_comment = true -- Italic comments
