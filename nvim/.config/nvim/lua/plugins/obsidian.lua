@@ -7,17 +7,17 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'neovim/nvim-lspconfig',
       -- Add markdown-preview.nvim as a dependency
-      {
-        'iamcco/markdown-preview.nvim',
-        build = "cd app && npm install",  -- Install dependencies for markdown preview
-        ft = "markdown",  -- Load plugin only for markdown files
-        config = function()
-          -- Setup for markdown-preview.nvim
-          vim.g.mkdp_auto_start = 1        -- Auto-start preview when opening markdown files
-          vim.g.mkdp_auto_close = 0        -- Keep the preview open when switching files
-          vim.g.mkdp_refresh_slow = 1      -- Slow refresh rate for better performance
-        end,
-      },
+      -- {
+      --   'iamcco/markdown-preview.nvim',
+      --   build = "cd app && npm install",  -- Install dependencies for markdown preview
+      --   ft = "markdown",  -- Load plugin only for markdown files
+      --   config = function()
+      --     -- Setup for markdown-preview.nvim
+      --     vim.g.mkdp_auto_start = 1        -- Auto-start preview when opening markdown files
+      --     vim.g.mkdp_auto_close = 0        -- Keep the preview open when switching files
+      --     vim.g.mkdp_refresh_slow = 1      -- Slow refresh rate for better performance
+      --   end,
+      -- },
       -- Add telescope for fuzzy searching through notes
       {
         'nvim-telescope/telescope.nvim',
@@ -27,7 +27,7 @@ return {
     config = function()
       -- Setup for obsidian.nvim
       require("obsidian").setup({
-        dir = "~/friendly-barnacle/Notes/work",  -- Path to Obsidian vault
+        dir = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work",  -- Path to Obsidian vault
         completion = {
           nvim_cmp = true,  -- If using nvim-cmp for completion
           min_chars = 2,    -- Minimum number of characters before completion starts

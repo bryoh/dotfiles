@@ -4,6 +4,8 @@ return {
         "Mofiqul/vscode.nvim",
         priority = 1000,  -- Load it early
         config = function()
+            local vim = vim  -- Ensure vim is defined
+
             -- Set background to dark or light
             vim.o.background = 'dark' -- You can change this to 'light' for light mode
 
@@ -19,4 +21,3 @@ return {
         end,
     },
 }
-

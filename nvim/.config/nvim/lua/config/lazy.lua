@@ -28,44 +28,60 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.vscode" },
     { import = "plugins" },
     { import = "plugins.lsp" },
+    { import = "plugins.spectre"},
 
     -- Disable neo-tree
   -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
 
     -- Add barbar.nvim configuration
-    { 'romgrk/barbar.nvim',
-      dependencies = {
-        'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-        'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-      },
-      init = function()
-        vim.g.barbar_auto_setup = false -- Disable automatic setup to configure manually
-      end,
-      opts = {
-        animation = true,
-        auto_hide = true,
-        tabpages = true,
-        closable = true,
-        clickable = true,
-        icons = true,
-        maximum_padding = 1,
-        maximum_length = 30,
-        no_name_title = 'No Name',
-        highlight_alternate = true,
-        highlight_inactive_file_icons = false,
-        icons = {
-          buffer_index = true,
-          buffer_number = false,
-          button = '',
-          filetype = {
-            enabled = true,
-          },
-          separator = { left = '▎', right = '' },
-          modified = { button = '●' },
-        },
-      },
-    },
+    -- { 'romgrk/barbar.nvim',
+    --   dependencies = {
+    --     'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+    --     'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    --   },
+    --   init = function()
+    --     vim.g.barbar_auto_setup = false -- Disable automatic setup to configure manually
+    --   end,
+    --   opts = {
+    --     animation = true,
+    --     auto_hide = true,
+    --     tabpages = true,
+    --     closable = true,
+    --     clickable = true,
+    --     icons = true,
+    --     maximum_padding = 1,
+    --     maximum_length = 30,
+    --     no_name_title = 'No Name',
+    --     highlight_alternate = true,
+    --     highlight_inactive_file_icons = false,
+    --     icons = {
+    --       buffer_index = true,
+    --       buffer_number = false,
+    --       button = '',
+    --       filetype = {
+    --         enabled = true,
+    --       },
+    --       separator = { left = '▎', right = '' },
+    --       modified = { button = '●' },
+    --     },
+    --   },
+    -- },
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    { "chrisbra/csv.vim", ft = { "csv" },},
     -- Add the CSV viewer plugin
     -- {
     --   "mechatroner/rainbow_csv",
@@ -74,7 +90,6 @@ require("lazy").setup({
     --   end
     -- },
   -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
-    { "chrisbra/csv.vim", ft = { "csv" },},
   },
   defaults = {
     lazy = false,
@@ -92,7 +107,7 @@ require("lazy").setup({
         -- "matchit",
         -- "matchparen",
         -- "netrwPlugin",
-        "bufferline",
+        -- "bufferline",
         "tarPlugin",
         "tohtml",
         "tutor",

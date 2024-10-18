@@ -324,3 +324,5 @@ ssh_get_mac() {
 #Copilot
 eval "$(gh copilot alias -- zsh)"
 
+export OPENAI_KEY=
+export PATH=$PATH:/usr/local/bin
