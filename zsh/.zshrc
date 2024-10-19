@@ -96,7 +96,7 @@ SAVEHIST=1000
 #bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/nyamu01b/.zshrc'
+zstyle :compinstall filename '/Users/bryoh/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -153,6 +153,7 @@ unsetopt beep
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 source /usr/local/bin/virtualenvwrapper.sh 
 # Display 
 export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
@@ -169,7 +170,7 @@ export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/nu
 # Example aliases
 alias nw='tmux new-window'
 #alias exa='exa --sort created -lha --git'
-alias vim='nvim'
+#alias vim='nvim'
 alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -196,7 +197,7 @@ alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""
 alias grim="nvim -c :Rg"
 alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
 alias cat='bat'
-alias python=/usr/local/bin/python3.7
+alias python=/usr/local/bin/python3
 alias pip=/usr/local/bin/pip3
 
 # heroku autocomplete setup

@@ -79,7 +79,7 @@ Plugin 'APZelos/blamer.nvim'
 Plugin 'markonm/traces.vim'
 "Plugin 'puremourning/vimspector'
 "Plugin 'sagi-z/vimspectorpy', { 'do': { -> vimspectorpy#update()  }  }
-
+Plugin 'chrisbra/csv.vim'
 
 "To install from command line: vim +PluginInstall +qall
 call vundle#end()            " required
@@ -90,7 +90,7 @@ set rnu "I like relative line numbers now"
 set ruler 
 set wildmenu 
 set wildmode=longest:full,full
-set inccommand=split
+"set inccommand=split
 set cursorline
 
 "Map J and K to move lines around in visual mode
