@@ -16,31 +16,37 @@ map("n", "<localleader>gp", ":Git push<CR>", { noremap = true, silent = true, de
 map("n", "<localleader>gs", ":G<CR>", { noremap = true, silent = true, desc = "Git status" })
 
 -- Telescope keymaps
-map("n", "<localleader>f", "", { noremap = true, silent = true, desc = "Find and Replace" })
+map("n", "<localleader>f", "", { noremap = true, silent = true, desc = "Fuzzy Find " })
 map("n", "<localleader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-map("n", "<localleader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
+map("n", "<localleader>fR", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
+map("n", "<localleader>fr", "<cmd>Telescope oldfiles cwd_only=true<cr>", { desc = "Fuzzy find recent files in cwd" })
 map("n", "<localleader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
 map("n", "<localleader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 map("n", "<localleader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 -- Go to definition in vertical split
-map(
-  "n",
-  "<localleader>fD",
-  '<cmd>lua require("telescope.builtin").lsp_definitions{ layout_strategy = "vertical", layout_config = { width = 0.5 }, attach_mappings = function(_, map) map("i", "<CR>", actions.select_vertical); map("n", "<CR>", actions.select_vertical); return true end }<CR>',
-  opts
-)
+map("n", "<localleader>fd", function()
+  vim.cmd("vsplit")
+  vim.lsp.buf.definition()
+end, { desc = "Go to definition in a vertical split" })
 
-map("n", "<localleader>fR", '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
+map("n", "<localleader>s", "", { noremap = true, silent = true, desc = "Search and Replace" })
+map("n", "<localleader>sR", '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
 map(
   "n",
-  "<localleader>f/",
+  "<localleader>s/",
   '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-  { desc = "Search current word" }
+  { desc = "Search current word on current file" }
 )
-map("v", "<localleader>f?", '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
+map("v", "<localleader>s?", '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
 map(
   "n",
-  "<localleader>f-",
-  '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+  "<localleader>s-",
+  '<cmd>lua require("spectre").open_file_search({select_word=false})<CR>',
   { desc = "Search on current file" }
 )
+map("n", "<localleader>m", "", { noremap = true, silent = true, desc = "Markdown and Notes" })
+map("n", "<localleader>mp", ":MarkdownPreview<CR>", { desc = "Start Markdown Preview" })
+map("n", "<localleader>ms", ":MarkdownPreviewStop<CR>", { desc = "Stop Markdown Preview" })
+
+-- Obsidian keymaps
+map("n", "<localleader>mo", ":ObsidianNew<CR>", { noremap = true, silent = true, desc = "Create new Obsidian note" })

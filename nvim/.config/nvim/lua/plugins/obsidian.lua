@@ -34,12 +34,8 @@ return {
         },
       })
 
-      -- Optionally, setup keybindings for markdown preview
-      vim.keymap.set("n", "<leader>mp", ":MarkdownPreview<CR>", { desc = "Start Markdown Preview" })
-      vim.keymap.set("n", "<leader>ms", ":MarkdownPreviewStop<CR>", { desc = "Stop Markdown Preview" })
-
       -- Use Telescope to search for files in Obsidian vault
-      vim.keymap.set("n", "<leader>fo", function()
+      vim.keymap.set("n", "<localleader>fo", function()
         require("telescope.builtin").find_files({
           prompt_title = "Search Obsidian Notes",
           cwd = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/",
