@@ -161,7 +161,7 @@ unsetopt beep
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)  # Use Python3 for virtualenv
 source /usr/local/bin/virtualenvwrapper.sh 
 # Display 
 export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
