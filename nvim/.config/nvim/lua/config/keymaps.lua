@@ -23,6 +23,7 @@ map("n", "<localleader>fr", "<cmd>Telescope oldfiles cwd_only=true<cr>", { desc 
 map("n", "<localleader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
 map("n", "<localleader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 map("n", "<localleader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+
 -- Go to definition in vertical split
 map("n", "<localleader>fd", function()
   vim.cmd("vsplit")
@@ -44,9 +45,32 @@ map(
   '<cmd>lua require("spectre").open_file_search({select_word=false})<CR>',
   { desc = "Search on current file" }
 )
+
 map("n", "<localleader>m", "", { noremap = true, silent = true, desc = "Markdown and Notes" })
 map("n", "<localleader>mp", ":MarkdownPreview<CR>", { desc = "Start Markdown Preview" })
 map("n", "<localleader>ms", ":MarkdownPreviewStop<CR>", { desc = "Stop Markdown Preview" })
 
 -- Obsidian keymaps
 map("n", "<localleader>mo", ":ObsidianNew<CR>", { noremap = true, silent = true, desc = "Create new Obsidian note" })
+
+-- Toggle Virtual Text keymap
+local virtual_text_enabled = true
+local function toggle_virtual_text()
+  virtual_text_enabled = not virtual_text_enabled
+  vim.diagnostic.config({
+    virtual_text = virtual_text_enabled,
+  })
+  if virtual_text_enabled then
+    print("Virtual Text: Enabled")
+  else
+    print("Virtual Text: Disabled")
+  end
+end
+
+-- Map to toggle virtual text
+map("n", "<localleader>c", "", { noremap = true, silent = true, desc = "Code actions" })
+map("n", "<localleader>cd", "", { noremap = true, silent = true, desc = "diagnostics" })
+map("n", "<localleader>cdiv", toggle_virtual_text, { noremap = true, silent = true, desc = "Inlaytoggle:Virtual Text" })
+
+map("n", "<localleader>a", "", { noremap = true, silent = true, desc = "Codeium " })
+map('n', '<localleader>ac', ':CodeiumChatToggle<CR>', { noremap = true, silent = true })

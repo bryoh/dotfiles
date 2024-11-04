@@ -8,3 +8,5 @@ local fn = vim.fn -- invoke vim-functions in lua
 -- vim.g.editorconfig = false
 -- vim.g.mapleader = [[ ]]
 vim.g.maplocalleader = [[\]]
+-- vim.g.codeium_chat_embedded = true
+-- vim.g.codeium_chat_in_editor = true
