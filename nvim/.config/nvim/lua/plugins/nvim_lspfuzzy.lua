@@ -9,5 +9,5 @@
 -- the configuration below.
 
 return {
-  -- "ojroques/nvim-lspfuzzy"
+  "ojroques/nvim-lspfuzzy"
 }

@@ -7,17 +7,13 @@ return {
 
       -- Python DAP (debugpy)
       require('dap-python').setup('~/miniconda3/envs/idebugpy/bin/ipython', {
-        -- console = 'integratedTerminal',
-        include_configs = true,  -- Add this line to include the required field
-        -- justMyCode = false,  -- This will show all code paths, not just your code
-        -- log = true  -- Enable logging for debugpy
+        include_configs = true,
       })
       dap.defaults.python = {
-        env = { PYTHONBREAKPOINT = "ipdb.set_trace" },  -- Comment this out for now
+        env = { PYTHONBREAKPOINT = "ipdb.set_trace" },
       }
 
       -- Keymaps
-      -- stylua: ignore
       local get_args = function() return vim.fn.input('Args: ') end
       local keys = {
         { "<localleader>d", "", desc = "+debug", mode = {"n", "v"} },
@@ -79,28 +75,29 @@ return {
         force_buffers = true,
         layouts = {
           {
-            elements = {
-              { id = "console", size = 0.60 }, -- 50% for scopes
-              { id = "breakpoints", size = 0.20 }, -- 20% for breakpoints
-              { id = "stacks", size = 0.10 }, -- 10% for stacks
-              { id = "watches", size = 0.10 }, -- 20% for watches
-            },
-            size = 60, -- Set the height/width for this layout
-            position = "left", -- Position: "left", "right", "top", "bottom"
+             -- Left sidebar layout for Breakpoints, Stacks, and Watches
+              elements = {
+                { id = "scopes", size = 0.25 },  -- Displays variable scopes
+                { id = "breakpoints", size = 0.25 },  -- Lists all breakpoints
+                { id = "stacks", size = 0.25 },  -- Shows call stacks
+                { id = "watches", size = 0.25 },  -- Watch expressions for variables
+              },
+            size = 40,
+            position = "left",
           },
           {
             elements = {
-              -- { id = "repl", size = 0.5 },
-              { id = "scopes", size = 1 },
+              { id = "repl", size = 0.7 },
+              { id = "console", size = 0.3},
             },
             size = 10,
-            position = "bottom", -- Position this layout at the bottom
+            position = "bottom",
           },
         },
         floating = {
-          max_height = 0.9,
+          max_height = 0.8,
           max_width = 0.5,
-          border = "rounded", -- Change the border type
+          border = "rounded",
           mappings = {
             close = { "q", "<Esc>" },
           },
@@ -108,20 +105,10 @@ return {
         controls = {
           enabled = true,
           element = "repl",
-          --icons = {
-          --  pause = "⏸",
-          --  play = "▶",
-          --  step_into = "⏎",
-          --  step_over = "⏭",
-          --  step_out = "⏮",
-          --  step_back = "b",
-          --  run_last = "▶▶",
-          --  terminate = "⏹",
-          --},
         },
         render = {
-          max_type_length = nil, -- Can be integer or nil.
-          max_value_lines = 100, -- Can be integer or nil.
+          max_type_length = nil,
+          max_value_lines = 100,
         },
       })
 
@@ -154,15 +141,14 @@ return {
       local dap = require('dap')
       dap.adapters.lldb = {
         type = 'executable',
-        command = '/usr/lib/llvm-10/bin/lldb-vscode', -- Adjust this path if necessary
+        command = '/usr/lib/llvm-10/bin/lldb-vscode',
         name = 'lldb'
       }
       
-      -- C++ DAP (cpptools)
       dap.adapters.cppdbg = {
         id = 'cppdbg',
         type = 'executable',
-        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7", -- Mason-installed cpptools
+        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7",
       }
 
       dap.configurations.cpp = {
@@ -189,17 +175,11 @@ return {
   {
     'linux-cultist/venv-selector.nvim',
     dependencies = { 'neovim/nvim-lspconfig', 'nvim-telescope/telescope.nvim', 'mfussenegger/nvim-dap-python' },
-    opts = {
-      -- Your options go here
-      -- name = "venv",
-      -- auto_refresh = false
-    },
-    event = 'VeryLazy', -- Optional: needed only if you want to type `:VenvSelect` without a keymapping
+    opts = {},
+    event = 'VeryLazy',
     keys = {
-      -- Keymap to open VenvSelector to pick a venv.
       { "<localleader>v", "", desc = "+eVironment", mode = {"n", "v"} },
       { '<localleader>vs', '<cmd>VenvSelect<cr>' },
-      -- Keymap to retrieve the venv from a cache (the one previously used for the same project directory).
       { '<localleader>vc', '<cmd>VenvSelectCached<cr>' },
     },
   }

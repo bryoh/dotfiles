@@ -53,6 +53,10 @@ return {
     local on_attach = function(client, bufnr)
       local opts = { noremap = true, silent = true, buffer = bufnr }
 
+      -- Enable inlay hints if the LSP supports it
+      if client.server_capabilities.inlayHints and vim.lsp.buf.inlay_hint then
+        vim.lsp.buf.inlay_hint(bufnr, true)
+      end
       -- LSP navigation with Telescope
       vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts) -- Go to definition
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts) -- Go to declaration
@@ -64,10 +68,11 @@ return {
       vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 
       opts.desc = "See available code actions"
-      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) --
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+
       -- Smart rename
       opts.desc = "Smart rename"
-      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- Smart rename
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
       -- Go to previous diagnostic
       opts.desc = "Go to previous diagnostic"
@@ -79,7 +84,7 @@ return {
 
       -- Restart LSP
       opts.desc = "Restart LSP"
-      vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- Restart LSP
+      vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 
       -- Diagnostics with Telescope
       vim.keymap.set("n", "<leader>ds", "<cmd>Telescope diagnostics<CR>", opts)
@@ -94,11 +99,36 @@ return {
         "--completion-style=detailed",
         "--header-insertion=iwyu",
         "--suggest-missing-includes",
-        "--query-driver=/usr/bin/g++", -- Adjust to match your system
+        "--query-driver=/usr/bin/g++",
+        "--inlay-hints=true", -- Enable inlay hints for clangd
       },
       on_attach = on_attach,
       capabilities = capabilities,
-      filetypes = { "c", "cpp", "objc", "objcpp" }, -- Ensure filetypes for C++ are set
+      filetypes = { "c", "cpp", "objc", "objcpp" },
+    })
+
+    -- Set up rust_analyzer for Rust development with inlay hints
+    lspconfig.rust_analyzer.setup({
+      settings = {
+        ["rust-analyzer"] = {
+          cargo = {
+            allFeatures = true,
+          },
+          checkOnSave = {
+            command = "clippy",
+          },
+          inlayHints = {
+            lifetimeElisionHints = {
+              enable = true,
+              useParameterNames = true,
+            },
+            bindingModeHints = { enable = true },
+            closureReturnTypeHints = { enable = true },
+          },
+        },
+      },
+      on_attach = on_attach,
+      capabilities = capabilities,
     })
 
     -- Setup CMake for C++ projects
@@ -118,7 +148,6 @@ return {
     setup_lsp("pyright")
     setup_lsp("gopls")
     setup_lsp("jdtls")
-    setup_lsp("rust_analyzer")
     setup_lsp("html")
     setup_lsp("cssls")
     setup_lsp("tailwindcss")
@@ -150,10 +179,11 @@ return {
 
     -- Diagnostic configurations
     vim.diagnostic.config({
-      virtual_text = false,
+      virtual_text = true,
       signs = true,
       update_in_insert = true,
       severity_sort = true,
     })
   end,
 }
+

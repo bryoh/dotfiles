@@ -24,7 +24,7 @@ return {
     lspkind.init({
 
         symbol_map = {
-          Copilot= "",
+          Codeium = "",
           Text = "",
           Method = "",
           Function = "",
@@ -50,6 +50,7 @@ return {
           Event = "",
           Operator = "",
           TypeParameter = "",
+          Copilot= "",
         }
     })
 
@@ -80,6 +81,7 @@ return {
         { name = "nvim_lsp", group_index = 2 },
         { name = "luasnip" , group_index = 2 }, -- snippets
         { name = "path", group_index = 2  }, -- file system paths
+        { name = "codeium", group_index = 2 }, -- codeium suggestions
         { name = "copilot", group_index = 2 }, -- copilot suggestions
       }),
 
