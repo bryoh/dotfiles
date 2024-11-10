@@ -15,4 +15,4 @@ i3/.config/gtk-3.0/bookmarks
 /i3/.config/dask/.gitignore
 /i3/.config/gtk-2.0/.gitignore
 .idea/
-nvim/.config/nvim/lazy-lock.log
+nvim/.config/nvim/lazy-lock.json
