@@ -278,12 +278,6 @@ fshow_commits(){
         xargs -I % sh -c 'git show --ext-diff  % | \
         cdiff -s -w 100 '"
 }
-wget-jenkins() {
-  wget --auth-no-challenge \
-       --http-user=brian.nyamu@domino-uk.com \
-       --http-password=11a4db2ab39dce6d0cafca6c5da6278e77 \
-       "$@"
-}
 RIG_MAC_OR_IPADDR=""
 get_mac() {
     RIG_MAC_OR_IPADDR=$(curl -s "https://rig-server.domino-printing.org/" | grep -i "$@" | cut -d',' -f3)

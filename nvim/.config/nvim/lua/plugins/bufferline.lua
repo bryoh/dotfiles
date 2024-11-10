@@ -27,13 +27,13 @@ return {
             reveal = {'close'} -- Shows close button on hover
           },
           -- Enable pinning for buffers
-          custom_areas = {
-            right = function()
-              return {
-                { text = '📌', guifg = '#ff8800' }, -- Pin icon
-              }
-            end,
-          },
+          -- custom_areas = {
+          --   right = function()
+          --     return {
+          --       { text = '📌', guifg = '#ff8800' }, -- Pin icon
+          --     }
+          --   end,
+          -- },
           offsets = {
             {
               filetype = "NvimTree",
