@@ -181,7 +181,7 @@ alias nw='tmux new-window'
 alias bb='alias | fzf'
 #alias exa='exa --sort created -lha --git'
 #alias vim='nvim'
-alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
+# alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias xclip='xclip -selection c'
