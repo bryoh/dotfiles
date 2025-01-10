@@ -135,41 +135,42 @@ return {
     dependencies = {"williamboman/mason.nvim", "mfussenegger/nvim-dap"},
     config = function()
       require("mason-nvim-dap").setup({
-        ensure_installed = { "python", "cpp", "lldb", "bash", "codelldb", "chrome", "coreclr", "delve", "firefox", "go", "java", "js", "kotlin", "node2", "php", "pwa-chrome", "pwa-msedge", "pwa-node", "pwa-firefox", "ruby", "rust", "swift", "typescript", "vscode-js-debug" },
+        ensure_installed = { "python", "cpp", "cppdbg", "lldb", "bash", "codelldb", "chrome", "coreclr", "delve", "firefox", "go", "java", "js", "kotlin", "node2", "php", "pwa-chrome", "pwa-msedge", "pwa-node", "pwa-firefox", "ruby", "rust", "swift", "typescript", "vscode-js-debug" },
         automatic_installation = true,
       })
       local dap = require('dap')
       dap.adapters.lldb = {
         type = 'executable',
-        command = '/usr/lib/llvm-10/bin/lldb-vscode',
+        command = '/usr/bin/lldb-vscode-10',
         name = 'lldb'
       }
-      
+            -- cppdbg Adapter
       dap.adapters.cppdbg = {
-        id = 'cppdbg',
-        type = 'executable',
-        command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7",
+          id = 'cppdbg',
+          type = 'executable',
+          command = vim.fn.stdpath("data") .. "/mason/bin/OpenDebugAD7", -- Ensure this path is correct
       }
-
-      dap.configurations.cpp = {
-        {
-          name = "Launch",
-          type = "cppdbg",
-          request = "launch",
-          program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-          end,
-          cwd = '${workspaceFolder}',
-          stopOnEntry = false,
-          setupCommands = {
-            {
-              text = '-enable-pretty-printing',
-              description =  'enable pretty printing',
-              ignoreFailures = false
-            },
+      dap.adapters.codelldb = {
+          type = "server",
+          port = "${port}",
+          executable = {
+              command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
+              args = { "--port", "${port}" },
           },
-        },
       }
+      dap.configurations.cpp = {
+          {
+              name = "Launch with vscode lldb-vscode-10",
+              type = "lldb",
+              request = "launch",
+              program = function()
+                  return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+              end,
+              cwd = '${workspaceFolder}',
+              stopOnEntry = false,
+              args = {},
+          },
+      } 
     end,
   },
   {
