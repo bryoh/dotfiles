@@ -1,11 +1,13 @@
 return {
-  'f-person/git-blame.nvim',
+  {'f-person/git-blame.nvim'},
   {
     'tpope/vim-fugitive',
     event = 'BufRead',
     config = function()
     end
   },
+  { 'jecaro/fugitive-difftool.nvim' },
+  { 'sindrets/diffview.nvim', event = 'BufRead' },
   {
     "lewis6991/gitsigns.nvim",
     event = "LazyFile",

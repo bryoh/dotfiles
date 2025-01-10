@@ -90,7 +90,7 @@ return {
           end,
           desc = "Open with System Application",
         },
-        ["P"] = { "toggle_preview", config = { use_float = true } },
+        ["P"] = { "toggle_preview", config = { use_float = true, title = "PrevieW" } },
         ["L"] = {
           function(state)
             local node = state.tree:get_node()
