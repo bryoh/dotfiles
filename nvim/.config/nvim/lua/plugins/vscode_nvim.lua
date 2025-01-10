@@ -7,10 +7,10 @@ return {
             local vim = vim  -- Ensure vim is defined
 
             -- Set background to dark or light
-            vim.o.background = 'dark' -- You can change this to 'light' for light mode
+            -- vim.o.background = 'dark' -- You can change this to 'light' for light mode
 
             -- Enable transparency
-            vim.g.vscode_transparent = false
+            -- vim.g.vscode_transparent = true
 
             -- Optional settings
             -- vim.g.vscode_italic_comment = true -- Italic comments
