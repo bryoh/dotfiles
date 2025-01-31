@@ -51,7 +51,10 @@ map("n", "<localleader>mp", ":MarkdownPreview<CR>", { desc = "Start Markdown Pre
 map("n", "<localleader>ms", ":MarkdownPreviewStop<CR>", { desc = "Stop Markdown Preview" })
 
 -- Obsidian keymaps
-map("n", "<localleader>mo", ":ObsidianNew<CR>", { noremap = true, silent = true, desc = "Create new Obsidian note" })
+map("n", "<localleader>mn", ":ObsidianNew<CR>", { noremap = true, silent = true, desc = "Create new Obsidian note" })
+map("n", "<localleader>ms", ":ObsidianSearch<CR>", { noremap = true, silent = true, desc = "Search in Obsidian" })
+map("n", "<localleader>mt", ":ObsidianToday<CR>", { noremap = true, silent = true, desc = "Open today's note in Obsidian" })
+map("n", "<localleader>mg", ":ObsidianTags<CR>", { noremap = true, silent = true, desc = "Show tags in Obsidian" })
 
 -- Toggle Virtual Text keymap
 local virtual_text_enabled = true
