@@ -8,9 +8,9 @@ local opts = { noremap = true, silent = true }
 
 -- Git keymaps
 map("n", "<localleader>g", "", { noremap = true, silent = true, desc = "Git" })
-map("n", "<localleader>gD", ":Gdiffsplit<CR>", { noremap = true, silent = true, desc = "Git horizontal diff split" })
+map("n", "<localleader>gh", ":Gdiffsplit<CR>", { noremap = true, silent = true, desc = "Git horizontal diff split" })
 map("n", "<localleader>gc", ":Git commit<CR>", { noremap = true, silent = true, desc = "Git commit" })
-map("n", "<localleader>gd", ":Gvdiffsplit<CR>", { noremap = true, silent = true, desc = "Git vertical diff split" })
+map("n", "<localleader>gv", ":Gvdiffsplit<CR>", { noremap = true, silent = true, desc = "Git vertical diff split" })
 map("n", "<localleader>gl", ":Git pull<CR>", { noremap = true, silent = true, desc = "Git pull" })
 map("n", "<localleader>gp", ":Git push<CR>", { noremap = true, silent = true, desc = "Git push" })
 map("n", "<localleader>gs", ":G<CR>", { noremap = true, silent = true, desc = "Git status" })
@@ -53,7 +53,12 @@ map("n", "<localleader>ms", ":MarkdownPreviewStop<CR>", { desc = "Stop Markdown 
 -- Obsidian keymaps
 map("n", "<localleader>mn", ":ObsidianNew<CR>", { noremap = true, silent = true, desc = "Create new Obsidian note" })
 map("n", "<localleader>ms", ":ObsidianSearch<CR>", { noremap = true, silent = true, desc = "Search in Obsidian" })
-map("n", "<localleader>mt", ":ObsidianToday<CR>", { noremap = true, silent = true, desc = "Open today's note in Obsidian" })
+map(
+  "n",
+  "<localleader>mt",
+  ":ObsidianToday<CR>",
+  { noremap = true, silent = true, desc = "Open today's note in Obsidian" }
+)
 map("n", "<localleader>mg", ":ObsidianTags<CR>", { noremap = true, silent = true, desc = "Show tags in Obsidian" })
 
 -- Toggle Virtual Text keymap
@@ -74,6 +79,16 @@ end
 map("n", "<localleader>c", "", { noremap = true, silent = true, desc = "Code actions" })
 map("n", "<localleader>cd", "", { noremap = true, silent = true, desc = "diagnostics" })
 map("n", "<localleader>cdiv", toggle_virtual_text, { noremap = true, silent = true, desc = "Inlaytoggle:Virtual Text" })
+map("n", "<localleader>cv", function()
+  vim.cmd("vsplit")
+  vim.lsp.buf.definition()
+end, { desc = "Go to definition in a vertical split" })
+map("n", "<localleader>ch", function()
+  vim.cmd("split")
+  vim.lsp.buf.definition()
+end, { desc = "Go to definition in a horizontal split" })
 
-map("n", "<localleader>a", "", { noremap = true, silent = true, desc = "Codeium " })
-map('n', '<localleader>ac', ':CodeiumChatToggle<CR>', { noremap = true, silent = true })
+map("n", "<localleader>a", "", { noremap = true, silent = true, desc = "Ai" })
+map("n", "<localleader>ac", ":CodeiumChatToggle<CR>", { noremap = true, silent = true, desc = "Codeium: Chat" })
+map("n", "<localleader>ad", ":Copilot disable<CR>", { noremap = true, silent = true, desc = "Copilot: disable" })
+map("n", "<localleader>ae", ":Copilot enable<CR>", { noremap = true, silent = true, desc = "Copilot: enable" })
