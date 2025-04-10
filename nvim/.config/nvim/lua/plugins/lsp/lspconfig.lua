@@ -6,7 +6,7 @@ return {
     "williamboman/mason-lspconfig.nvim", -- Mason LSP config
     "hrsh7th/cmp-nvim-lsp", -- Autocompletion plugin
     { "antosha417/nvim-lsp-file-operations", config = true },
-    { "folke/neodev.nvim", opts = {} },
+    -- { "folke/neodev.nvim", opts = {} },
     { "nvim-telescope/telescope.nvim", config = true }, -- Integrate with your Telescope setup
   },
   config = function()
@@ -186,4 +186,3 @@ return {
     })
   end,
 }
-

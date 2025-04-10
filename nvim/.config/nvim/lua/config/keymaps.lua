@@ -22,7 +22,10 @@ map("n", "<localleader>fR", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find 
 map("n", "<localleader>fr", "<cmd>Telescope oldfiles cwd_only=true<cr>", { desc = "Fuzzy find recent files in cwd" })
 map("n", "<localleader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
 map("n", "<localleader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-map("n", "<localleader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+map("n", "<localleader>fT", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+map("n", "<localleader>ft", function()
+  Snacks.terminal()
+end, { desc = "Terminal (cwd)" })
 
 -- Go to definition in vertical split
 map("n", "<localleader>fd", function()
@@ -31,6 +34,8 @@ map("n", "<localleader>fd", function()
 end, { desc = "Go to definition in a vertical split" })
 
 map("n", "<localleader>s", "", { noremap = true, silent = true, desc = "Search and Replace" })
+-- FZFlua commands
+map("n", "<localleader>sc", "<cmd>FzfLua commands<CR>", { desc = "Commands" })
 map("n", "<localleader>sR", '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
 map(
   "n",
@@ -89,6 +94,81 @@ map("n", "<localleader>ch", function()
 end, { desc = "Go to definition in a horizontal split" })
 
 map("n", "<localleader>a", "", { noremap = true, silent = true, desc = "Ai" })
-map("n", "<localleader>ac", ":CodeiumChatToggle<CR>", { noremap = true, silent = true, desc = "Codeium: Chat" })
+-- map("n", "<localleader>ac", ":CodeiumChatToggle<CR>", { noremap = true, silent = true, desc = "Codeium: Chat" })
 map("n", "<localleader>ad", ":Copilot disable<CR>", { noremap = true, silent = true, desc = "Copilot: disable" })
 map("n", "<localleader>ae", ":Copilot enable<CR>", { noremap = true, silent = true, desc = "Copilot: enable" })
+
+map("n", "<localleader>acc", "<cmd>ChatGPT<CR>", { noremap = true, silent = true, desc = "ChatGPT" })
+map(
+  { "n", "v" },
+  "<localleader>ace",
+  "<cmd>ChatGPTEditWithInstruction<CR>",
+  { noremap = true, silent = true, desc = "Edit with instruction" }
+)
+map(
+  { "n", "v" },
+  "<localleader>acg",
+  "<cmd>ChatGPTRun grammar_correction<CR>",
+  { noremap = true, silent = true, desc = "Grammar Correction" }
+)
+map(
+  { "n", "v" },
+  "<localleader>act",
+  "<cmd>ChatGPTRun translate<CR>",
+  { noremap = true, silent = true, desc = "Translate" }
+)
+map(
+  { "n", "v" },
+  "<localleader>ack",
+  "<cmd>ChatGPTRun keywords<CR>",
+  { noremap = true, silent = true, desc = "Keywords" }
+)
+map(
+  { "n", "v" },
+  "<localleader>acd",
+  "<cmd>ChatGPTRun docstring<CR>",
+  { noremap = true, silent = true, desc = "Docstring" }
+)
+map(
+  { "n", "v" },
+  "<localleader>aca",
+  "<cmd>ChatGPTRun add_tests<CR>",
+  { noremap = true, silent = true, desc = "Add Tests" }
+)
+map(
+  { "n", "v" },
+  "<localleader>aco",
+  "<cmd>ChatGPTRun optimize_code<CR>",
+  { noremap = true, silent = true, desc = "Optimize Code" }
+)
+map(
+  { "n", "v" },
+  "<localleader>acs",
+  "<cmd>ChatGPTRun summarize<CR>",
+  { noremap = true, silent = true, desc = "Summarize" }
+)
+map(
+  { "n", "v" },
+  "<localleader>acf",
+  "<cmd>ChatGPTRun fix_bugs<CR>",
+  { noremap = true, silent = true, desc = "Fix Bugs" }
+)
+map(
+  { "n", "v" },
+  "<localleader>acx",
+  "<cmd>ChatGPTRun explain_code<CR>",
+  { noremap = true, silent = true, desc = "Explain Code" }
+)
+map(
+  { "n", "v" },
+  "<localleader>acr",
+  "<cmd>ChatGPTRun roxygen_edit<CR>",
+  { noremap = true, silent = true, desc = "Roxygen Edit" }
+)
+map(
+  { "n", "v" },
+  "<localleader>acl",
+  "<cmd>ChatGPTRun code_readability_analysis<CR>",
+  { noremap = true, silent = true, desc = "Code Readability Analysis" }
+)
+map()

@@ -1,11 +1,9 @@
 return {
   "zbirenbaum/copilot-cmp",
-  config = function ()
+  config = function()
     require("copilot_cmp").setup({
       suggestion = { enabled = false },
       panel = { enabled = false },
-
     })
-
-  end
+  end,
 }

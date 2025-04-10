@@ -1,11 +1,11 @@
 return {
   {
-    'epwalsh/obsidian.nvim',
+    "epwalsh/obsidian.nvim",
     dependencies = {
-      'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp',
-      'hrsh7th/cmp-nvim-lsp',
-      'neovim/nvim-lspconfig',
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "neovim/nvim-lspconfig",
       -- Add markdown-preview.nvim as a dependency
       -- {
       --   'iamcco/markdown-preview.nvim',
@@ -20,18 +20,18 @@ return {
       -- },
       -- Add telescope for fuzzy searching through notes
       {
-        'nvim-telescope/telescope.nvim',
-        dependencies = { 'nvim-lua/plenary.nvim' },  -- Ensure plenary is installed for Telescope
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" }, -- Ensure plenary is installed for Telescope
       },
     },
     config = function()
       -- Setup for obsidian.nvim
       require("obsidian").setup({
-        dir = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work",  -- Path to Obsidian vault
-        completion = {
-          nvim_cmp = true,  -- If using nvim-cmp for completion
-          min_chars = 2,    -- Minimum number of characters before completion starts
-        },
+        dir = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work", -- Path to Obsidian vault
+        -- completion = {
+        --   nvim_cmp = true, -- If using nvim-cmp for completion
+        --   min_chars = 2, -- Minimum number of characters before completion starts
+        -- },
       })
 
       -- Use Telescope to search for files in Obsidian vault
@@ -42,7 +42,6 @@ return {
           hidden = true,
         })
       end, { desc = "Search Obsidian Notes" })
-    end
-  }
+    end,
+  },
 }
-

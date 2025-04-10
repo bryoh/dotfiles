@@ -24,35 +24,35 @@ return {
     local lspkind = require("lspkind")
     lspkind.init({
 
-        symbol_map = {
-          Codeium = "",
-          Text = "",
-          Method = "",
-          Function = "",
-          Constructor = "",
-          Field = "ﰠ",
-          Variable = "",
-          Class = "ﴯ",
-          Interface = "",
-          Module = "",
-          Property = "ﰠ",
-          Unit = "塞",
-          Value = "",
-          Enum = "",
-          Keyword = "",
-          Snippet = "",
-          Color = "",
-          File = "",
-          Reference = "",
-          Folder = "",
-          EnumMember = "",
-          Constant = "",
-          Struct = "פּ",
-          Event = "",
-          Operator = "",
-          TypeParameter = "",
-          Copilot= "",
-        }
+      symbol_map = {
+        Text = "",
+        Method = "",
+        Function = "",
+        Constructor = "",
+        Field = "ﰠ",
+        Variable = "",
+        Class = "ﴯ",
+        Interface = "",
+        Module = "",
+        Property = "ﰠ",
+        Unit = "塞",
+        Value = "",
+        Enum = "",
+        Keyword = "",
+        Snippet = "",
+        Color = "",
+        File = "",
+        Reference = "",
+        Folder = "",
+        EnumMember = "",
+        Constant = "",
+        Struct = "פּ",
+        Event = "",
+        Operator = "",
+        TypeParameter = "",
+        Copilot = "",
+        -- Codeium = "",
+      },
     })
 
     -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
@@ -77,14 +77,14 @@ return {
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
       }),
       -- sources for autocompletion
-      sources = cmp.config.sources({
-        { name = "buffer", group_index = 2  }, -- text within current buffer
+      sources = {
+        { name = "buffer", group_index = 2 }, -- text within current buffer
         { name = "nvim_lsp", group_index = 2 },
-        { name = "luasnip" , group_index = 2 }, -- snippets
-        { name = "path", group_index = 2  }, -- file system paths
-        { name = "codeium", group_index = 2 }, -- codeium suggestions
-        { name = "copilot", group_index = 2 }, -- copilot suggestions
-      }),
+        { name = "luasnip", group_index = 2 }, -- snippets
+        { name = "path", group_index = 2 }, -- file system paths
+        -- { name = "codeium", group_index = 3 }, -- codeium suggestions
+        { name = "copilot", group_index = 4 }, -- copilot suggestions
+      },
 
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
