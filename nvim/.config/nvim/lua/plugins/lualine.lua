@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -52,7 +55,7 @@ return {
     -- configure lualine with modified theme
     lualine.setup({
       options = {
-        theme = 'auto',
+        theme = "auto",
       },
       sections = {
         lualine_c = {

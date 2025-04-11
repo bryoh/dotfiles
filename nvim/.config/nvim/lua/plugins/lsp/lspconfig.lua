@@ -4,10 +4,11 @@ return {
   dependencies = {
     "williamboman/mason.nvim", -- Mason for managing LSP servers
     "williamboman/mason-lspconfig.nvim", -- Mason LSP config
-    "hrsh7th/cmp-nvim-lsp", -- Autocompletion plugin
+    -- "hrsh7th/cmp-nvim-lsp", -- Autocompletion plugin
     { "antosha417/nvim-lsp-file-operations", config = true },
     -- { "folke/neodev.nvim", opts = {} },
     { "nvim-telescope/telescope.nvim", config = true }, -- Integrate with your Telescope setup
+    { "saghen/blink.cmp" },
   },
   config = function()
     -- First set up mason.nvim before anything else
@@ -44,7 +45,7 @@ return {
     local lspconfig = require("lspconfig")
 
     -- import cmp-nvim-lsp plugin
-    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     -- Import Telescope and actions
     local actions = require("telescope.actions")
@@ -91,21 +92,21 @@ return {
     end
 
     -- Set up clangd for C++ development
-    lspconfig.clangd.setup({
-      cmd = {
-        "clangd",
-        "--background-index",
-        "--clang-tidy",
-        "--completion-style=detailed",
-        "--header-insertion=iwyu",
-        "--suggest-missing-includes",
-        "--query-driver=/usr/bin/g++",
-        "--inlay-hints=true", -- Enable inlay hints for clangd
-      },
-      on_attach = on_attach,
-      capabilities = capabilities,
-      filetypes = { "c", "cpp", "objc", "objcpp" },
-    })
+    -- lspconfig.clangd.setup({
+    --   cmd = {
+    --     "clangd",
+    --     "--background-index",
+    --     "--clang-tidy",
+    --     "--completion-style=detailed",
+    --     "--header-insertion=iwyu",
+    --     "--suggest-missing-includes",
+    --     "--query-driver=/usr/bin/g++",
+    --     "--inlay-hints=true", -- Enable inlay hints for clangd
+    --   },
+    --   on_attach = on_attach,
+    --   capabilities = capabilities,
+    --   filetypes = { "c", "cpp", "objc", "objcpp" },
+    -- })
 
     -- Set up rust_analyzer for Rust development with inlay hints
     lspconfig.rust_analyzer.setup({

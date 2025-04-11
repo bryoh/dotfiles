@@ -3,8 +3,8 @@ return {
     "epwalsh/obsidian.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
+      -- "hrsh7th/nvim-cmp",
+      -- "hrsh7th/cmp-nvim-lsp",
       "neovim/nvim-lspconfig",
       -- Add markdown-preview.nvim as a dependency
       -- {

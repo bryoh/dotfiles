@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
@@ -100,7 +103,7 @@ return {
             -- require("neo-tree").refresh()
           end,
           desc = "Change Directory",
-        }
+        },
       },
     },
     default_component_configs = {

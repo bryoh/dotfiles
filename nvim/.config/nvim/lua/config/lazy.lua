@@ -18,7 +18,7 @@ require("lazy").setup({
   spec = {
     -- import/override with your plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    
+
     -- import/override with your plugins
     { import = "lazyvim.plugins.extras.coding.mini-comment" },
     { import = "lazyvim.plugins.extras.test.core" },
@@ -29,10 +29,10 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.vscode" },
     { import = "plugins" },
     { import = "plugins.lsp" },
-    { import = "plugins.spectre"},
+    { import = "plugins.spectre" },
 
     -- Disable neo-tree
-  -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
+    -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
 
     -- Add barbar.nvim configuration
     -- { 'romgrk/barbar.nvim',
@@ -68,21 +68,9 @@ require("lazy").setup({
     --   },
     -- },
 
+    { "echasnovski/mini.nvim", version = "*" },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    { "chrisbra/csv.vim", ft = { "csv" },},
+    { "chrisbra/csv.vim", ft = { "csv" } },
     -- Add the CSV viewer plugin
     -- {
     --   "mechatroner/rainbow_csv",
@@ -90,7 +78,7 @@ require("lazy").setup({
     --   config = function()
     --   end
     -- },
-  -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
+    -- { "nvim-neo-tree/neo-tree.nvim", enabled = false, },
   },
   defaults = {
     lazy = false,
@@ -117,4 +105,3 @@ require("lazy").setup({
     },
   },
 })
-

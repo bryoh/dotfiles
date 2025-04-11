@@ -11,8 +11,14 @@ map("n", "<localleader>g", "", { noremap = true, silent = true, desc = "Git" })
 map("n", "<localleader>gh", ":Gdiffsplit<CR>", { noremap = true, silent = true, desc = "Git horizontal diff split" })
 map("n", "<localleader>gc", ":Git commit<CR>", { noremap = true, silent = true, desc = "Git commit" })
 map("n", "<localleader>gv", ":Gvdiffsplit<CR>", { noremap = true, silent = true, desc = "Git vertical diff split" })
-map("n", "<localleader>gl", ":Git pull<CR>", { noremap = true, silent = true, desc = "Git pull" })
-map("n", "<localleader>gp", ":Git push<CR>", { noremap = true, silent = true, desc = "Git push" })
+map("n", "<localleader>gl", function()
+  Snacks.picker.git_log()
+end, { desc = "Git log" })
+map("n", "<localleader>gL", function()
+  Snacks.picker.git_log_file()
+end, { desc = "Git log file" })
+map("n", "<localleader>gp", ":Git pull<CR>", { noremap = true, silent = true, desc = "Git pull" })
+map("n", "<localleader>gP", ":Git push<CR>", { noremap = true, silent = true, desc = "Git push" })
 map("n", "<localleader>gs", ":G<CR>", { noremap = true, silent = true, desc = "Git status" })
 
 -- Telescope keymaps
@@ -27,6 +33,13 @@ map("n", "<localleader>ft", function()
   Snacks.terminal()
 end, { desc = "Terminal (cwd)" })
 
+map("n", "<localleader>e", function()
+  Snacks.explorer.open()
+end, { desc = "Snacks explorer open" })
+map("n", "<localleader>,", function()
+  Snacks.picker.buffers()
+end, { desc = "Buffers" })
+
 -- Go to definition in vertical split
 map("n", "<localleader>fd", function()
   vim.cmd("vsplit")
@@ -34,15 +47,57 @@ map("n", "<localleader>fd", function()
 end, { desc = "Go to definition in a vertical split" })
 
 map("n", "<localleader>s", "", { noremap = true, silent = true, desc = "Search and Replace" })
--- FZFlua commands
-map("n", "<localleader>sc", "<cmd>FzfLua commands<CR>", { desc = "Commands" })
-map("n", "<localleader>sR", '<cmd>lua require("spectre").toggle()<CR>', { desc = "Toggle Spectre" })
-map(
-  "n",
-  "<localleader>s/",
-  '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-  { desc = "Search current word on current file" }
-)
+map("n", "<localleader>sc", function()
+  Snacks.picker.commands()
+end, { desc = "Commands" })
+map("n", "<localleader>sb", function()
+  Snacks.picker.buffers()
+end, { desc = "Buffers" })
+
+map("n", "<localleader>sf", function()
+  Snacks.picker.files()
+end, { desc = "Find Files" })
+
+map("n", "<localleader>sg", function()
+  Snacks.picker.git_files()
+end, { desc = "Find Git Files" })
+
+map("n", "<localleader>sp", function()
+  Snacks.picker.projects()
+end, { desc = "Projects" })
+
+map("n", "<localleader>sr", function()
+  Snacks.picker.recent()
+end, { desc = "Recent" })
+
+map("n", "<localleader>ggb", function()
+  Snacks.picker.git_branches()
+end, { desc = "Git Branches" })
+
+map("n", "<localleader>ggl", function()
+  Snacks.picker.git_log()
+end, { desc = "Git Log" })
+
+map("n", "<localleader>ggL", function()
+  Snacks.picker.git_log_line()
+end, { desc = "Git Log Line" })
+
+map("n", "<localleader>ggs", function()
+  Snacks.picker.git_status()
+end, { desc = "Git Status" })
+
+map("n", "<localleader>ggS", function()
+  Snacks.picker.git_stash()
+end, { desc = "Git Stash" })
+
+map("n", "<localleader>ggd", function()
+  Snacks.picker.git_diff()
+end, { desc = "Git Diff (Hunks)" })
+
+map("n", "<localleader>ggf", function()
+  Snacks.picker.git_log_file()
+end, { desc = "Git Log File" })
+
 map("v", "<localleader>s?", '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
 map(
   "n",
@@ -50,6 +105,18 @@ map(
   '<cmd>lua require("spectre").open_file_search({select_word=false})<CR>',
   { desc = "Search on current file" }
 )
+
+-- Snacks help pages
+map("n", "<localleader>sh", function()
+  Snacks.picker.help()
+end, { desc = "Snacks help" })
+map("n", "<localleader>su", function()
+  Snacks.picker.undo()
+end, { desc = "Undo history" })
+-- Snacks Search history
+map("n", "<localleader>ss", function()
+  Snacks.picker.search_history()
+end, { desc = "Snacks search history" })
 
 map("n", "<localleader>m", "", { noremap = true, silent = true, desc = "Markdown and Notes" })
 map("n", "<localleader>mp", ":MarkdownPreview<CR>", { desc = "Start Markdown Preview" })
@@ -98,15 +165,15 @@ map("n", "<localleader>a", "", { noremap = true, silent = true, desc = "Ai" })
 map("n", "<localleader>ad", ":Copilot disable<CR>", { noremap = true, silent = true, desc = "Copilot: disable" })
 map("n", "<localleader>ae", ":Copilot enable<CR>", { noremap = true, silent = true, desc = "Copilot: enable" })
 
-map("n", "<localleader>acc", "<cmd>ChatGPT<CR>", { noremap = true, silent = true, desc = "ChatGPT" })
+map("n", "<localleader>ai", "<cmd>ChatGPT<CR>", { noremap = true, silent = true, desc = "ChatGPT" })
 map(
-  { "n", "v" },
+  "n",
   "<localleader>ace",
   "<cmd>ChatGPTEditWithInstruction<CR>",
   { noremap = true, silent = true, desc = "Edit with instruction" }
 )
 map(
-  { "n", "v" },
+  "n",
   "<localleader>acg",
   "<cmd>ChatGPTRun grammar_correction<CR>",
   { noremap = true, silent = true, desc = "Grammar Correction" }
@@ -171,4 +238,3 @@ map(
   "<cmd>ChatGPTRun code_readability_analysis<CR>",
   { noremap = true, silent = true, desc = "Code Readability Analysis" }
 )
-map()
