@@ -6,6 +6,15 @@ return {
       require("mini.cursorword").setup()
     end,
   },
+  {
+    "karb94/neoscroll.nvim",
+    opts = {},
+  },
+  {
+
+  "sphamba/smear-cursor.nvim",
+  opts = {},
+  },
   -- install modicator.nvim
   -- {
   --   "mawkler/modicator.nvim",

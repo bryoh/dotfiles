@@ -23,11 +23,24 @@ map("n", "<localleader>gs", ":G<CR>", { noremap = true, silent = true, desc = "G
 
 -- Telescope keymaps
 map("n", "<localleader>f", "", { noremap = true, silent = true, desc = "Fuzzy Find " })
-map("n", "<localleader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-map("n", "<localleader>fR", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-map("n", "<localleader>fr", "<cmd>Telescope oldfiles cwd_only=true<cr>", { desc = "Fuzzy find recent files in cwd" })
-map("n", "<localleader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-map("n", "<localleader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
+map("n", "<localleader>ff", function()
+  Snacks.explorer.open()
+end, { desc = "Fuzzy find files in cwd" })
+map("n", "<localleader>fR", function()
+  Snacks.picker.files()
+end, { desc = "Fuzzy find recent files" })
+map("n", "<localleader>fr", function()
+  Snacks.picker.recent()
+end, { desc = "Fuzzy find recent files in cwd" })
+map("n", "<localleader>fs", function()
+  Snacks.picker.grep()
+end, { desc = "Find string in cwd" })
+map("v", "<localleader>fs", function()
+  Snacks.picker.grep_word()
+end, { desc = "Find string under cursor in cwd" })
+map("n", "<localleader>f/", function()
+  Snacks.picker.search_history()
+end, { desc = "Search command history" })
 map("n", "<localleader>fT", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 map("n", "<localleader>ft", function()
   Snacks.terminal()
@@ -39,7 +52,46 @@ end, { desc = "Snacks explorer open" })
 map("n", "<localleader>,", function()
   Snacks.picker.buffers()
 end, { desc = "Buffers" })
+-- Add this section with your other Telescope keymaps
+map("n", "<localleader>h", "", { noremap = true, silent = true, desc = "Help and Info" })
 
+-- Help and information keymaps
+map("n", "<localleader>hh", function()
+  Snacks.picker.help()
+end, { desc = "Help Pages" })
+map("n", "<localleader>hH", function()
+  Snacks.picker.highlights()
+end, { desc = "Highlights" })
+map("n", "<localleader>hi", function()
+  Snacks.picker.icons()
+end, { desc = "Icons" })
+map("n", "<localleader>hj", function()
+  Snacks.picker.jumps()
+end, { desc = "Jumps" })
+map("n", "<localleader>hk", function()
+  Snacks.picker.keymaps()
+end, { desc = "Keymaps" })
+map("n", "<localleader>hl", function()
+  Snacks.picker.loclist()
+end, { desc = "Location List" })
+map("n", "<localleader>hm", function()
+  Snacks.picker.marks()
+end, { desc = "Marks" })
+map("n", "<localleader>hM", function()
+  Snacks.picker.man()
+end, { desc = "Man Pages" })
+map("n", "<localleader>hp", function()
+  Snacks.picker.lazy()
+end, { desc = "Search for Plugin Spec" })
+map("n", "<localleader>hq", function()
+  Snacks.picker.qflist()
+end, { desc = "Quickfix List" })
+map("n", "<localleader>hR", function()
+  Snacks.picker.resume()
+end, { desc = "Resume" })
+map("n", "<localleader>hu", function()
+  Snacks.picker.undo()
+end, { desc = "Undo History" })
 -- Go to definition in vertical split
 map("n", "<localleader>fd", function()
   vim.cmd("vsplit")
@@ -132,6 +184,27 @@ map(
   { noremap = true, silent = true, desc = "Open today's note in Obsidian" }
 )
 map("n", "<localleader>mg", ":ObsidianTags<CR>", { noremap = true, silent = true, desc = "Show tags in Obsidian" })
+map("n", "<localleader>mo", ":ObsidianOpen<CR>", { noremap = true, silent = true, desc = "Open Obsidian vault" })
+map("n", "<localleader>ml", ":ObsidianLink<CR>", { noremap = true, silent = true, desc = "Create a link in Obsidian" })
+map(
+  "n",
+  "<localleader>mb",
+  ":ObsidianBacklinks<CR>",
+  { noremap = true, silent = true, desc = "Show backlinks in Obsidian" }
+)
+map(
+  "n",
+  "<localleader>mr",
+  ":ObsidianRename<CR>",
+  { noremap = true, silent = true, desc = "Rename current note in Obsidian" }
+)
+map("n", "<localleader>mc", ":ObsidianCheck<CR>", { noremap = true, silent = true, desc = "Run checks in Obsidian" })
+map(
+  "n",
+  "<localleader>mf",
+  ":ObsidianFollow<CR>",
+  { noremap = true, silent = true, desc = "Follow link under cursor in Obsidian" }
+)
 
 -- Toggle Virtual Text keymap
 local virtual_text_enabled = true
@@ -238,3 +311,7 @@ map(
   "<cmd>ChatGPTRun code_readability_analysis<CR>",
   { noremap = true, silent = true, desc = "Code Readability Analysis" }
 )
+map("n", "<localleader>df", function()
+  require("dap").continue()
+end, { desc = "Debug Behave Feature" })
+

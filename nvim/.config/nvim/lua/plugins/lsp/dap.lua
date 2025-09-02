@@ -182,6 +182,26 @@ return {
           end
         end
       end
+      table.insert(dap.configurations.python, {
+      name = "Debug Behave Feature File",
+      type = "python",
+      request = "launch",
+      module = "behave",
+      args = function()
+        local feature_file = vim.fn.expand("%")
+        if not feature_file:match("*.feature$") then
+          feature_file = vim.fn.input("Path to feature file: ", "", "file")
+        end
+        return { feature_file }
+      end,
+      cwd = vim.fn.getcwd(),
+      console = "integratedTerminal",
+      justMyCode = false,
+      env = { PYTHONBREAKPOINT = "ipdb.set_trace" },
+    })
+    -- Add this to support `cucumber` files (like .feature)
+    dap.configurations.cucumber = dap.configurations.python
+
     end,
   },
   {
