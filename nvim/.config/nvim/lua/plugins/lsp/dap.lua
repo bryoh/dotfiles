@@ -163,23 +163,10 @@ return {
       for _, key in ipairs(keys) do
         if type(key.mode) == "table" then
           for _, m in ipairs(key.mode) do
-            if type(key[2]) == "function" then
-              vim.keymap.set(m, key[1], key[2], { noremap = true, silent = true, desc = key.desc })
-            else
-              vim.api.nvim_set_keymap(m, key[1], key[2] or "", { noremap = true, silent = true, desc = key.desc })
-            end
+            vim.keymap.set(m, key[1], key[2] or "", { noremap = true, silent = true, desc = key.desc })
           end
         else
-          if type(key[2]) == "function" then
-            vim.keymap.set(key.mode or "n", key[1], key[2], { noremap = true, silent = true, desc = key.desc })
-          else
-            vim.api.nvim_set_keymap(
-              key.mode or "n",
-              key[1],
-              key[2] or "",
-              { noremap = true, silent = true, desc = key.desc }
-            )
-          end
+          vim.keymap.set(key.mode or "n", key[1], key[2] or "", { noremap = true, silent = true, desc = key.desc })
         end
       end
       table.insert(dap.configurations.python, {
@@ -348,7 +335,7 @@ return {
   {
     "linux-cultist/venv-selector.nvim",
     dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
-    opts = {},
+    opts = { stay_on_this_version = true },
     event = "VeryLazy",
     keys = {
       { "<localleader>v", "", desc = "+eVironment", mode = { "n", "v" } },

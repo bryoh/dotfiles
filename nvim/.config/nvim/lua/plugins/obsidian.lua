@@ -1,40 +1,37 @@
 return {
   {
     "epwalsh/obsidian.nvim",
+    cond = function()
+      return vim.fn.filereadable(vim.fn.expand("%:p")) == 1 and vim.bo.filetype == "markdown"
+    end,
     dependencies = {
       "nvim-lua/plenary.nvim",
-      -- "hrsh7th/nvim-cmp",
-      -- "hrsh7th/cmp-nvim-lsp",
       "neovim/nvim-lspconfig",
-      -- Add markdown-preview.nvim as a dependency
-      -- {
-      --   'iamcco/markdown-preview.nvim',
-      --   build = "cd app && npm install",  -- Install dependencies for markdown preview
-      --   ft = "markdown",  -- Load plugin only for markdown files
-      --   config = function()
-      --     -- Setup for markdown-preview.nvim
-      --     vim.g.mkdp_auto_start = 1        -- Auto-start preview when opening markdown files
-      --     vim.g.mkdp_auto_close = 0        -- Keep the preview open when switching files
-      --     vim.g.mkdp_refresh_slow = 1      -- Slow refresh rate for better performance
-      --   end,
-      -- },
-      -- Add telescope for fuzzy searching through notes
+      "hrsh7th/nvim-cmp",
       {
         "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" }, -- Ensure plenary is installed for Telescope
+        dependencies = { "nvim-lua/plenary.nvim" },
       },
     },
     config = function()
-      -- Setup for obsidian.nvim
       require("obsidian").setup({
-        dir = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work", -- Path to Obsidian vault
-        -- completion = {
-        --   nvim_cmp = true, -- If using nvim-cmp for completion
-        --   min_chars = 2, -- Minimum number of characters before completion starts
-        -- },
+        dir = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work",
+        open_notes_in = "default",
+        daily_notes = {
+          folder = "dailies",
+          date_format = "%Y-%m-%d",
+        },
+        templates = {
+          folder = "templates",
+          date_format = "%Y-%m-%d",
+          time_format = "%H:%M",
+        },
+        completion = {
+          nvim_cmp = true,
+          min_chars = 2,
+        },
       })
 
-      -- Use Telescope to search for files in Obsidian vault
       vim.keymap.set("n", "<localleader>fo", function()
         require("telescope.builtin").find_files({
           prompt_title = "Search Obsidian Notes",

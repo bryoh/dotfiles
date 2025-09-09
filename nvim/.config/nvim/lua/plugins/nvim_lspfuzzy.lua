@@ -1,4 +1,0 @@
-
-return {
-  "ojroques/nvim-lspfuzzy"
-}
