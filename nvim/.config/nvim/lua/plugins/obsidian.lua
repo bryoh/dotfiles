@@ -1,13 +1,10 @@
 return {
-  {
     "epwalsh/obsidian.nvim",
-    cond = function()
-      return vim.fn.filereadable(vim.fn.expand("%:p")) == 1 and vim.bo.filetype == "markdown"
-    end,
+    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "neovim/nvim-lspconfig",
-      "hrsh7th/nvim-cmp",
+      -- "hrsh7th/nvim-cmp",
       {
         "nvim-telescope/telescope.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -26,10 +23,10 @@ return {
           date_format = "%Y-%m-%d",
           time_format = "%H:%M",
         },
-        completion = {
-          nvim_cmp = true,
-          min_chars = 2,
-        },
+        -- completion = {
+        --   nvim_cmp = true,
+        --   min_chars = 2,
+        -- },
       })
 
       vim.keymap.set("n", "<localleader>fo", function()
@@ -40,5 +37,4 @@ return {
         })
       end, { desc = "Search Obsidian Notes" })
     end,
-  },
 }

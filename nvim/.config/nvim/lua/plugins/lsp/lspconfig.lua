@@ -2,8 +2,8 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "williamboman/mason.nvim", -- Mason for managing LSP servers
-    "williamboman/mason-lspconfig.nvim", -- Mason LSP config
+    "mason-org/mason.nvim", -- Mason for managing LSP servers
+    "mason-org/mason-lspconfig.nvim", -- Mason LSP config
     -- "hrsh7th/cmp-nvim-lsp", -- Autocompletion plugin
     { "antosha417/nvim-lsp-file-operations", config = true },
     -- { "folke/neodev.nvim", opts = {} },

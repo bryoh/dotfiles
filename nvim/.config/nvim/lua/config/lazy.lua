@@ -68,7 +68,7 @@ require("lazy").setup({
     --   },
     -- },
 
-    { "echasnovski/mini.nvim", version = "*" },
+    { "nvim-mini/mini.nvim", version = "*" },
 
     { "chrisbra/csv.vim", ft = { "csv" } },
     -- Add the CSV viewer plugin
