@@ -11,10 +11,7 @@ return {
     { "saghen/blink.cmp" },
   },
   config = function()
-    -- First set up mason.nvim before anything else
-    require("mason").setup()
-
-    -- Then set up mason-lspconfig
+    -- Set up mason-lspconfig
     require("mason-lspconfig").setup({
       ensure_installed = {
         "pyright",
