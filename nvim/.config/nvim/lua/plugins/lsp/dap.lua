@@ -55,6 +55,17 @@ return {
           desc = "Run with Args",
         },
         {
+          "<localleader>dF",
+          function()
+            require("dap").run({
+              type = "python",
+              request = "launch",
+              name = "Debug Behave Feature File",
+            })
+          end,
+          desc = "Debug Behave Feature",
+        },
+        {
           "<localleader>dC",
           function()
             require("dap").run_to_cursor()
@@ -137,6 +148,13 @@ return {
             require("dap").repl.toggle()
           end,
           desc = "Toggle REPL",
+        },
+        {
+          "<localleader>dR",
+          function()
+            require("dap").restart()
+          end,
+          desc = "Restart",
         },
         {
           "<localleader>ds",
