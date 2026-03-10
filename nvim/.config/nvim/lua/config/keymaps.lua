@@ -3,14 +3,12 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
 
---================================================================ vim.lsp.buf.definition()
 -- General
 --==============================================================================
 
 map("n", "<localleader>e", function() Snacks.explorer.open() end, { desc = "Explorer" })
-map("n", "<localleader>z", function() vim.cmd("tabnew %") end, { desc = "Maximize" })
+map("n", "<localleader>z", function() Snacks.toggle.zoom():toggle() end, { desc = "Zoom Window" })
 map("n", "<localleader>,", function() Snacks.picker.buffers() end, { desc = "Buffers" })
 map("n", "<localleader>ft", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
 
@@ -19,31 +17,28 @@ map("n", "<localleader>ft", function() Snacks.terminal() end, { desc = "Terminal
 --==============================================================================
 
 map("n", "<localleader>g", "", { desc = "Git" })
-map("n", "<localleader>gh", ":Gdiffsplit<CR>", { desc = "Git horizontal diff split" })
-map("n", "<localleader>gc", ":Git commit<CR>", { desc = "Git commit" })
-map("n", "<localleader>gv", ":Gvdiffsplit<CR>", { desc = "Git vertical diff split" })
+map("n", "<localleader>gh", "<cmd>Gdiffsplit<cr>", { desc = "Git horizontal diff split" })
+map("n", "<localleader>gc", "<cmd>Git commit<cr>", { desc = "Git commit" })
+map("n", "<localleader>gv", "<cmd>Gvdiffsplit<cr>", { desc = "Git vertical diff split" })
+map("n", "<localleader>gb", function() Snacks.picker.git_branches() end, { desc = "Git branches" })
+map("n", "<localleader>gd", function() Snacks.picker.git_diff() end, { desc = "Git diff (hunks)" })
 map("n", "<localleader>gl", function() Snacks.picker.git_log() end, { desc = "Git log" })
 map("n", "<localleader>gL", function() Snacks.picker.git_log_file() end, { desc = "Git log file" })
-map("n", "<localleader>gp", ":Git pull<CR>", { desc = "Git pull" })
-map("n", "<localleader>gP", ":Git push<CR>", { desc = "Git push" })
-map("n", "<localleader>gs", ":G<CR>", { desc = "Git status" })
-map("n", "<localleader>ggb", function() Snacks.picker.git_branches() end, { desc = "Git Branches" })
-map("n", "<localleader>ggl", function() Snacks.picker.git_log() end, { desc = "Git Log" })
-map("n", "<localleader>ggL", function() Snacks.picker.git_log_line() end, { desc = "Git Log Line" })
-map("n", "<localleader>ggs", function() Snacks.picker.git_status() end, { desc = "Git Status" })
-map("n", "<localleader>ggS", function() Snacks.picker.git_stash() end, { desc = "Git Stash" })
-map("n", "<localleader>ggd", function() Snacks.picker.git_diff() end, { desc = "Git Diff (Hunks)" })
-map("n", "<localleader>ggf", function() Snacks.picker.git_log_file() end, { desc = "Git Log File" })
+map("n", "<localleader>gp", "<cmd>Git pull<cr>", { desc = "Git pull" })
+map("n", "<localleader>gP", "<cmd>Git push<cr>", { desc = "Git push" })
+map("n", "<localleader>gs", "<cmd>G<cr>", { desc = "Git status" })
+map("n", "<localleader>gS", function() Snacks.picker.git_stash() end, { desc = "Git stash" })
 
 --==============================================================================
--- Fuzzy Finding (Telescope)
+-- Fuzzy Finding
 --==============================================================================
 
 map("n", "<localleader>f", "", { desc = "Fuzzy Find" })
-map("n", "<localleader>ff", function() Snacks.explorer.open() end, { desc = "Find files" })
+map("n", "<localleader>fe", function() Snacks.explorer.open() end, { desc = "Explorer" })
+map("n", "<localleader>ff", function() Snacks.picker.files() end, { desc = "Find files" })
 map("n", "<localleader>fr", function() Snacks.picker.recent() end, { desc = "Recent files" })
 map("n", "<localleader>fs", function() Snacks.picker.grep() end, { desc = "Find string" })
-map("v", "<localleader>fs", function() Snacks.picker.grep_word() end, { desc = "Find string under cursor" })
+map("v", "<localleader>fs", function() Snacks.picker.grep_word() end, { desc = "Find selection" })
 map("n", "<localleader>f/", function() Snacks.picker.search_history() end, { desc = "Search history" })
 map("n", "<localleader>fT", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 
@@ -70,40 +65,35 @@ map("n", "<localleader>hu", function() Snacks.picker.undo() end, { desc = "Undo 
 --==============================================================================
 
 map("n", "<localleader>s", "", { desc = "Search and Replace" })
-map("n", "<localleader>sc", function() Snacks.picker.commands() end, { desc = "Commands" })
-map("n", "<localleader>sb", function() Snacks.picker.buffers() end, { desc = "Buffers" })
-map("n", "<localleader>sf", function() Snacks.picker.files() end, { desc = "Find Files" })
-map("n", "<localleader>sg", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
-map("n", "<localleader>sp", function() Snacks.picker.projects() end, { desc = "Projects" })
-map("n", "<localleader>sr", function() Snacks.picker.recent() end, { desc = "Recent" })
-map("v", "<localleader>s?", '<esc><cmd>lua require("spectre").open_visual()<CR>', { desc = "Search current word" })
-map("n", "<localleader>s-", '<cmd>lua require("spectre").open_file_search({select_word=false})<CR>', { desc = "Search on current file" })
-map("n", "<localleader>sh", function() Snacks.picker.help() end, { desc = "Snacks help" })
-map("n", "<localleader>su", function() Snacks.picker.undo() end, { desc = "Undo history" })
-map("n", "<localleader>ss", function() Snacks.picker.search_history() end, { desc = "Snacks search history" })
+map("n", "<localleader>ss", function() Snacks.picker.search_history() end, { desc = "Search history" })
+map("v", "<localleader>sw", function() require("spectre").open_visual() end, { desc = "Search selection" })
+map("n", "<localleader>sf", function() require("spectre").open_file_search({ select_word = false }) end, { desc = "Search current file" })
+
+-- Add a localleader keymap to remove empty lines with confirmation on the visually selected files
+map("v", "<localleader>r", function() vim.cmd("'<,'>s/^\\s*$\n//gc") end, { desc = "Remove empty lines (selection)" })
 
 --==============================================================================
 -- Markdown and Notes
 --==============================================================================
 
 map("n", "<localleader>m", "", { desc = "Markdown and Notes" })
-map("n", "<localleader>mp", ":MarkdownPreview<CR>", { desc = "Start Markdown Preview" })
-map("n", "<localleader>ms", ":MarkdownPreviewStop<CR>", { desc = "Stop Markdown Preview" })
+map("n", "<localleader>mp", "<cmd>MarkdownPreview<cr>", { desc = "Start Markdown Preview" })
+map("n", "<localleader>mP", "<cmd>MarkdownPreviewStop<cr>", { desc = "Stop Markdown Preview" })
 
 --==============================================================================
 -- Obsidian
 --==============================================================================
 
-map("n", "<localleader>mn", ":ObsidianNew<CR>", { desc = "Create new Obsidian note" })
-map("n", "<localleader>ms", ":ObsidianSearch<CR>", { desc = "Search in Obsidian" })
-map("n", "<localleader>mt", ":ObsidianToday<CR>", { desc = "Open today's note in Obsidian" })
-map("n", "<localleader>mg", ":ObsidianTags<CR>", { desc = "Show tags in Obsidian" })
-map("n", "<localleader>mo", ":ObsidianOpen<CR>", { desc = "Open Obsidian vault" })
-map("n", "<localleader>ml", ":ObsidianLink<CR>", { desc = "Create a link in Obsidian" })
-map("n", "<localleader>mb", ":ObsidianBacklinks<CR>", { desc = "Show backlinks in Obsidian" })
-map("n", "<localleader>mr", ":ObsidianRename<CR>", { desc = "Rename current note in Obsidian" })
-map("n", "<localleader>mc", ":ObsidianCheck<CR>", { desc = "Run checks in Obsidian" })
-map("n", "<localleader>mf", ":ObsidianFollow<CR>", { desc = "Follow link under cursor in Obsidian" })
+map("n", "<localleader>mn", "<cmd>ObsidianNew<cr>", { desc = "Create new Obsidian note" })
+map("n", "<localleader>ms", "<cmd>ObsidianSearch<cr>", { desc = "Search in Obsidian" })
+map("n", "<localleader>mt", "<cmd>ObsidianToday<cr>", { desc = "Open today's note in Obsidian" })
+map("n", "<localleader>mg", "<cmd>ObsidianTags<cr>", { desc = "Show tags in Obsidian" })
+map("n", "<localleader>mo", "<cmd>ObsidianOpen<cr>", { desc = "Open Obsidian vault" })
+map("n", "<localleader>ml", "<cmd>ObsidianLink<cr>", { desc = "Create a link in Obsidian" })
+map("n", "<localleader>mb", "<cmd>ObsidianBacklinks<cr>", { desc = "Show backlinks in Obsidian" })
+map("n", "<localleader>mr", "<cmd>ObsidianRename<cr>", { desc = "Rename current note in Obsidian" })
+map("n", "<localleader>mc", "<cmd>ObsidianCheck<cr>", { desc = "Run checks in Obsidian" })
+map("n", "<localleader>mf", "<cmd>ObsidianFollow<cr>", { desc = "Follow link under cursor in Obsidian" })
 
 --==============================================================================
 -- Code Actions and Diagnostics
@@ -125,19 +115,18 @@ local function toggle_virtual_text()
   end
 end
 
-map("n", "<localleader>cdiv", toggle_virtual_text, { desc = "Toggle Virtual Text" })
-map("n", "<localleader>cv", function() vim.cmd("vsplit"); vim.lsp.buf.definition() end, { desc = "Go to definition in a vertical split" })
-map("n", "<localleader>ch", function() vim.cmd("split"); vim.lsp.buf.definition() end, { desc = "Go to definition in a horizontal split" })
-map("n", "<localleader>fd", function() vim.cmd("vsplit"); vim.lsp.buf.definition() end, { desc = "Go to definition in a vertical split" })
-
+map("n", "<leader>uv", toggle_virtual_text, { desc = "Toggle virtual text" })
+map("n", "<localleader>co", "<cmd>Telescope lsp_definitions<CR>", { desc = "Definitions" })
+map("n", "<localleader>cv", "<cmd>vsplit | Telescope lsp_definitions<CR>", { desc = "Definitions in vertical split" })
+map("n", "<localleader>ch", "<cmd>split | Telescope lsp_definitions<CR>", { desc = "Definitions in horizontal split" })
 
 --==============================================================================
 -- AI (Copilot, ChatGPT)
 --==============================================================================
 
 map("n", "<localleader>a", "", { desc = "AI" })
-map("n", "<localleader>ad", ":Copilot disable<CR>", { desc = "Copilot: disable" })
-map("n", "<localleader>ae", ":Copilot enable<CR>", { desc = "Copilot: enable" })
+map("n", "<localleader>ad", "<cmd>Copilot disable<cr>", { desc = "Copilot: disable" })
+map("n", "<localleader>ae", "<cmd>Copilot enable<cr>", { desc = "Copilot: enable" })
 map("n", "<localleader>ai", "<cmd>ChatGPT<CR>", { desc = "ChatGPT" })
 map("n", "<localleader>ace", "<cmd>ChatGPTEditWithInstruction<CR>", { desc = "Edit with instruction" })
 map("n", "<localleader>acg", "<cmd>ChatGPTRun grammar_correction<CR>", { desc = "Grammar Correction" })
@@ -155,5 +144,3 @@ map({ "n", "v" }, "<localleader>acl", "<cmd>ChatGPTRun code_readability_analysis
 --==============================================================================
 -- Debugging (DAP)
 --==============================================================================
-
-map("n", "<localleader>df", function() require("dap").continue() end, { desc = "Debug Behave Feature" })
