@@ -5,16 +5,22 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-#export PATH=$HOME/bin:/usr/local/bin:$PATH
 export TERM='xterm-256color'
+typeset -U path PATH
+path=(
+  "$HOME/.local/bin"
+  "$HOME/.cargo/bin"
+  /usr/local/go/bin
+  /usr/local/bin
+  $path
+)
 
 # Path to your oh-my-zsh installation.
 #export ZSH="/home/nyamu01b/.oh-my-zsh"
 
 source $HOME/dotfiles/antigen.zsh
 export JAVA_HOME='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
-export PATH="$JAVA_HOME/bin:${PATH}:${HOME}/.local/bin/:${HOME}/.cargo/bin/:/usr/local/go/bin/"
+path=("$JAVA_HOME/bin" $path)
 
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
@@ -38,7 +44,6 @@ antigen bundle unixorn/docker-helpers.zshplugin
 antigen bundle sroze/docker-compose-zsh-plugin
 antigen bundle lukechilds/zsh-better-npm-completion
 antigen theme romkatv/powerlevel10k
-antigen bundle 'wfxr/forgit'
 antigen bundle unixorn/fzf-zsh-plugin@main
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -101,13 +106,14 @@ HIST_STAMPS="ddmmyyyy"
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
+setopt HIST_IGNORE_DUPS SHARE_HISTORY EXTENDED_HISTORY
 #bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/brian/.zshrc'
 
 autoload -Uz compinit
-compinit
+compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
 # # End of lines added by compinstall
 
 
@@ -118,29 +124,12 @@ compinit
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  docker
-  docker-compose
-  # heroku
-  # postgres
-  #git-flow
-  #fzf
-  ag
-  autoupdate
-)
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # source <(kubectl completion zsh)
 
 #source $ZSH/oh-my-zsh.sh
 
-
-# User configuration
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /usr/local/lib/python3.12/dist-packages/powerline/bindings/zsh/powerline.zsh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -161,10 +150,13 @@ unsetopt beep
 # Virtualenv
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-export VIRTUALENVWRAPPER_PYTHON=$(which python3)  # Use Python3 for virtualenv
-source /usr/local/bin/virtualenvwrapper.sh 
+export VIRTUALENVWRAPPER_PYTHON=$(command -v python3)
+[[ -r /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
 # Display 
-export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+# export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
+if grep -qi microsoft /proc/version 2>/dev/null; then
+  export DISPLAY="$(hostname).mshome.net:0.0"
+fi
 
 export FZF_DEFAULT_OPTS="--extended --cycle --bind=alt-j:preview-down --bind=alt-k:preview-up"
 
@@ -182,8 +174,8 @@ alias bb='alias | fzf'
 #alias exa='exa --sort created -lha --git'
 #alias vim='nvim'
 # alias rn='ranger --choosedir=$HOME/rangerdir;cd "$(cat $HOME/rangerdir)"'
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
+command -v mate >/dev/null 2>&1 && alias zshconfig="mate ~/.zshrc"
+command -v mate >/dev/null 2>&1 && alias ohmyzsh="mate ~/.oh-my-zsh"
 alias xclip='xclip -selection c'
 alias dotfiles="cd ~/dotfiles"
 #alias rn='nano /root/.bashrc' #no more nano, big boi tings from now 
@@ -199,8 +191,13 @@ alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 #alias l='ls -CF'
 #alias la='ls -A'
-alias ll='exa -lhs modified --git'
-alias lsd='exa -lhs modified */ --git'
+if command -v exa >/dev/null 2>&1; then
+  alias ll='exa -lhs modified --git'
+  alias lsd='exa -lhs modified */ --git'
+elif command -v eza >/dev/null 2>&1; then
+  alias ll='eza -lhs modified --git'
+  alias lsd='eza -lhs modified */ --git'
+fi
 alias treee="tree -L"
 alias treel='tree | less'
 alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
@@ -220,7 +217,11 @@ HEROKU_AC_ZSH_SETUP_PATH=$HOME/.cache/heroku/autocomplete/zsh_setup && test -f $
 [ -f ~/.fzf.zsh  ] && source ~/.fzf.zsh
 
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+path=(
+  "$HOME/.yarn/bin"
+  "$HOME/.config/yarn/global/node_modules/.bin"
+  $path
+)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -239,84 +240,148 @@ agent_load_env
 # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
 agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
-if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-    agent_start
-    ssh-add
-elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    ssh-add
+if [[ -o interactive && -t 0 ]]; then
+  if [ ! "$SSH_AUTH_SOCK" ] || [ "$agent_run_state" = 2 ]; then
+      agent_start
+      ssh-add
+  elif [ "$SSH_AUTH_SOCK" ] && [ "$agent_run_state" = 1 ]; then
+      ssh-add
+  fi
 fi
 
 unset env
 # Domino ====================================================================================================
 
-alias glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$@"'
-_gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-_viewGitLogLine="$_gitLogLineToHash | xargs -I % sh -c 'git show --ext-diff  --color=always % | diff-so-fancy '"
+glNoGraph() {
+  git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr %C(auto)%an" "$@"
+}
+
+git_log_line_to_hash() {
+  sed -E 's/^[^a-f0-9]*([a-f0-9]{7,40}).*/\1/'
+}
+
+view_git_log_line() {
+  local commit_hash
+  commit_hash="$(printf '%s\n' "$1" | git_log_line_to_hash)"
+  [[ -n "$commit_hash" ]] || return 1
+
+  if command -v diff-so-fancy >/dev/null 2>&1; then
+    git show --ext-diff --color=always "$commit_hash" | diff-so-fancy
+  else
+    git show --ext-diff --color=always "$commit_hash"
+  fi
+}
 
  #fcoc_preview - checkout git commit with previews
 fcoc_preview() {
   local commit
-  commit=$( glNoGraph |
+  commit=$(glNoGraph |
     fzf --no-sort --reverse --tiebreak=index --no-multi \
-        --ansi --preview="$_viewGitLogLine" ) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
+        --ansi --preview 'view_git_log_line {}') || return
+  git checkout "$(printf '%s\n' "$commit" | git_log_line_to_hash)"
 }
 
 # fshow_preview - git commit browser with previews
 fshow_preview() {
     glNoGraph |
         fzf --no-sort --reverse --tiebreak=index --no-multi \
-            --ansi --preview="$_viewGitLogLine" \
+            --ansi --preview 'view_git_log_line {}' \
                 --header "enter to view, alt-y to copy hash" \
-                --bind "enter:execute:$_viewGitLogLine   " \
-                --bind "alt-y:execute:$_gitLogLineToHash | xclip"
+                --bind 'enter:execute:view_git_log_line {}' \
+                --bind 'alt-y:execute-silent:printf %s {} | git_log_line_to_hash | xclip'
 }
 fshow_commits(){
-    glNoGraph | fzf --no-sort --reverse --tiebreak=index --no-multi --ansi --preview="$_viewGitLogLine" \
-        --header "enter2view|alt-j to preview-down|alt-k to preview-up|ctrl-f to preview-page-down|ctrl-b to preview-page-up|q to abort" \
-        --bind "alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,q:abort,enter:execute:$_gitLogLineToHash |\
-        xargs -I % sh -c 'git show --ext-diff  % | \
-        cdiff -s -w 100 '"
+    glNoGraph | fzf --no-sort --reverse --tiebreak=index --no-multi --ansi --preview 'view_git_log_line {}' \
+        --header "enter2view|alt-j to preview-down|alt-k to preview-up|ctrl-f to preview-page-down|ctrl-b to preview-page-up|PgUp to preview-page-up|PgDn to preview-page-down|q to abort" \
+        --bind 'alt-j:preview-down,alt-k:preview-up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,PgUp:preview-page-up,PgDn:preview-page-down,q:abort,enter:execute:view_git_log_line {}'
 }
 RIG_MAC_OR_IPADDR=""
+rig_lookup() {
+    local query="${1:-}"
+    [[ -n "$query" ]] || {
+      printf 'usage: %s <query>\n' "${funcstack[2]}"
+      return 1
+    }
+    command -v curl >/dev/null 2>&1 || return 1
+    curl -fsSL "https://rig-server.domino-printing.org/" |
+      grep -i -- "$query" |
+      cut -d',' -f3 |
+      head -n1
+}
+
 get_mac() {
-    RIG_MAC_OR_IPADDR=$(curl -s "https://rig-server.domino-printing.org/" | grep -i "$@" | cut -d',' -f3)
-    echo $RIG_MAC_OR_IPADDR
+    RIG_MAC_OR_IPADDR="$(rig_lookup "$1")" || return
+    printf '%s\n' "$RIG_MAC_OR_IPADDR"
 }
 get_ath_logs() {
-    watch -n 2 "wget -qO- $@ | tac |sed 's/CMD:/\nCMD:/g'| tail"
+    local target="${1:-}"
+    [[ -n "$target" ]] || {
+      printf 'usage: get_ath_logs <url>\n'
+      return 1
+    }
+    watch -n 2 "curl -fsSL '$target' | tac | sed 's/CMD:/\\nCMD:/g' | tail"
 }
 get_picard_ath_logs() {
+    local host="${1:-}"
     local old_result=""
     local ath_logs_file="/tmp/ath_logs.txt"
-    echo $old_result > $ath_logs_file
+    [[ -n "$host" ]] || {
+      printf 'usage: get_picard_ath_logs <host>\n'
+      return 1
+    }
+    : > "$ath_logs_file"
     while true; do
-      result=$(curl -s http://$@:8001/Picard_ATH/log | 
+      local result
+      result=$(curl -fsSL "http://$host:8001/Picard_ATH/log" |
           sed 's/CMD:/\nCMD:/g' |
           sed '/{.*/d' |
           sed 's/,/,\t/g' |
-          head -n5)
+          head -n 5) || return
       if [ "$result" != "$old_result" ]; then
         old_result=$result
-        echo $result | tac >> $ath_logs_file
-        echo $result
+        printf '%s\n' "$result" | tac >> "$ath_logs_file"
+        printf '%s\n' "$result"
       fi
       sleep 0.05
     done
 
-    #watch -n 2 "wget -qO- http://$@:8001/picard_ath/log | tac |sed 's/CMD:/\nCMD:/g'| head"
+    #watch -n 2 "curl -fsSL http://$host:8001/picard_ath/log | tac |sed 's/CMD:/\nCMD:/g'| head"
 }
 vnc_get_mac() {
-    nohup xtigervncviewer  $(wget -qO- https://rig-server.domino-printing.org/ | grep -i "$@" | cut -d',' -f3 ) > /dev/null 2>&1&
+    local host
+    host="$(rig_lookup "$1")" || return
+    nohup xtigervncviewer "$host" > /dev/null 2>&1 &
 }
 
 ssh_get_mac() {
-    ssh root@$(http https://rig-server.domino-printing.org/ | grep -i "$@" | cut -d',' -f3 ) 
+    local host
+    host="$(rig_lookup "$1")" || return
+    ssh "root@$host"
 
 }
 
 #Copilot
-eval "$(gh copilot alias -- zsh)"
+if command -v gh >/dev/null 2>&1; then
+  eval "$(gh copilot alias -- zsh)"
+fi
 
-export OPENAI_KEY=
-export PATH=$PATH:/usr/local/bin
+findstring() {
+  local initial="${1:-}"
+  fzf --ansi --disabled --query "$initial" \
+    --prompt 'rg> ' \
+    --delimiter ':' \
+    --bind "change:reload:rg --color=always --line-number --no-heading --smart-case -- {q} . || true" \
+    --preview 'bat --style=numbers --color=always --highlight-line {2} {1} 2>/dev/null || sed -n "$(( {2}-20<1?1:{2}-20 )), $(( {2}+20 ))p" {1}' \
+    --bind 'enter:execute(nvim +{2} {1})'
+}
+export NVM_DIR="$HOME/.nvm"
+load_nvm() {
+  [[ -s "$NVM_DIR/nvm.sh" ]] || return
+  unset -f nvm node npm npx load_nvm
+  . "$NVM_DIR/nvm.sh"
+  [[ -s "$NVM_DIR/bash_completion" ]] && . "$NVM_DIR/bash_completion"
+}
+nvm() { load_nvm; nvm "$@"; }
+node() { load_nvm; node "$@"; }
+npm() { load_nvm; npm "$@"; }
+npx() { load_nvm; npx "$@"; }
