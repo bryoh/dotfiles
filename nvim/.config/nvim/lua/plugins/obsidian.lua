@@ -13,16 +13,16 @@ return {
     config = function()
       require("obsidian").setup({
         dir = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work",
-        open_notes_in = "default",
+        -- open_notes_in = "default",
         daily_notes = {
           folder = "dailies",
           date_format = "%Y-%m-%d",
         },
-        templates = {
-          folder = "templates",
-          date_format = "%Y-%m-%d",
-          time_format = "%H:%M",
-        },
+        -- templates = {
+        --   folder = "templates",
+        --   date_format = "%Y-%m-%d",
+        --   time_format = "%H:%M",
+        -- },
         -- completion = {
         --   nvim_cmp = true,
         --   min_chars = 2,
