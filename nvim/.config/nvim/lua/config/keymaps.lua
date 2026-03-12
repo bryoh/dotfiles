@@ -94,6 +94,37 @@ map("n", "<localleader>mb", "<cmd>ObsidianBacklinks<cr>", { desc = "Show backlin
 map("n", "<localleader>mr", "<cmd>ObsidianRename<cr>", { desc = "Rename current note in Obsidian" })
 map("n", "<localleader>mc", "<cmd>ObsidianCheck<cr>", { desc = "Run checks in Obsidian" })
 map("n", "<localleader>mf", "<cmd>ObsidianFollow<cr>", { desc = "Follow link under cursor in Obsidian" })
+map("n", "<localleader>mi", "<cmd>e 00\\ Inbox/<cr>", { desc = "Open Obsidian Inbox" })
+
+-- PARA Project Searchers (using Snacks.picker for stability on NVIM dev)
+local vault_path = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work"
+map("n", "<localleader>mjc", function() Snacks.picker.files({ cwd = vault_path .. "/20 Projects/CRA" }) end, { desc = "Search CRA Notes" })
+map("n", "<localleader>mjg", function() Snacks.picker.files({ cwd = vault_path .. "/20 Projects/Galileo" }) end, { desc = "Search Galileo Notes" })
+map("n", "<localleader>mjm", function() Snacks.picker.files({ cwd = vault_path .. "/20 Projects/Metrics" }) end, { desc = "Search Metrics Notes" })
+map("n", "<localleader>mjp", function() Snacks.picker.files({ cwd = vault_path .. "/20 Projects/Prompts" }) end, { desc = "Search AI Prompts" })
+map("n", "<localleader>mjl", function() Snacks.picker.files({ cwd = vault_path .. "/20 Projects/Learning" }) end, { desc = "Search Learning Notes" })
+
+-- PARA Project Note Creation
+map("n", "<localleader>mcc", ":ObsidianNew 20\\ Projects/CRA/", { desc = "Create note in CRA" })
+map("n", "<localleader>mcg", ":ObsidianNew 20\\ Projects/Galileo/", { desc = "Create note in Galileo" })
+map("n", "<localleader>mcm", ":ObsidianNew 20\\ Projects/Metrics/", { desc = "Create note in Metrics" })
+map("n", "<localleader>mcp", ":ObsidianNew 20\\ Projects/Prompts/", { desc = "Create note in Prompts" })
+map("n", "<localleader>mcl", ":ObsidianNew 20\\ Projects/Learning/", { desc = "Create note in Learning" })
+
+-- Move note to project
+vim.api.nvim_create_user_command("ObsidianMove", function(opts)
+  local target = opts.args
+  local current_file = vim.api.nvim_buf_get_name(0)
+  local filename = vim.fn.fnamemodify(current_file, ":t")
+  local new_path = vault_path .. "/20 Projects/" .. target .. "/" .. filename
+  os.execute("mv '" .. current_file .. "' '" .. new_path .. "'")
+  vim.cmd("bd!")
+  vim.cmd("e " .. new_path)
+end, {
+  nargs = 1,
+  complete = function() return { "CRA", "Galileo", "Metrics", "Prompts", "Learning" } end
+})
+map("n", "<localleader>mv", ":ObsidianMove ", { desc = "Move note to Project" })
 
 --==============================================================================
 -- Code Actions and Diagnostics
@@ -140,7 +171,3 @@ map({ "n", "v" }, "<localleader>acf", "<cmd>ChatGPTRun fix_bugs<CR>", { desc = "
 map({ "n", "v" }, "<localleader>acx", "<cmd>ChatGPTRun explain_code<CR>", { desc = "Explain Code" })
 map({ "n", "v" }, "<localleader>acr", "<cmd>ChatGPTRun roxygen_edit<CR>", { desc = "Roxygen Edit" })
 map({ "n", "v" }, "<localleader>acl", "<cmd>ChatGPTRun code_readability_analysis<CR>", { desc = "Code Readability Analysis" })
-
---==============================================================================
--- Debugging (DAP)
---==============================================================================
