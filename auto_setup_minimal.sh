@@ -103,11 +103,18 @@ install_neovim() {
   local archive_name=""
   local extract_dir=""
   local download_url=""
+  local nvim_link_target=""
+  local local_nvim=""
 
   export PATH="$LOCAL_BIN:$PATH"
+  local_nvim="${LOCAL_BIN}/nvim"
+
+  if [ -x "$local_nvim" ]; then
+    nvim_link_target=$(readlink -f "$local_nvim" 2>/dev/null || true)
+  fi
 
   if command -v nvim >/dev/null 2>&1; then
-    current_version=$(nvim --version | awk 'NR==1 {sub(/^v/, "", $2); print $2}')
+    current_version=$(nvim --version 2>/dev/null | awk 'NR==1 {sub(/^v/, "", $2); print $2}')
   fi
 
   if [ -n "$current_version" ] && version_ge "$current_version" "0.11.2"; then
@@ -131,10 +138,15 @@ install_neovim() {
 
   download_url="https://github.com/neovim/neovim/releases/latest/download/${archive_name}"
 
+  if [ -n "$nvim_link_target" ] && [ "$nvim_link_target" != "${LOCAL_OPT}/${extract_dir}/bin/nvim" ]; then
+    rm -f "$local_nvim"
+  fi
+
   rm -rf "${LOCAL_OPT:?}/${extract_dir}"
   curl -fL "$download_url" -o "/tmp/${archive_name}"
   tar -C "$LOCAL_OPT" -xzf "/tmp/${archive_name}"
-  ln -sfn "${LOCAL_OPT}/${extract_dir}/bin/nvim" "${LOCAL_BIN}/nvim"
+  rm -f "/tmp/${archive_name}"
+  ln -sfn "${LOCAL_OPT}/${extract_dir}/bin/nvim" "$local_nvim"
 }
 
 link_dotfiles() {
