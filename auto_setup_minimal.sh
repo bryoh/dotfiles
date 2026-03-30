@@ -5,6 +5,7 @@ set -euo pipefail
 REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 TARGET_REPO="$HOME/dotfiles"
 LOCAL_BIN="$HOME/.local/bin"
+LOCAL_OPT="$HOME/.local/opt"
 TMUX_CONFIG_DIR="$HOME/.config/tmux"
 RANGER_TARGET="$HOME/.config/ranger"
 FZF_ZSH_TARGET="$HOME/.fzf.zsh"
@@ -25,7 +26,6 @@ APT_PACKAGES=(
   jq
   libimage-exiftool-perl
   mediainfo
-  neovim
   ninja-build
   poppler-utils
   python3-pip
@@ -56,6 +56,10 @@ as_root() {
   fi
 }
 
+version_ge() {
+  [ "$(printf '%s\n' "$2" "$1" | sort -V | head -n1)" = "$2" ]
+}
+
 append_if_available() {
   local package="$1"
   if apt-cache show "$package" >/dev/null 2>&1; then
@@ -83,6 +87,7 @@ install_apt_packages() {
 
 setup_local_bin() {
   mkdir -p "$LOCAL_BIN"
+  mkdir -p "$LOCAL_OPT"
 
   if command -v batcat >/dev/null 2>&1 && ! command -v bat >/dev/null 2>&1; then
     ln -sfn "$(command -v batcat)" "$LOCAL_BIN/bat"
@@ -91,6 +96,45 @@ setup_local_bin() {
   if command -v fdfind >/dev/null 2>&1 && ! command -v fd >/dev/null 2>&1; then
     ln -sfn "$(command -v fdfind)" "$LOCAL_BIN/fd"
   fi
+}
+
+install_neovim() {
+  local current_version=""
+  local archive_name=""
+  local extract_dir=""
+  local download_url=""
+
+  export PATH="$LOCAL_BIN:$PATH"
+
+  if command -v nvim >/dev/null 2>&1; then
+    current_version=$(nvim --version | awk 'NR==1 {sub(/^v/, "", $2); print $2}')
+  fi
+
+  if [ -n "$current_version" ] && version_ge "$current_version" "0.11.2"; then
+    return
+  fi
+
+  case "$(uname -m)" in
+    x86_64)
+      archive_name="nvim-linux-x86_64.tar.gz"
+      extract_dir="nvim-linux-x86_64"
+      ;;
+    aarch64|arm64)
+      archive_name="nvim-linux-arm64.tar.gz"
+      extract_dir="nvim-linux-arm64"
+      ;;
+    *)
+      printf '%s\n' "Unsupported architecture for Neovim bootstrap: $(uname -m)" >&2
+      exit 1
+      ;;
+  esac
+
+  download_url="https://github.com/neovim/neovim/releases/latest/download/${archive_name}"
+
+  rm -rf "${LOCAL_OPT:?}/${extract_dir}"
+  curl -fL "$download_url" -o "/tmp/${archive_name}"
+  tar -C "$LOCAL_OPT" -xzf "/tmp/${archive_name}"
+  ln -sfn "${LOCAL_OPT}/${extract_dir}/bin/nvim" "${LOCAL_BIN}/nvim"
 }
 
 link_dotfiles() {
@@ -122,6 +166,13 @@ install_nvm_and_node() {
   nvm alias default 'lts/*'
 }
 
+install_node_helpers() {
+  export NVM_DIR="$HOME/.nvm"
+  # shellcheck disable=SC1090
+  . "$NVM_DIR/nvm.sh"
+  npm install -g tree-sitter-cli
+}
+
 install_python_helpers() {
   python3 -m pip install --user --break-system-packages --upgrade pip
   python3 -m pip install --user --break-system-packages virtualenvwrapper powerline-status ranger-tmux
@@ -150,6 +201,7 @@ EOF
 }
 
 bootstrap_neovim() {
+  export PATH="$LOCAL_BIN:$PATH"
   nvim --headless "+Lazy! sync" +qa || true
 }
 
@@ -166,9 +218,11 @@ main() {
   ensure_repo_path
   install_apt_packages
   setup_local_bin
+  install_neovim
   link_dotfiles
   install_tpm
   install_nvm_and_node
+  install_node_helpers
   install_python_helpers
   setup_powerline_tmux_config
   setup_fzf_shell_integration
