@@ -19,8 +19,13 @@ path=(
 #export ZSH="/home/nyamu01b/.oh-my-zsh"
 
 source $HOME/dotfiles/antigen.zsh
-export JAVA_HOME='/usr/lib/jvm/java-1.11.0-openjdk-amd64'
-path=("$JAVA_HOME/bin" $path)
+if command -v java >/dev/null 2>&1; then
+  JAVA_BIN=$(readlink -f "$(command -v java)" 2>/dev/null)
+  if [[ -n "$JAVA_BIN" ]]; then
+    export JAVA_HOME="${JAVA_BIN%/bin/java}"
+    path=("$JAVA_HOME/bin" $path)
+  fi
+fi
 
 # Import colorscheme from 'wal' asynchronously
 # # &   # Run the process in the background.
@@ -151,7 +156,16 @@ unsetopt beep
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 export VIRTUALENVWRAPPER_PYTHON=$(command -v python3)
-[[ -r /usr/local/bin/virtualenvwrapper.sh ]] && source /usr/local/bin/virtualenvwrapper.sh
+for virtualenvwrapper_path in \
+  "$HOME/.local/bin/virtualenvwrapper.sh" \
+  /usr/local/bin/virtualenvwrapper.sh \
+  /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+do
+  if [[ -r "$virtualenvwrapper_path" ]]; then
+    source "$virtualenvwrapper_path"
+    break
+  fi
+done
 # Display 
 # export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 if grep -qi microsoft /proc/version 2>/dev/null; then
@@ -381,7 +395,7 @@ load_nvm() {
   . "$NVM_DIR/nvm.sh"
   [[ -s "$NVM_DIR/bash_completion" ]] && . "$NVM_DIR/bash_completion"
 }
-nvm() { load_nvm; nvm "$@"; }
-node() { load_nvm; node "$@"; }
-npm() { load_nvm; npm "$@"; }
-npx() { load_nvm; npx "$@"; }
+nvm() { load_nvm || return 1; nvm "$@"; }
+node() { load_nvm || { command node "$@"; return; }; node "$@"; }
+npm() { load_nvm || { command npm "$@"; return; }; npm "$@"; }
+npx() { load_nvm || { command npx "$@"; return; }; npx "$@"; }
