@@ -161,20 +161,21 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # export ARCHFLAGS="-arch x86_64"
 # remove windows notification sound 
 unsetopt beep 
-# Virtualenv
+# Lazy-load virtualenvwrapper
 export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/src
 export VIRTUALENVWRAPPER_PYTHON=$(command -v python3)
-for virtualenvwrapper_path in \
-  "$HOME/.local/bin/virtualenvwrapper.sh" \
-  /usr/local/bin/virtualenvwrapper.sh \
-  /usr/share/virtualenvwrapper/virtualenvwrapper.sh
-do
-  if [[ -r "$virtualenvwrapper_path" ]]; then
-    source "$virtualenvwrapper_path"
-    break
+
+zsh-defer-virtualenvwrapper() {
+  local venv_sh="/usr/share/virtualenvwrapper/virtualenvwrapper.sh"
+  [[ -r "$venv_sh" ]] || venv_sh="$(command -v virtualenvwrapper.sh)"
+  if [[ -n "$venv_sh" ]]; then
+    source "$venv_sh"
   fi
-done
+}
+
+# Create stubs that load the real thing on first use
+workon() { unfunction workon mkvirtualenv; zsh-defer-virtualenvwrapper; workon "$@" }
+mkvirtualenv() { unfunction workon mkvirtualenv; zsh-defer-virtualenvwrapper; mkvirtualenv "$@" }
 # Display 
 # export DISPLAY=$(awk '/nameserver / {print $2; exit}' /etc/resolv.conf 2>/dev/null):0
 if grep -qi microsoft /proc/version 2>/dev/null; then
@@ -409,9 +410,19 @@ findstring() {
     --preview 'bat --style=numbers --color=always --highlight-line {2} {1} 2>/dev/null || sed -n "$(( {2}-20<1?1:{2}-20 )), $(( {2}+20 ))p" {1}' \
     --bind 'enter:execute(nvim +{2} {1})'
 }
+# Lazy-load NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+zsh-defer-nvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+# Create stubs
+nvm() { unfunction nvm node npm yarn; zsh-defer-nvm; nvm "$@" }
+node() { unfunction nvm node npm yarn; zsh-defer-nvm; node "$@" }
+npm() { unfunction nvm node npm yarn; zsh-defer-nvm; npm "$@" }
+yarn() { unfunction nvm node npm yarn; zsh-defer-nvm; yarn "$@" }
 
 # WSL Copy-Paste Aliases (wsl-copy-paste)
 # Perfect clipboard integration between WSL and Windows
