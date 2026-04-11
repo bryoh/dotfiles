@@ -126,8 +126,14 @@ setopt HIST_IGNORE_DUPS SHARE_HISTORY EXTENDED_HISTORY
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/brian/.zshrc'
 
+# Optimize compinit (only run once a day)
 autoload -Uz compinit
-compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
+_comp_path="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump"
+if [[ -n "${_comp_path}(#qN.m-1)" ]]; then
+  compinit -C -d "$_comp_path"
+else
+  compinit -d "$_comp_path"
+fi
 # # End of lines added by compinstall
 
 
