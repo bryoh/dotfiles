@@ -49,6 +49,27 @@ if [[ -f "$HOME/.cache/wal/colors.sh" ]]; then
   source "$HOME/.cache/wal/colors.sh"
 fi
 
+# Load Oh-My-Zsh library
+zinit snippet OMZ::lib/completion.zsh
+zinit snippet OMZ::lib/history.zsh
+
+# Background loading (Turbo Mode)
+zinit ice wait'0' lucid
+zinit light zsh-users/zsh-autosuggestions
+
+zinit ice wait'0' lucid
+zinit light zsh-users/zsh-syntax-highlighting
+
+zinit ice wait'1' lucid
+zinit light zsh-users/zsh-completions
+
+# OMZ plugins
+zinit ice wait'2' lucid; zinit snippet OMZ::plugins/git
+zinit ice wait'2' lucid; zinit snippet OMZ::plugins/pip
+zinit ice wait'2' lucid; zinit snippet OMZ::plugins/docker-compose
+zinit ice wait'2' lucid; zinit snippet OMZ::plugins/heroku
+zinit ice wait'2' lucid; zinit snippet OMZ::plugins/fzf
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
