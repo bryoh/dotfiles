@@ -5,6 +5,20 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
+
 export TERM='xterm-256color'
 typeset -U path PATH
 path=(
@@ -18,7 +32,6 @@ path=(
 # Path to your oh-my-zsh installation.
 #export ZSH="/home/nyamu01b/.oh-my-zsh"
 
-source $HOME/dotfiles/antigen.zsh
 if command -v java >/dev/null 2>&1; then
   JAVA_BIN=$(readlink -f "$(command -v java)" 2>/dev/null)
   if [[ -n "$JAVA_BIN" ]]; then
@@ -35,29 +48,6 @@ fi
 if [[ -f "$HOME/.cache/wal/colors.sh" ]]; then
   source "$HOME/.cache/wal/colors.sh"
 fi
-antigen use oh-my-zsh
-
-#Load some bundles
-antigen bundle git
-antigen bundle heroku
-antigen bundle pip
-antigen bundle docker-compose
-antigen bundle fzf
-antigen bundle unixorn/docker-helpers.zshplugin
-antigen bundle sroze/docker-compose-zsh-plugin
-antigen bundle lukechilds/zsh-better-npm-completion
-antigen theme romkatv/powerlevel10k
-antigen bundle unixorn/fzf-zsh-plugin@main
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions
-
-
-# Load the theme.
-#antigen theme robbyrussell
-#antigen theme eendroroy/alien alien
-#antigen theme bhilburn/powerlevel9k powerlevel9k
-antigen apply
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -407,16 +397,3 @@ export NVM_DIR="$HOME/.nvm"
 alias copy='powershell.exe -noprofile -command "$stdin = [Console]::OpenStandardInput(); $bytes = [System.IO.MemoryStream]::new(); $stdin.CopyTo($bytes); $text = [System.Text.Encoding]::UTF8.GetString($bytes.ToArray()); $text = $text -replace \"`n\", \"`r`n\"; Set-Clipboard -Value $text"'
 alias paste='powershell.exe -noprofile -command "$text = Get-Clipboard -Raw; $bytes = [System.Text.Encoding]::UTF8.GetBytes($text); [Console]::OpenStandardOutput().Write($bytes, 0, $bytes.Length)" | tr -d "\r"'
 
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit's installer chunk
