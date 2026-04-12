@@ -473,5 +473,5 @@ cycle-p10k() {
   zle && zle reset-prompt
 }
 zle -N cycle-p10k
-bindkey '^Ps' cycle-p10k # Map to Ctrl+p, s
+bindkey 'es' cycle-p10k # Alt+s
 
