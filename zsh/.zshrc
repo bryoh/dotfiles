@@ -49,6 +49,10 @@ if [[ -f "$HOME/.cache/wal/colors.sh" ]]; then
   source "$HOME/.cache/wal/colors.sh"
 fi
 
+# Load Powerlevel10k theme
+zinit ice depth'1'
+zinit light romkatv/powerlevel10k
+
 # Load Oh-My-Zsh library
 zinit snippet OMZ::lib/completion.zsh
 zinit snippet OMZ::lib/history.zsh
