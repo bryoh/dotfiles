@@ -435,3 +435,39 @@ yarn() { unfunction nvm node npm yarn; zsh-defer-nvm; yarn "$@" }
 alias copy='powershell.exe -noprofile -command "$stdin = [Console]::OpenStandardInput(); $bytes = [System.IO.MemoryStream]::new(); $stdin.CopyTo($bytes); $text = [System.Text.Encoding]::UTF8.GetString($bytes.ToArray()); $text = $text -replace \"`n\", \"`r`n\"; Set-Clipboard -Value $text"'
 alias paste='powershell.exe -noprofile -command "$text = Get-Clipboard -Raw; $bytes = [System.Text.Encoding]::UTF8.GetBytes($text); [Console]::OpenStandardOutput().Write($bytes, 0, $bytes.Length)" | tr -d "\r"'
 
+# P10k Style Cycler
+cycle-p10k() {
+  local profile_dir="$HOME/dotfiles/zsh/p10k_profiles"
+  local config="$HOME/.p10k.zsh"
+  local current_profile
+  current_profile=$(readlink -f "$config")
+
+  local profiles=(
+    "$profile_dir/lean.p10k.zsh"
+    "$profile_dir/classic.p10k.zsh"
+    "$profile_dir/rainbow.p10k.zsh"
+  )
+
+  local next_index=0
+  for i in {1..$#profiles}; do
+    if [[ "${profiles[$i]}" == "$current_profile" ]]; then
+      next_index=$(( (i % $#profiles) + 1 ))
+      break
+    fi
+  done
+
+  if [[ $next_index -eq 0 ]]; then next_index=1; fi
+
+  local next_profile="${profiles[$next_index]}"
+  local style_name="$(basename "$next_profile" .p10k.zsh)"
+
+  ln -sf "$next_profile" "$config"
+  source "$config"
+  p10k reload # Ensure p10k fully picks up changes
+  
+  echo -e "\n%F{33}Prompt Style: %F{220}$style_name%f"
+  zle && zle reset-prompt
+}
+zle -N cycle-p10k
+bindkey '^Ps' cycle-p10k # Map to Ctrl+p, s
+
