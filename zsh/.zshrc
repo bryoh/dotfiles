@@ -67,6 +67,10 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit ice wait'1' lucid
 zinit light zsh-users/zsh-completions
 
+# Forgit (Interactive Git with FZF)
+zinit ice wait'0' lucid
+zinit light wfxr/forgit
+
 # OMZ plugins
 zinit ice wait'2' lucid; zinit snippet OMZ::plugins/git
 zinit ice wait'2' lucid; zinit snippet OMZ::plugins/pip
@@ -474,4 +478,19 @@ cycle-p10k() {
 }
 zle -N cycle-p10k
 bindkey 'es' cycle-p10k # Alt+s
+
+# Fuzzy checkout branch (fbr)
+fbr() {
+  local branches branch
+  branches=$(git branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
+
+# Fuzzy stash preview (fsh)
+fsh() {
+  local stash
+  stash=$(git stash list | fzf +m --preview 'git stash show --color=always {1}') &&
+  git stash apply $(echo "$stash" | cut -d: -f1)
+}
 
