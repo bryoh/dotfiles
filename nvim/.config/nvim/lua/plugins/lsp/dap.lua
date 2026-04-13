@@ -1,6 +1,9 @@
 return {
   {
     "mfussenegger/nvim-dap",
+    dependencies = {
+      "leoluz/nvim-dap-go",
+    },
     config = function()
       -- DAP setup for debugging
       local dap = require("dap")
@@ -12,6 +15,9 @@ return {
       dap.defaults.python = {
         env = { PYTHONBREAKPOINT = "ipdb.set_trace" },
       }
+
+      -- Go DAP (delve)
+      require("dap-go").setup()
 
       -- Keymaps
       local get_args = function()
@@ -296,13 +302,10 @@ return {
           "codelldb",
           "chrome",
           "coreclr",
-          "delve",
           "firefox",
-          "go",
           "java",
           "js",
           "kotlin",
-          "node2",
           "php",
           "pwa-chrome",
           "pwa-msedge",
@@ -312,6 +315,7 @@ return {
           "rust",
           "swift",
           "typescript",
+          "delve",
         },
         automatic_installation = true,
       })
