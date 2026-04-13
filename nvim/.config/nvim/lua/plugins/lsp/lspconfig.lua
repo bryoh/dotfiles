@@ -32,7 +32,6 @@ return {
         "jsonls",
         "vuels",
         "cmake",
-        "clangd",
         "gopls",
       },
       automatic_installation = true,
