@@ -15,8 +15,6 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = {
         "pyright",
-        "clangd",
-        "gopls",
         "jdtls",
         "rust_analyzer",
         "html",
@@ -34,6 +32,8 @@ return {
         "jsonls",
         "vuels",
         "cmake",
+        "clangd",
+        "gopls",
       },
       automatic_installation = true,
     })
@@ -89,21 +89,21 @@ return {
     end
 
     -- Set up clangd for C++ development
-    -- lspconfig.clangd.setup({
-    --   cmd = {
-    --     "clangd",
-    --     "--background-index",
-    --     "--clang-tidy",
-    --     "--completion-style=detailed",
-    --     "--header-insertion=iwyu",
-    --     "--suggest-missing-includes",
-    --     "--query-driver=/usr/bin/g++",
-    --     "--inlay-hints=true", -- Enable inlay hints for clangd
-    --   },
-    --   on_attach = on_attach,
-    --   capabilities = capabilities,
-    --   filetypes = { "c", "cpp", "objc", "objcpp" },
-    -- })
+    lspconfig.clangd.setup({
+      cmd = {
+        "clangd",
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--header-insertion=iwyu",
+        "--suggest-missing-includes",
+        "--query-driver=/usr/bin/g++",
+        "--inlay-hints=true",
+      },
+      on_attach = on_attach,
+      capabilities = capabilities,
+      filetypes = { "c", "cpp", "objc", "objcpp" },
+    })
 
     -- Set up rust_analyzer for Rust development with inlay hints
     lspconfig.rust_analyzer.setup({
