@@ -424,7 +424,7 @@ findstring() {
     --preview 'bat --style=numbers --color=always --highlight-line {2} {1} 2>/dev/null || sed -n "$(( {2}-20<1?1:{2}-20 )), $(( {2}+20 ))p" {1}' \
     --bind 'enter:execute(nvim +{2} {1})'
 }
-# Lazy-load NVM
+# Automatic NVM & Node Package Stubber
 export NVM_DIR="$HOME/.nvm"
 
 zsh-defer-nvm() {
@@ -432,11 +432,24 @@ zsh-defer-nvm() {
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 }
 
-# Create stubs
-nvm() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; nvm "$@" }
-node() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; node "$@" }
-npm() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; npm "$@" }
-yarn() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; yarn "$@" }
+# Dynamically find the binary path and create stubs
+() {
+  local default_node
+  default_node=$(cat "$NVM_DIR/alias/default" 2>/dev/null)
+  [[ -z "$default_node" ]] && default_node="lts/*"
+  
+  local nvm_bin
+  nvm_bin=$(ls -d $NVM_DIR/versions/node/v*/bin 2>/dev/null | tail -n 1)
+  
+  if [[ -d "$nvm_bin" ]]; then
+    local cmds=($(ls "$nvm_bin"))
+    cmds+=("nvm") # Always include nvm
+    
+    for cmd in ${cmds}; do
+      eval "$cmd() { unfunction ${cmds}; zsh-defer-nvm; $cmd \"\$@\" }"
+    done
+  fi
+}
 
 # WSL Copy-Paste Aliases (wsl-copy-paste)
 # Perfect clipboard integration between WSL and Windows
