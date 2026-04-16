@@ -231,11 +231,11 @@ alias dotfiles="cd ~/dotfiles"
 #alias rn='nano /root/.bashrc' #no more nano, big boi tings from now 
 alias rv='vi /root/.bashrc'
 alias sgl='git log --oneline --pretty=format:"%an %s"'
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
+#alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias gll='git log --pretty=format:" %Creset%s% Cblue\\ %C(yellow)%an\\%C(red)%cr" --decorate --date=short'
 alias glv='nvim -c GV'
 alias gld='git log --ext-diff -p . | cdiff -s'
-alias gd='git diff | cdiff -s -w 100 '
+#alias gd='git diff | cdiff -s -w 100 '
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
@@ -433,10 +433,10 @@ zsh-defer-nvm() {
 }
 
 # Create stubs
-nvm() { unfunction nvm node npm yarn; zsh-defer-nvm; nvm "$@" }
-node() { unfunction nvm node npm yarn; zsh-defer-nvm; node "$@" }
-npm() { unfunction nvm node npm yarn; zsh-defer-nvm; npm "$@" }
-yarn() { unfunction nvm node npm yarn; zsh-defer-nvm; yarn "$@" }
+nvm() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; nvm "$@" }
+node() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; node "$@" }
+npm() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; npm "$@" }
+yarn() { unfunction nvm node npm yarn gemini; zsh-defer-nvm; yarn "$@" }
 
 # WSL Copy-Paste Aliases (wsl-copy-paste)
 # Perfect clipboard integration between WSL and Windows
