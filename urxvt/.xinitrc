@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # ~/.xinitrc
 #
@@ -23,6 +23,10 @@ fi
 
 if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
+fi
+
+if command -v wal >/dev/null 2>&1; then
+    wal -R
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -63,5 +67,4 @@ get_session(){
 	echo "dbus-launch ${dbus_args[*]}"
 }
 
-#wal -R 
 exec $(get_session)

@@ -14,7 +14,7 @@ return {
       workspaces = {
         {
           name = "work",
-          path = "/mnt/c/Users/B_Nyamu/OneDrive - Domino Printing Sciences/Documents/vault/work",
+          path = "/mnt/c/Users/nyamu/Documents/vault/work",
         },
       },
       daily_notes = {

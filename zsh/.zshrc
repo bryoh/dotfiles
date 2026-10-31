@@ -241,18 +241,26 @@ alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
 #alias l='ls -CF'
 #alias la='ls -A'
-if command -v exa >/dev/null 2>&1; then
-  alias ll='exa -lhs modified --git'
-  alias lsd='exa -lhs modified */ --git'
-elif command -v eza >/dev/null 2>&1; then
-  alias ll='eza -lhs modified --git'
-  alias lsd='eza -lhs modified */ --git'
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza '
+  alias ll='eza -lh --icons --git'
+  alias la='eza -a --icons'
+  alias lsd='eza -lhD --icons'
+  alias l='eza -l --icons'
+elif command -v exa >/dev/null 2>&1; then
+  alias ls='exa --icons'
+  alias ll='exa -lh --icons --git'
+  alias la='exa -a --icons'
+  alias lsd='exa -lhD --icons'
+  alias l='exa -l --icons'
 fi
 alias treee="tree -L"
 alias treel='tree | less'
 alias skim="""sk --ansi -i -c 'rg --color=always --line-number "{}"'"""  
 alias grim="nvim -c :Rg"
-alias downloads='cd /mnt/c/Users/B_Nyamu/Downloads/'
+alias downloads='cd /mnt/c/Users/nyamu/Downloads/'
+alias documents='cd /mnt/c/Users/nyamu/Documents/'
+alias nyamu='cd /mnt/c/Users/nyamu/'
 #alias cat='bat'
 alias compare_develop='git diff $(git_develop_branch)...$(git_current_branch ) | cdiff -s'
 #alias python=/usr/local/bin/python3.7
@@ -439,10 +447,10 @@ zsh-defer-nvm() {
   [[ -z "$default_node" ]] && default_node="lts/*"
   
   local nvm_bin
-  nvm_bin=$(ls -d $NVM_DIR/versions/node/v*/bin 2>/dev/null | tail -n 1)
+  nvm_bin=$(command ls -d $NVM_DIR/versions/node/v*/bin 2>/dev/null | tail -n 1)
   
   if [[ -d "$nvm_bin" ]]; then
-    local cmds=($(ls "$nvm_bin"))
+    local cmds=($(command ls "$nvm_bin"))
     cmds+=("nvm") # Always include nvm
     
     for cmd in ${cmds}; do

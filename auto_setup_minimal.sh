@@ -13,6 +13,7 @@ FZF_ZSH_TARGET="$HOME/.fzf.zsh"
 APT_PACKAGES=(
   atool
   bat
+  bubblewrap
   build-essential
   caca-utils
   cmake
@@ -139,7 +140,7 @@ install_neovim() {
 
 link_dotfiles() {
   mkdir -p "$HOME/.config"
-  stow -d "$REPO_ROOT" -t "$HOME" zsh tmux nvim
+  stow -d "$REPO_ROOT" -t "$HOME" zsh tmux nvim urxvt
   ln -sfnT "$REPO_ROOT/i3/.config/ranger" "$RANGER_TARGET"
 }
 
@@ -175,7 +176,7 @@ install_node_helpers() {
 
 install_python_helpers() {
   python3 -m pip install --user --break-system-packages --upgrade pip
-  python3 -m pip install --user --break-system-packages virtualenvwrapper powerline-status ranger-tmux
+  python3 -m pip install --user --break-system-packages virtualenvwrapper powerline-status ranger-tmux pywal
 }
 
 setup_powerline_tmux_config() {

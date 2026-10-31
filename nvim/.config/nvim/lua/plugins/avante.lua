@@ -43,7 +43,12 @@ return {
       "MunifTanjim/nui.nvim",
       "stevearc/dressing.nvim",
       "folke/snacks.nvim",
-      "zbirenbaum/copilot.lua",
+      {
+        "zbirenbaum/copilot.lua",
+        config = function()
+          require("copilot").setup({})
+        end,
+      },
       {
         "HakonHarnes/img-clip.nvim",
         event = "VeryLazy",

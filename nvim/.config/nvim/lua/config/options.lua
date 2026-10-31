@@ -35,4 +35,3 @@ if vim.env.SSH_TTY or vim.env.SSH_CONNECTION or vim.env.TMUX then
     paste = { ["+"] = paste, ["*"] = paste },
   }
 end
-

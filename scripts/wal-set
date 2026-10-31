@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  wal-set <image>
+  wal-set --restore
+EOF
+}
+
+reload_tmux() {
+  if command -v tmux >/dev/null 2>&1 && tmux list-sessions >/dev/null 2>&1; then
+    tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1 || true
+  fi
+}
+
+main() {
+  if ! command -v wal >/dev/null 2>&1; then
+    printf '%s\n' "pywal is not installed. Run auto_setup_minimal.sh or: python3 -m pip install --user --break-system-packages pywal" >&2
+    exit 1
+  fi
+
+  case "${1:-}" in
+    --restore)
+      wal -R
+      ;;
+    "")
+      usage >&2
+      exit 1
+      ;;
+    *)
+      [ -f "$1" ] || {
+        printf 'Image not found: %s\n' "$1" >&2
+        exit 1
+      }
+      wal -i "$1"
+      ;;
+  esac
+
+  reload_tmux
+}
+
+main "$@"
